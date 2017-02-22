@@ -126,3 +126,40 @@ updateEntity()
 ```
 
 Handles updating our entity, such as moving, health/special effects stuff, etc.
+
+# Sounds
+
+Playing a sound is very easy. To start create a new Sound object, this holds an ID and the Audio File.
+
+```java
+int ID = 1;
+File audioFile = new File("myFile.wav");
+Sound mySound = new Sound(ID, audioFile);
+```
+
+Managing sounds in a game is very important. The SoundManager holds an ArrayList of sounds and you can even get and remove sounds via ID!
+
+Now lets play our sound. Grab your SoundManager either with
+```java
+SoundManager sm = Lunar.getSoundManager();
+```
+
+Or
+
+```java
+SoundManager sm = new SoundManager();
+/
+SoundManager sm = MyClass.getSoundManager();
+```
+
+Lets play the sound!
+```java
+sm.playSound(sound);
+```
+You can also play a sound with just the audio file!
+```java
+sm.playSound(file);
+```
+
+
+
