@@ -49,7 +49,7 @@ public class Lunar {
 	}
 
 	/**
-	 * Get the soundmanager.
+	 * Get the soundManager.
 	 * 
 	 * @return soundManager
 	 */

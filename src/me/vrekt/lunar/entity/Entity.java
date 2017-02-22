@@ -3,13 +3,16 @@ package me.vrekt.lunar.entity;
 import java.awt.Graphics;
 
 import me.vrekt.lunar.collision.BoundingBox;
+import me.vrekt.lunar.location.Location;
 
 public abstract class Entity {
 
-	protected int x, y, width, height;
-	protected int entityID;
+	public Location location;
+	public int x, y, z;
+	public int width, height;
+	public int entityID;
 
-	protected BoundingBox boundingBox;
+	public BoundingBox boundingBox;
 
 	/**
 	 * Initialize the entity.
@@ -27,8 +30,9 @@ public abstract class Entity {
 		this.width = width;
 		this.height = height;
 		this.entityID = entityID;
+		this.location = new Location(x, y);
 
-		boundingBox = new BoundingBox(Math.min(x, y), Math.min(x, y), Math.max(x, y), Math.max(x, y));
+		boundingBox = new BoundingBox(x, y, width, height);
 
 	}
 
@@ -49,6 +53,7 @@ public abstract class Entity {
 		this.width = width;
 		this.height = height;
 		this.entityID = entityID;
+		this.location = new Location(x, y);
 
 		boundingBox = bb;
 
@@ -57,5 +62,9 @@ public abstract class Entity {
 	public abstract void drawEntity(Graphics graphics);
 
 	public abstract void updateEntity();
+
+	public void updateBoundingBox() {
+		boundingBox.update(x, y, width, height);
+	}
 
 }

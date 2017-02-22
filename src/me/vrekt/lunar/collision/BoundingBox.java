@@ -1,18 +1,33 @@
 package me.vrekt.lunar.collision;
 
+import java.awt.Rectangle;
+
 public class BoundingBox {
 
-	public int minX, minY, maxX, maxY;
+	public int x, y, width, height;
+	public Rectangle bounds;
 
-	public BoundingBox(int minX, int minY, int maxX, int maxY) {
-		this.minX = minX;
-		this.minY = minY;
-		this.maxX = maxX;
-		this.maxY = maxY;
+	public BoundingBox(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+
+		this.bounds = new Rectangle(x, y, width, height);
+
 	}
 
-	public boolean collides(int x, int y) {
-		return x >= minX && x <= maxX && y >= minY && y <= maxY;
+	public void update(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+
+		bounds.setBounds(x, y, width, height);
+	}
+
+	public boolean doesIntersect(BoundingBox box) {
+		return bounds.intersects(box.bounds);
 	}
 
 }
