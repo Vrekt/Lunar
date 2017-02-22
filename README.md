@@ -28,6 +28,14 @@ Game game = new Game(title, width, height, gamestate, tickRate);
 SoundManager mySoundManager = new SoundManager();
 ```
 
+# Tick rate
+
+A good tickrate is 60 or above.
+The higher the tickrate the faster everything is drawn/updated.
+A faster tickrate would move the player faster than say a 60 tickrate.
+
+# Game states
+
 Before you start your game you want to push an existing GameState.
 GameStates keep track of your entities and all things needed for that level.
 
