@@ -160,6 +160,73 @@ You can also play a sound with just the audio file!
 ```java
 sm.playSound(file);
 ```
+# Tiles and worlds.
 
+A tile holds four values. the ID, the texture, width and height. Currently there is no use for the ID (yet).
+A tile can represent a wall, the floor, just about anything.
+To create a tile do this:
+```java
+Tile ourTile = new Tile(int ID, texture);
+```
+The ID can be set to anything since its currently not used.
+To get our texture we can use the SpriteManager.
+
+Firstly lets initialize the SpriteManager with our spritesheet.
+
+```java
+SpriteManager sm = new SpriteManager(SpriteManager.load("pathToSpriteSheet.png");
+```
+Great! Now we can create our tile.
+
+```java
+Tile tile = new Tile(0, sm.getSectionAt(x, y, width, height);
+```
+If we have our texture (for example a wall texture) at 0,0 and its 64x64 that is what we plug in.
+
+Since we have a tile now lets create a new world.
+A world needs 3 values, the name, width and height.
+
+```java
+public class OurWorld extends World {
+
+	public Level1(String name, int width, int height) {
+		super(name, width, height);
+	}
+
+	@Override
+	public void onDraw(Graphics graphics) {
+		
+	}
+
+	@Override
+	public void onTick() {
+
+	}
+
+}
+```
+Now that we have our world we can add the tile to it.
+
+```java
+OurWorld world = new OurWorld("world1", 600, 400);
+world.addTile(tile, x, y);
+```
+
+The X and Y values indicate where to draw the tile.
+Now in our onDraw method we can draw the tile.
+
+```java
+@Override
+public void onDraw(Graphics graphics) {
+   drawAllTiles(graphics);
+}
+```
+
+the World class holds many useful functions so dont forget about them! These include:
+```java
+drawAllTiles();
+drawAllEntities();
+```
+	
 
 
