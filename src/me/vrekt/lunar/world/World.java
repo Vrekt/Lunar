@@ -1,6 +1,5 @@
 package me.vrekt.lunar.world;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +58,7 @@ public abstract class World {
 	 * Draw all world entities
 	 */
 	public void drawAllEntities(Graphics graphics) {
-		graphics.setColor(Color.red);
-		worldEntities.stream().forEach(entity -> graphics.fillRect(entity.x, entity.y, entity.width, entity.height));
+		worldEntities.stream().forEach(entity -> graphics.drawImage(entity.sprite, entity.x, entity.y, null));
 	}
 
 	/**
@@ -69,11 +67,7 @@ public abstract class World {
 	 * @param graphics
 	 */
 	public void drawAllTiles(Graphics graphics) {
-		for (DrawableTile t : worldTiles) {
-			graphics.drawImage(t.getTile().getTexture(), t.getX(), t.getY(), null);
-		}
-		// worldTiles.forEach(tile -> tile.getTile().drawTile(graphics,
-		// tile.getX(), tile.getY()));
+		worldTiles.forEach(tile -> graphics.drawImage(tile.getTile().getTexture(), tile.getX(), tile.getY(), null));
 	}
 
 	/**
