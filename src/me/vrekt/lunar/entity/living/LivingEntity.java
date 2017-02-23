@@ -1,5 +1,7 @@
 package me.vrekt.lunar.entity.living;
 
+import java.awt.image.BufferedImage;
+
 import me.vrekt.lunar.entity.Entity;
 
 public abstract class LivingEntity extends Entity {
@@ -7,8 +9,40 @@ public abstract class LivingEntity extends Entity {
 	protected float health;
 	protected double speed;
 
+	/**
+	 * Initialize the entity.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param entityID
+	 * @param health
+	 * @param speed
+	 */
 	public LivingEntity(int x, int y, int width, int height, int entityID, float health, double speed) {
 		super(x, y, width, height, entityID);
+
+		this.health = health;
+		this.speed = speed;
+
+	}
+
+	/**
+	 * Initialize the entity.
+	 * 
+	 * @param sprite
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param entityID
+	 * @param health
+	 * @param speed
+	 */
+	public LivingEntity(BufferedImage sprite, int x, int y, int width, int height, int entityID, float health,
+			double speed) {
+		super(sprite, x, y, width, height, entityID);
 
 		this.health = health;
 		this.speed = speed;

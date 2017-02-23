@@ -9,7 +9,7 @@ import me.vrekt.lunar.location.Location;
 public abstract class Entity {
 
 	public Location location;
-	public int x, y, z;
+	public int x, y;
 	public int width, height;
 	public int entityID;
 

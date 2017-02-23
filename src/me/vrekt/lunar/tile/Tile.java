@@ -3,7 +3,7 @@ package me.vrekt.lunar.tile;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public abstract class Tile {
+public class Tile {
 
 	private int ID;
 	private BufferedImage texture;
