@@ -5,10 +5,11 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
 
-	private int ID;
 	private BufferedImage texture;
-
 	private int width, height;
+
+	private boolean isSolid = false;
+	private int ID;
 
 	/**
 	 * Initialize the tile.
@@ -16,13 +17,14 @@ public class Tile {
 	 * @param ID
 	 * @param texture
 	 */
-	public Tile(int ID, BufferedImage texture) {
-		this.ID = ID;
+	public Tile(BufferedImage texture, int ID, boolean isSolid) {
 		this.texture = texture;
 
 		this.width = texture.getWidth();
 		this.height = texture.getHeight();
 
+		this.isSolid = isSolid;
+		this.ID = ID;
 	}
 
 	/**
@@ -33,22 +35,15 @@ public class Tile {
 	 * @param width
 	 * @param height
 	 */
-	public Tile(int ID, BufferedImage texture, int width, int height) {
-		this.ID = ID;
+	public Tile(BufferedImage texture, int ID, int width, int height, boolean isSolid) {
 		this.texture = texture;
 
 		this.width = width;
 		this.height = height;
 
-	}
+		this.isSolid = isSolid;
+		this.ID = ID;
 
-	/**
-	 * Get the ID
-	 * 
-	 * @return ID
-	 */
-	public int getID() {
-		return ID;
 	}
 
 	/**
@@ -76,6 +71,33 @@ public class Tile {
 	 */
 	public int getHeight() {
 		return height;
+	}
+
+	/**
+	 * Get the ID.
+	 * 
+	 * @return
+	 */
+	public int getID() {
+		return ID;
+	}
+
+	/**
+	 * Return if the tile is solid.
+	 * 
+	 * @return
+	 */
+	public boolean isSolid() {
+		return isSolid;
+	}
+
+	/**
+	 * Set if the tile is solid or not.
+	 * 
+	 * @param isSolid
+	 */
+	public void setSolid(boolean isSolid) {
+		this.isSolid = isSolid;
 	}
 
 	/**

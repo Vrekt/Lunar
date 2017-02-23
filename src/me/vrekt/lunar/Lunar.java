@@ -1,5 +1,6 @@
 package me.vrekt.lunar;
 
+import me.vrekt.lunar.asset.AssetManager;
 import me.vrekt.lunar.sound.SoundManager;
 import me.vrekt.lunar.state.GameState;
 
@@ -7,6 +8,7 @@ public class Lunar {
 
 	private Game game;
 	private SoundManager soundManager;
+	private AssetManager assetManager;
 
 	/**
 	 * Initialize the game.
@@ -20,6 +22,7 @@ public class Lunar {
 		game = new Game(title, width, height, tickRate);
 
 		soundManager = new SoundManager();
+		assetManager = new AssetManager();
 
 	}
 
@@ -36,6 +39,7 @@ public class Lunar {
 		game = new Game(title, width, height, state, tickRate);
 
 		soundManager = new SoundManager();
+		assetManager = new AssetManager();
 
 	}
 
@@ -55,6 +59,15 @@ public class Lunar {
 	 */
 	public SoundManager getSoundManager() {
 		return soundManager;
+	}
+
+	/**
+	 * Get the assetManager
+	 * 
+	 * @return assetManager
+	 */
+	public AssetManager getAssetManager() {
+		return assetManager;
 	}
 
 }

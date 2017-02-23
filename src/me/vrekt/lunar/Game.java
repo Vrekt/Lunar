@@ -147,7 +147,6 @@ public class Game implements Runnable {
 				now += 1000;
 				fps = frCount;
 				frCount = 0;
-				System.out.println("FPS: " + fps);
 			}
 
 		}
