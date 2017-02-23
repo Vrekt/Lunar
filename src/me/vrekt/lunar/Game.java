@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import me.vrekt.lunar.input.InputListener;
+import me.vrekt.lunar.input.MouseInput;
 import me.vrekt.lunar.state.GameState;
 
 public class Game implements Runnable {
@@ -87,6 +88,7 @@ public class Game implements Runnable {
 		frame.setFocusable(true);
 
 		frame.addKeyListener(new InputListener());
+		frame.addMouseListener(new MouseInput());
 
 	}
 
