@@ -108,7 +108,7 @@ public abstract class World {
 	 * Get an entity by ID.
 	 */
 	public Entity getByID(int EID) {
-		Optional<Entity> stream = worldEntities.stream().filter(entity -> entity.entityID == EID).findAny();
+		Optional<Entity> stream = worldEntities.stream().filter(entity -> entity.getEntityID() == EID).findAny();
 		return stream.isPresent() ? stream.get() : null;
 	}
 
@@ -116,7 +116,8 @@ public abstract class World {
 	 * Draw all world entities
 	 */
 	public void drawAllEntities(Graphics graphics) {
-		worldEntities.stream().forEach(entity -> graphics.drawImage(entity.sprite, entity.x, entity.y, null));
+		worldEntities.stream()
+				.forEach(entity -> graphics.drawImage(entity.getTexture(), entity.getX(), entity.getY(), null));
 	}
 
 	/**

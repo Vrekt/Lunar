@@ -3,6 +3,15 @@ package me.vrekt.lunar.location;
 public class Location {
 
 	private int x, y;
+	private boolean onGround;
+
+	public Location(int x, int y, boolean onGround) {
+		this.x = x;
+		this.y = y;
+
+		this.onGround = onGround;
+
+	}
 
 	public Location(int x, int y) {
 		this.x = x;
@@ -37,6 +46,24 @@ public class Location {
 	 */
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	/**
+	 * Return if we are on ground or not.
+	 * 
+	 * @return
+	 */
+	public boolean isOnGround() {
+		return onGround;
+	}
+
+	/**
+	 * Set if we are on ground or not.
+	 * 
+	 * @param onGround
+	 */
+	public void setOnGround(boolean onGround) {
+		this.onGround = onGround;
 	}
 
 	/**

@@ -8,13 +8,13 @@ import me.vrekt.lunar.location.Location;
 
 public abstract class Entity {
 
-	public Location location;
-	public int x, y;
-	public int width, height;
-	public int entityID;
+	protected Location location;
+	protected int x, y;
+	protected int width, height;
+	protected int entityID;
 
-	public BoundingBox boundingBox;
-	public BufferedImage sprite;
+	protected BoundingBox boundingBox;
+	protected BufferedImage texture;
 
 	/**
 	 * Initialize the entity.
@@ -71,7 +71,7 @@ public abstract class Entity {
 	 * @param height
 	 * @param entityID
 	 */
-	public Entity(BufferedImage sprite, int x, int y, int width, int height, int entityID) {
+	public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID) {
 		this.x = x;
 		this.y = y;
 
@@ -80,7 +80,7 @@ public abstract class Entity {
 		this.entityID = entityID;
 		this.location = new Location(x, y);
 
-		this.sprite = sprite;
+		this.texture = texture;
 
 		boundingBox = new BoundingBox(x, y, width, height);
 
@@ -97,7 +97,7 @@ public abstract class Entity {
 	 * @param entityID
 	 * @param bb
 	 */
-	public Entity(BufferedImage sprite, int x, int y, int width, int height, int entityID, BoundingBox bb) {
+	public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID, BoundingBox bb) {
 		this.x = x;
 		this.y = y;
 
@@ -106,7 +106,7 @@ public abstract class Entity {
 		this.entityID = entityID;
 		this.location = new Location(x, y);
 
-		this.sprite = sprite;
+		this.texture = texture;
 
 		boundingBox = bb;
 
@@ -116,8 +116,83 @@ public abstract class Entity {
 
 	public abstract void updateEntity();
 
+	/**
+	 * Update the entity boundingBox.
+	 */
 	public void updateBoundingBox() {
 		boundingBox.update(x, y, width, height);
+	}
+
+	/**
+	 * Get the location.
+	 * 
+	 * @return location
+	 */
+	public Location getLocation() {
+		return location;
+	}
+
+	/**
+	 * Get the X
+	 * 
+	 * @return
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
+	 * Get the Y
+	 * 
+	 * @return
+	 */
+	public int getY() {
+		return y;
+	}
+
+	/**
+	 * Get the width of the entity.
+	 * 
+	 * @return
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * Get the height of the entity.
+	 * 
+	 * @return
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * Get the entityID
+	 * 
+	 * @return
+	 */
+	public int getEntityID() {
+		return entityID;
+	}
+
+	/**
+	 * Get the boundingBox
+	 * 
+	 * @return
+	 */
+	public BoundingBox getBoundingBox() {
+		return boundingBox;
+	}
+
+	/**
+	 * Get the texture.
+	 * 
+	 * @return
+	 */
+	public BufferedImage getTexture() {
+		return texture;
 	}
 
 }
