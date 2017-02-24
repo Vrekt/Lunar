@@ -212,6 +212,15 @@ OurWorld world = new OurWorld("world1", 600, 400);
 world.addTile(tile, x, y);
 ```
 
+You can also add multiple tiles at once. with World#addBatchTiles(Tile tile, int x, int y, Direction direction, int multiplier);
+X and Y indicate the starting position, in our case 0, 0. Direction indicates the direction we are going, in our case RIGHT.
+Finally, multiplier is how many times we add the tile, in our case 9.
+
+```java
+world.addBatchTiles(tile, 0, 0, Direction.RIGHT, 9);
+```
+
+
 The X and Y values indicate where to draw the tile.
 Now in our onDraw method we can draw the tile.
 
@@ -227,6 +236,11 @@ the World class holds many useful functions so dont forget about them! These inc
 drawAllTiles();
 drawAllEntities();
 ```
+
+# AssetManager
+
+Use this class to manage all your tiles and sprites.
+
 	
 
 
