@@ -66,31 +66,16 @@ public abstract class World {
 	 * @param multiplier
 	 *            indicates how many tiles to draw in the direction.
 	 */
-	public void addBatchTiles(Tile tile, int x, int y, Direction direction, int multiplier) {
+	public void addBatchTiles(Tile tile, int x, int y, Direction direction, int tileAmount) {
 		int width = tile.getWidth();
 		int height = tile.getHeight();
 
-		while (multiplier > 0) {
-			multiplier--;
+		while (tileAmount > 0) {
+			tileAmount--;
 
-			switch (direction) {
-			case UP:
-				worldInfo.put(new Location(x, y), tile);
-				y -= height;
-				break;
-			case DOWN:
-				worldInfo.put(new Location(x, y), tile);
-				y += height;
-				break;
-			case LEFT:
-				worldInfo.put(new Location(x, y), tile);
-				x -= width;
-				break;
-			case RIGHT:
-				worldInfo.put(new Location(x, y), tile);
-				x += width;
-				break;
-			}
+			worldInfo.put(new Location(x, y), tile);
+			x = direction == Direction.RIGHT ? x + width : direction == Direction.LEFT ? x - width : x;
+			y = direction == Direction.DOWN ? y + height : direction == Direction.UP ? y - height : y;
 
 		}
 
