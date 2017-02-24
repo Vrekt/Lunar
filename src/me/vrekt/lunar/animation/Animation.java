@@ -39,6 +39,10 @@ public class Animation {
 	 * Start the animation.
 	 */
 	public void startAnimation() {
+
+		currentFrame = 0;
+		frameCount = 0;
+
 		running = true;
 	}
 
@@ -65,7 +69,7 @@ public class Animation {
 						return;
 					}
 					stopAnimation();
-					currentFrame = 0;
+					currentFrame--;
 				}
 
 			}
