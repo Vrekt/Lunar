@@ -273,3 +273,31 @@ am.addTile(tile);
 ```
 
 AssetManager includes the ability to get a tile via ID aswell as remove and add tiles.
+
+# RayTracing
+
+RayTracing can be used to find for example a wall or a certain tile.
+If we wanted to check if there is a solid tile infront of the player we can!
+Start by making new instance of the RayTracing.
+
+```java
+RayTracing rayTrace = new RayTracing();
+```
+
+Now lets check if there are any solid blocks infront of us. (right)
+
+```java
+TileInfo t = rayTrace.getNextSolidTile(myWorld, player.posX(), player.posY(), Direction.RIGHT, 64, 64);
+```
+
+If the TileInfo is NULL there is no solid tile found.
+```java
+if(t == null) {
+  System.out.println("No tile found!);
+} else {
+   // do something
+}
+```
+
+If rayTracing is taking too long you can cancel it via: ` rayTrace.stopRayTrace(); `.
+
