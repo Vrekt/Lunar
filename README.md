@@ -290,14 +290,5 @@ Now lets check if there are any solid blocks infront of us. (right)
 TileInfo t = rayTrace.getNextSolidTile(myWorld, player.posX(), player.posY(), Direction.RIGHT, 64, 64);
 ```
 
-If the TileInfo is NULL there is no solid tile found.
-```java
-if(t == null) {
-  System.out.println("No tile found!);
-} else {
-   // do something
-}
-```
-
-If rayTracing is taking too long you can cancel it via: ` rayTrace.stopRayTrace(); `.
+If rayTracing is taking too long (this would indicate whatever its searching for wasnt found) you can cancel it via: ` rayTrace.stopRayTrace(); `.
 
