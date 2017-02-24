@@ -1,6 +1,7 @@
 package me.vrekt.lunar.world;
 
 import java.awt.Graphics;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,10 @@ public abstract class World {
 
 		this.width = width;
 		this.height = height;
+
+	}
+
+	public World(File file, ArrayList<Tile> tiles) {
 
 	}
 

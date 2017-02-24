@@ -39,4 +39,13 @@ public class AssetManager {
 		return stream.isPresent() ? stream.get() : null;
 	}
 
+	/**
+	 * Get all the tiles.
+	 * 
+	 * @return
+	 */
+	public List<Tile> getTiles() {
+		return tiles;
+	}
+
 }

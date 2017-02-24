@@ -11,153 +11,126 @@ public class RayTracing implements RayTracer {
 
 	@Override
 	public TileInfo getNextSolidTile(World world, int x, int y, Direction dir, int width, int height) {
-		boolean hasTile = false;
-		TileInfo tile = null;
+		Tile reference = null;
 
+		boolean hasTile = false;
 		rayTraceRunning = true;
 
+		int roundedX = 0;
+		int roundedY = 0;
+
 		while (!hasTile && rayTraceRunning) {
-			switch (dir) {
-			case UP:
-				y -= height;
-				hasTile = world.getTileAt(x, y).isSolid();
-				break;
-			case DOWN:
-				y += height;
-				hasTile = world.getTileAt(x, y).isSolid();
-				break;
-			case RIGHT:
-				x += height;
-				hasTile = world.getTileAt(x, y).isSolid();
-				break;
-			case LEFT:
-				x -= height;
-				hasTile = world.getTileAt(x, y).isSolid();
-				break;
+			x = dir == Direction.RIGHT ? x + width : dir == Direction.LEFT ? x - width : x;
+			y = dir == Direction.DOWN ? y + height : dir == Direction.UP ? y - height : y;
+
+			roundedX = roundToDimensions(x, width);
+			roundedY = roundToDimensions(y, height);
+
+			reference = world.getTileAt(roundedX, roundedY);
+			if (reference == null) {
+				continue;
 			}
+
+			hasTile = reference.isSolid();
+
 		}
-
-		Tile t = world.getTileAt(x, y);
-		tile = new TileInfo(new Location(x, y), t);
-
 		rayTraceRunning = false;
-		return tile;
+		return hasTile ? new TileInfo(new Location(roundedX, roundedY), reference) : null;
 	}
 
 	@Override
 	public TileInfo getNextTileWithID(World world, int x, int y, Direction dir, int ID, int width, int height) {
-		boolean hasTile = false;
-		TileInfo tile = null;
+		Tile reference = null;
 
+		boolean hasTile = false;
 		rayTraceRunning = true;
 
+		int roundedX = 0;
+		int roundedY = 0;
+
 		while (!hasTile && rayTraceRunning) {
-			switch (dir) {
-			case UP:
-				y -= height;
-				hasTile = world.getTileAt(x, y).getID() == ID;
-				break;
-			case DOWN:
-				y += height;
-				hasTile = world.getTileAt(x, y).getID() == ID;
-				break;
-			case RIGHT:
-				x += height;
-				hasTile = world.getTileAt(x, y).getID() == ID;
-				break;
-			case LEFT:
-				x -= height;
-				hasTile = world.getTileAt(x, y).getID() == ID;
-				break;
+			x = dir == Direction.RIGHT ? x + width : dir == Direction.LEFT ? x - width : x;
+			y = dir == Direction.DOWN ? y + height : dir == Direction.UP ? y - height : y;
+
+			roundedX = roundToDimensions(x, width);
+			roundedY = roundToDimensions(y, height);
+
+			reference = world.getTileAt(roundedX, roundedY);
+			if (reference == null) {
+				continue;
 			}
+
+			hasTile = reference.getID() == ID;
+
 		}
 
-		Tile t = world.getTileAt(x, y);
-		tile = new TileInfo(new Location(x, y), t);
-
 		rayTraceRunning = false;
-		return tile;
+		return hasTile ? new TileInfo(new Location(roundedX, roundedY), reference) : null;
 	}
 
 	@Override
 	public TileInfo getNextSolidTile(World world, int x, int y, int distance, Direction dir, int width, int height) {
 
-		boolean hasTile = false;
-		TileInfo tile = null;
+		Tile reference = null;
 
+		boolean hasTile = false;
 		rayTraceRunning = true;
 
+		int roundedX = 0;
+		int roundedY = 0;
+
 		while (!hasTile && rayTraceRunning && distance > 0) {
-			switch (dir) {
-			case UP:
-				distance--;
-				y -= height;
-				hasTile = world.getTileAt(x, y).isSolid();
-				break;
-			case DOWN:
-				distance--;
-				y += height;
-				hasTile = world.getTileAt(x, y).isSolid();
-				break;
-			case RIGHT:
-				distance--;
-				x += height;
-				hasTile = world.getTileAt(x, y).isSolid();
-				break;
-			case LEFT:
-				distance--;
-				x -= height;
-				hasTile = world.getTileAt(x, y).isSolid();
-				break;
+			x = dir == Direction.RIGHT ? x + width : dir == Direction.LEFT ? x - width : x;
+			y = dir == Direction.DOWN ? y + height : dir == Direction.UP ? y - height : y;
+			distance--;
+
+			roundedX = roundToDimensions(x, width);
+			roundedY = roundToDimensions(y, height);
+
+			reference = world.getTileAt(roundedX, roundedY);
+			if (reference == null) {
+				continue;
 			}
+
+			hasTile = reference.isSolid();
+
 		}
 
-		Tile t = world.getTileAt(x, y);
-		tile = new TileInfo(new Location(x, y), t);
-
 		rayTraceRunning = false;
-		return tile;
-
+		return hasTile ? new TileInfo(new Location(roundedX, roundedY), reference) : null;
 	}
 
 	@Override
 	public TileInfo getNextTileWithID(World world, int x, int y, int distance, Direction dir, int ID, int width,
 			int height) {
-		boolean hasTile = false;
-		TileInfo tile = null;
+		Tile reference = null;
 
+		boolean hasTile = false;
 		rayTraceRunning = true;
 
+		int roundedX = 0;
+		int roundedY = 0;
+
 		while (!hasTile && rayTraceRunning && distance > 0) {
-			switch (dir) {
-			case UP:
-				distance--;
-				y -= height;
-				hasTile = world.getTileAt(x, y).getID() == ID;
-				break;
-			case DOWN:
-				distance--;
-				y += height;
-				hasTile = world.getTileAt(x, y).getID() == ID;
-				break;
-			case RIGHT:
-				distance--;
-				x += height;
-				hasTile = world.getTileAt(x, y).getID() == ID;
-				break;
-			case LEFT:
-				distance--;
-				x -= height;
-				hasTile = world.getTileAt(x, y).getID() == ID;
-				break;
+			x = dir == Direction.RIGHT ? x + width : dir == Direction.LEFT ? x - width : x;
+			y = dir == Direction.DOWN ? y + height : dir == Direction.UP ? y - height : y;
+
+			distance--;
+
+			roundedX = roundToDimensions(x, width);
+			roundedY = roundToDimensions(y, height);
+
+			reference = world.getTileAt(roundedX, roundedY);
+			if (reference == null) {
+				continue;
 			}
+
+			hasTile = reference.getID() == ID;
+
 		}
 
-		Tile t = world.getTileAt(x, y);
-		tile = new TileInfo(new Location(x, y), t);
-
 		rayTraceRunning = false;
-		return tile;
+		return hasTile ? new TileInfo(new Location(roundedX, roundedY), reference) : null;
 	}
 
 	/**
@@ -174,6 +147,17 @@ public class RayTracing implements RayTracer {
 	 */
 	public void stopRayTrace() {
 		rayTraceRunning = false;
+	}
+
+	/**
+	 * Round.
+	 * 
+	 * @param value
+	 * @param f
+	 * @return
+	 */
+	private int roundToDimensions(int value, int f) {
+		return (int) Math.round(value / f) * f;
 	}
 
 }

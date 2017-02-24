@@ -88,6 +88,15 @@ public class Animation {
 	}
 
 	/**
+	 * Check if the animation is running.
+	 * 
+	 * @return
+	 */
+	public boolean isRunning() {
+		return running;
+	}
+
+	/**
 	 * Draw the current frame.
 	 * 
 	 * @param graphics
