@@ -1,92 +1,102 @@
-# Getting started
-
-To start you want to create a new Lunar object. This keeps track of the Game and the SoundManager.
-
+# Getting Started!
+To start you want to initialize the Lunar class.
 ```java
-Lunar lunar = new Lunar(title, width, height, tickRate);
+Lunar lunar = new Lunar();
 ```
 
-Or
-
-```java
-Lunar lunar = new Lunar(title, width, height, gamestate, tickRate);
-```
-
-The bottom object initializes the game with a given GameState.
-Once this is done you need to start the game.
-
-```java
-lunar.getGame().start();
-```
-
-Alternatively if you would like to keep track of the Game and your own SoundManager in a different class this can be done easily.
+This class holds everything you will need for your game.
+Alternatively you can create a direct object for Game aswell as the SoundManager and AssetManager.
 
 ```java
 Game game = new Game(title, width, height, tickRate);
-Game game = new Game(title, width, height, gamestate, tickRate);
+Game game = new Game(title, width, height, GameState, tickRate);
 
-SoundManager mySoundManager = new SoundManager();
+SoundManager sm = new SoundManager();
+AssetManager am = new AssetManager();
 ```
 
-# Tick rate
+Using the ` lunar ` object starting the game is simple.
+```java
+lunar.initializeGame(title, width, height, tickRate);
+lunar.initializeGame(title, width, height, GameState, tickRate);
 
-A good tickrate is 60 or above.
-The higher the tickrate the faster everything is drawn/updated.
-A faster tickrate would move the player faster than say a 60 tickrate.
+lunar.getGame().start();
+```
 
-# Game states
+Using the ` game ` object starting the game is just as easy.
+```java
+game.start();
+```
 
-Before you start your game you want to push an existing GameState.
-GameStates keep track of your entities and all things needed for that level.
+# Parameters
+title - This indicates the title of the window.
+width, height - the dimensions of the window.
 
-For example, Level1 would contain our Player object and a simple Mob object (both extending LivingEntity).
-Priority indicates when it should tick/draw, this is useful for multiple GameStates. 0 is the first to update/draw and everything after is next.
+tickRate:
+tickRate indicates how fast the game is drawn/updated. A good tickrate is 64 or above.
 
+gameState:
+this is not required when starting the game. Choosing to add this will not require you to add a gameState manually.
+
+# GameStates
+
+GameStates are the base of your game. Each GameState will hold two methods ` onTick(); ` and ` onDraw(Graphics graphics); `.
+In your gameState you may keep track of worlds, players and other entities.
+Heres an example:
 
 ```java
-public class Level1 extends GameState {
+public class MainState extends GameState {
+        private Player player;
+	private Level1 world;
 
-public MainHandler(int priority) {
+	public MainState(int priority) {
 		super(priority);
-	}
 
-	private Player player = new Player(300, 100, 64, 64, 2, 20, 3);
+		player = new Player(params);
+		world = new Level1("world1", 600, 400);
+		world.addEntity(player);
+
+	}
 
 	@Override
 	public void onDraw(Graphics graphics) {
-		player.drawEntity(graphics);
+		world.onDraw(graphics);
 	}
 
 	@Override
 	public void onTick() {
 		player.updateEntity();
+		player.updateBoundingBox();
+
+		world.onTick();
+
 	}
 }
 ```
 
+` priority ` indicates which GameState to draw/update first, this is useful for multiple GameStates.
+0 will be the first to draw/update and then everything next.
+
 # Entities
 
-Each entity in our game needs to extend Entity or LivingEntity.
-For entities that move around and interact with things you would want to extend LivingEntity.
-LivingEntity has health/speed values whereas Entity only has position values.
+Entities are for example your player or an enemy. To create a custom entity start by extending ` LivingEntity `. LivingEntity indicates its 'living' and requires health/speed values.
 
-Lets create our Player object.
+Entity classes have the option to use a sprite, althought not required be sure to remember using built in draw functions for entities use the sprite.
 
 ```java
-public class Player extends LivingEntity {
-
-	public Player(int x, int y, int width, int height, int entityID, float health, double speed) {
+public class MyPlayer extends LivingEntity {
+        public Player(int x, int y, int width, int height, int entityID, float health, double speed) {
 		super(x, y, width, height, entityID, health, speed);
 	}
 
 	@Override
 	public void drawEntity(Graphics graphics) {
-		// For our player we are going to make a simple red box.
+	// lets draw a simple red box for our player.
 		graphics.setColor(Color.red);
 		graphics.fillRect(x, y, width, height);
 	}
-	
-	// easy method of movement.
+
+	/** Basic example of movement for our player! **
 	@Override
 	public void updateEntity() {
 		boolean w, a, s, d;
@@ -95,7 +105,7 @@ public class Player extends LivingEntity {
 		s = InputListener.isKeyDown(KeyEvent.VK_S);
 		d = InputListener.isKeyDown(KeyEvent.VK_D);
 
-		if (w) {
+		if (w) {x
 			y -= speed;
 		}
 
@@ -111,136 +121,155 @@ public class Player extends LivingEntity {
 			x += speed;
 		}
 	}
-
 }
 ```
 
-Lets break it down.
-``` 
-drawEntity()
-```
-Handles drawing our entity and everything else needed for the Player/Entity.
+Lets go over the fields.
 
-```
-updateEntity()
-```
+x, y - the position of the player.
+width, height - dimensions of the player.
 
-Handles updating our entity, such as moving, health/special effects stuff, etc.
+entityID - in each world entities are managed by their ID. Think of this as a unique number for each entity.
+If we have a player and a mob its up to you which ID theyre assigned.
+
+health - the health of the entity.
+speed - the speed of the entity.
 
 # Sounds
 
-Playing a sound is very easy. To start create a new Sound object, this holds an ID and the Audio File.
+To play a sound you want to create a new ` Sound ` object.
+Each sound has an ID and the audio file.
 
 ```java
-int ID = 1;
-File audioFile = new File("myFile.wav");
-Sound mySound = new Sound(ID, audioFile);
+Sound sound = new Sound(int ID, File audio);
 ```
 
-Managing sounds in a game is very important. The SoundManager holds an ArrayList of sounds and you can even get and remove sounds via ID!
-
-Now lets play our sound. Grab your SoundManager either with
+To play the sound simply get your SoundManager instance. Either via your ` lunar ` object or making a new instance.
 ```java
-SoundManager sm = Lunar.getSoundManager();
+SoundManager sm = lunar.getSoundManager();
+
+sm.playAudio(sound);
+```
+You can also keep track of all your game sounds within the SoundManager.
+Alternatively if you don't want to create a new Sound object you can play the file directly.
+```java
+sm.playAudio(file);
 ```
 
-Or
+# Input
+Every game needs input and Lunar provides Mouse and Keyboard input.
+For example, to check if a certain key is pressed:
 
 ```java
-SoundManager sm = new SoundManager();
-/
-SoundManager sm = MyClass.getSoundManager();
+InputListener.isKeyPressed(KeyEvent.KEY);
 ```
 
-Lets play the sound!
+MouseInput has many useful methods, as documented here:
+
 ```java
-sm.playSound(sound);
+         /**
+	 * Get the click coordinates.
+	 * 
+	 * @return
+	 */
+	public static Point getLastClick() {
+		return lastClick;
+	}
+
+	/**
+	 * Returns if the mouse is down.
+	 * 
+	 * @return
+	 */
+	public static boolean isMouseDown() {
+		return isMouseDown;
+	}
+
+	/**
+	 * Get the component the mouse entered. This can return null if the mouse
+	 * exited the component.
+	 * 
+	 * @return
+	 */
+	public static Component getEnteredComponent() {
+		return enteredComponent;
+	}
 ```
-You can also play a sound with just the audio file!
-```java
-sm.playSound(file);
-```
-# Tiles and worlds.
 
-A tile holds four values. the ID, the texture, width and height. Currently there is no use for the ID (yet).
-A tile can represent a wall, the floor, just about anything.
-To create a tile do this:
-```java
-Tile ourTile = new Tile(int ID, texture);
-```
-The ID can be set to anything since its currently not used.
-To get our texture we can use the SpriteManager.
+# Worlds
 
-Firstly lets initialize the SpriteManager with our spritesheet.
+Creating a custom world is very easy.
+Start by extending ` World `.
 
 ```java
-SpriteManager sm = new SpriteManager(SpriteManager.load("pathToSpriteSheet.png");
-```
-Great! Now we can create our tile.
-
-```java
-Tile tile = new Tile(0, sm.getSectionAt(x, y, width, height);
-```
-If we have our texture (for example a wall texture) at 0,0 and its 64x64 that is what we plug in.
-
-Since we have a tile now lets create a new world.
-A world needs 3 values, the name, width and height.
-
-```java
-public class OurWorld extends World {
+public class MyWorld extends World {
 
 	public Level1(String name, int width, int height) {
 		super(name, width, height);
 	}
-
-	@Override
+	
+        @Override
 	public void onDraw(Graphics graphics) {
-		
+
 	}
 
 	@Override
 	public void onTick() {
 
 	}
-
 }
 ```
-Now that we have our world we can add the tile to it.
+
+Each class extending World can use many useful methods within the World class to make things easier.
+These include:
+
+adding entities
+adding tiles, adding multile tiles at once in one method.
+drawing all entities and tiles
+getting an entity via their ID.
+and many more!
+
+# Tiles, Sprites
+Tiles are essential for a textured game.
+
+Each tile holds an ID, the texture, if its solid or not and their width/height.
+If we want a tile for a Wall this can be done easily.
+
+To start lets load our SpriteSheet.
 
 ```java
-OurWorld world = new OurWorld("world1", 600, 400);
+SpriteManager sm = new SpriteManager(SpriteManager.load("pathToSheet.png"));
+```
+
+Now we can easily get certain textures at certain points in our spritesheet.
+For example if we have the Wall texture at 0, 0 and its 64x64 we can get it using:
+
+```java
+BufferedImage wall = sm.getSectionAt(0, 0, 64, 64);
+```
+
+Now we have our wall texture.
+Lets now create the tile.
+
+```java
+Tile tile = new Tile(wall, 0, true);
+```
+As you can see we created the tile with our wall texture, an ID of 0 and the isSolid flag set to true.
+Now we can add this to our world
+
+```java
 world.addTile(tile, x, y);
 ```
-
-You can also add multiple tiles at once. with World#addBatchTiles(Tile tile, int x, int y, Direction direction, int multiplier);
-X and Y indicate the starting position, in our case 0, 0. Direction indicates the direction we are going, in our case RIGHT.
-Finally, multiplier is how many times we add the tile, in our case 9.
+The AssetManager holds all of our game tiles. Simply get it using the ` lunar ` object or creating a new instance.
 
 ```java
-world.addBatchTiles(tile, 0, 0, Direction.RIGHT, 9);
+AssetManager am = new AssetManager();
 ```
 
-
-The X and Y values indicate where to draw the tile.
-Now in our onDraw method we can draw the tile.
+Lets store our tile:
 
 ```java
-@Override
-public void onDraw(Graphics graphics) {
-   drawAllTiles(graphics);
-}
+am.addTile(tile);
 ```
 
-the World class holds many useful functions so dont forget about them! These include:
-```java
-drawAllTiles();
-drawAllEntities();
-```
-
-# AssetManager
-
-Use this class to manage all your tiles and sprites.
-
-	
-
-
+AssetManager includes the ability to get a tile via ID aswell as remove and add tiles.
