@@ -96,7 +96,7 @@ public class MyPlayer extends LivingEntity {
 		graphics.fillRect(x, y, width, height);
 	}
 
-	/** Basic example of movement for our player! **
+	// basic movement for the player.
 	@Override
 	public void updateEntity() {
 		boolean w, a, s, d;
