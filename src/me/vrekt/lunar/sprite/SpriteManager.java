@@ -63,33 +63,14 @@ public class SpriteManager {
 
 		while (frameCount < spriteCount) {
 
-			switch (direction) {
-			case UP:
-				frames[frameCount] = getSectionAt(x, y, width, height);
-				frameCount++;
-				y -= height;
-				break;
-			case DOWN:
-				frames[frameCount] = getSectionAt(x, y, width, height);
-				frameCount++;
-				y += height;
-				break;
-			case LEFT:
-				frames[frameCount] = getSectionAt(x, y, width, height);
-				frameCount++;
-				x -= width;
-				break;
-			case RIGHT:
-				frames[frameCount] = getSectionAt(x, y, width, height);
-				frameCount++;
-				x += width;
-				break;
-			}
+			frames[frameCount] = getSectionAt(x, y, width, height);
+			x = direction == Direction.RIGHT ? x + width : direction == Direction.LEFT ? x - width : x;
+			y = direction == Direction.DOWN ? y + height : direction == Direction.UP ? y - height : y;
+			frameCount++;
 
 		}
 
 		return frames;
-
 	}
 
 	/**

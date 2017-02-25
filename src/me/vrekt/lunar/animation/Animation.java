@@ -13,6 +13,7 @@ public class Animation {
 	private BufferedImage[] frames;
 
 	private boolean loop = false;
+	private int ID;
 
 	/**
 	 * Initialize the animation.
@@ -36,6 +37,30 @@ public class Animation {
 	}
 
 	/**
+	 * Initializes the Animation with an ID. Only use this if you're using the
+	 * AnimationManager.
+	 * 
+	 * @param animations
+	 * @param perFrameDelay
+	 * @param loop
+	 * @param ID
+	 */
+	public Animation(BufferedImage[] animations, int perFrameDelay, boolean loop, int ID) {
+		frames = new BufferedImage[animations.length];
+		for (int i = 0; i < frames.length; i++) {
+			frames[i] = animations[i];
+		}
+
+		currentFrame = 0;
+		frameCount = 0;
+
+		this.frameDelay = perFrameDelay;
+		this.loop = loop;
+		this.ID = ID;
+
+	}
+
+	/**
 	 * Start the animation.
 	 */
 	public void startAnimation() {
@@ -50,6 +75,9 @@ public class Animation {
 	 * Stop the animation.
 	 */
 	public void stopAnimation() {
+		currentFrame = 0;
+		frameCount = 0;
+		
 		running = false;
 	}
 
@@ -59,17 +87,18 @@ public class Animation {
 	public void updateAnimation() {
 		if (running) {
 			frameCount++;
+
 			if (frameCount >= frameDelay) {
 				frameCount = 0;
 
 				currentFrame++;
 				if (currentFrame >= frames.length) {
 					if (loop) {
-						currentFrame = 0;
-						return;
+						startAnimation();
+					} else {
+						stopAnimation();
+						currentFrame--;
 					}
-					stopAnimation();
-					currentFrame--;
 				}
 
 			}
@@ -94,6 +123,15 @@ public class Animation {
 	 */
 	public boolean isRunning() {
 		return running;
+	}
+
+	/**
+	 * Get the ID.
+	 * 
+	 * @return
+	 */
+	public int getID() {
+		return ID;
 	}
 
 	/**
