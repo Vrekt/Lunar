@@ -77,6 +77,9 @@ public class PlayingSound implements LineListener {
 		}
 	}
 
+	/**
+	 * Checks if the sound has stopped playing and closes the Clip.
+	 */
 	@Override
 	public void update(LineEvent event) {
 		LineEvent.Type type = event.getType();

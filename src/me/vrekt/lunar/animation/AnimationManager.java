@@ -18,10 +18,13 @@ public class AnimationManager {
 
 	}
 
+	/**
+	 * Initializes the AnimationManager
+	 * 
+	 * @param animations
+	 */
 	public AnimationManager(List<Animation> animations) {
-
 		animationInfo = animations;
-
 	}
 
 	/**
