@@ -93,6 +93,40 @@ public class Inventory {
 	}
 
 	/**
+	 * Move the item to the slot.
+	 * 
+	 * @param slot
+	 */
+	public void moveItemToSlot(Item item, Slot original, Slot moveTo) {
+		original.setItem(null);
+		if (!moveTo.hasItem()) {
+			moveTo.setItem(item);
+		} else {
+			moveTo.getItem().setAmount(item.getAmount());
+		}
+	}
+
+	/**
+	 * Move the item to the slot.
+	 * 
+	 * @param item
+	 * @param original
+	 * @param moveTo
+	 */
+	public void moveItemToSlot(Item item, int original, int moveTo) {
+		Slot slot = getViaID(original);
+		Slot move = getViaID(moveTo);
+
+		slot.setItem(null);
+		if (!move.hasItem()) {
+			move.setItem(item);
+		} else {
+			move.getItem().setAmount(item.getAmount());
+		}
+
+	}
+
+	/**
 	 * Add an item.
 	 * 
 	 * @param item

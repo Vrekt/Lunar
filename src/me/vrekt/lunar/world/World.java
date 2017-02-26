@@ -63,7 +63,7 @@ public abstract class World {
 	 * @param x
 	 * @param y
 	 * @param direction
-	 * @param multiplier
+	 * @param tileAmount
 	 *            indicates how many tiles to draw in the direction.
 	 */
 	public void addBatchTiles(Tile tile, int x, int y, Direction direction, int tileAmount) {
