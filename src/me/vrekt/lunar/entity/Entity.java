@@ -12,7 +12,7 @@ public abstract class Entity {
 	protected int x, y;
 	protected int width, height;
 	protected int entityID;
-
+	
 	protected BoundingBox boundingBox;
 	protected BufferedImage texture;
 
