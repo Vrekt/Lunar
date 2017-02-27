@@ -28,15 +28,13 @@ Using the ` game ` object starting the game is just as easy.
 game.start();
 ```
 
-# Parameters
+Lets go over the fields.
 title - This indicates the title of the window.
 width, height - the dimensions of the window.
 
-tickRate:
 tickRate indicates how fast the game is drawn/updated. A good tickrate is 64 or above.
 
-gameState:
-this is not required when starting the game. Choosing to add this will not require you to add a gameState manually.
+gameState; this is not required when starting the game. Choosing to add this will not require you to add a gameState manually.
 
 # GameStates
 
@@ -89,14 +87,18 @@ public class MyPlayer extends LivingEntity {
 		super(x, y, width, height, entityID, health, speed);
 	}
 
+	/**
+	* Lets draw a simple red box that represents our player.
+	*/
 	@Override
 	public void drawEntity(Graphics graphics) {
-	// lets draw a simple red box for our player.
 		graphics.setColor(Color.red);
 		graphics.fillRect(x, y, width, height);
 	}
 
-	// basic movement for the player.
+	/**
+	* Basic movement for our Player.
+	*/
 	@Override
 	public void updateEntity() {
 		boolean w, a, s, d;
@@ -105,7 +107,7 @@ public class MyPlayer extends LivingEntity {
 		s = InputListener.isKeyDown(KeyEvent.VK_S);
 		d = InputListener.isKeyDown(KeyEvent.VK_D);
 
-		if (w) {x
+		if (w) {
 			y -= speed;
 		}
 
@@ -284,9 +286,91 @@ Start by making new instance of the RayTracing.
 RayTracing rayTrace = new RayTracing();
 ```
 
-Now lets check if there are any solid blocks infront of us. (right)
+Now lets check if there are any solid blocks infront of us.
+Our direction is RIGHT and lets go to a distance of 4.
 
 ```java
-TileInfo t = rayTrace.getNextSolidTile(myWorld, player.posX(), player.posY(), Direction.RIGHT, 64, 64);
+Tile tile = rayTrace.getNextSolidTile(myWorld, player.getX(), player.getY(), 4, Direction.RIGHT, 64, 64);
 ```
-If the TileInfo returned is null this indicates nothing was found. RayTracing can hang the main thread so becareful!
+Now we have our tile. If the tile is null this indicates no tile was found.
+
+# AnimationManager
+The AnimationManager is very useful in situations where you have many images (such as a player sprite walking each direction with each leg).
+
+Lets create a new SpriteManager with our character spritesheet.
+
+```java
+private SpriteManager characters = new SpriteManager(
+			SpriteManager.load("C:\\Users\\Vrekt\\Desktop\\characters.png"));
+```
+
+Now we can start, lets create an animation for each direction.
+
+```java
+        private Animation up;
+	private Animation down;
+	private Animation left;
+	private Animation right;
+```
+
+Now with the SpriteManager we can put the getMultipleSprites method to use.
+
+```java
+                BufferedImage[] bup = characters.getMultipleSprites(0, 96, 32, 32, Direction.RIGHT, 3);
+		BufferedImage[] bdown = characters.getMultipleSprites(0, 0, 32, 32, Direction.RIGHT, 3);
+		BufferedImage[] bleft = characters.getMultipleSprites(0, 32, 32, 32, Direction.RIGHT, 3);
+		BufferedImage[] bright = characters.getMultipleSprites(0, 64, 32, 32, Direction.RIGHT, 3);
+```
+
+Now we can initialize the Animations.
+
+```java
+                up = new Animation(bup, 20, true, 0);
+		down = new Animation(bdown, 20, true, 1);
+		left = new Animation(bleft, 20, true, 2);
+		right = new Animation(bright, 20, true, 3);
+```
+
+Lets add them to a list.
+
+```java
+                List<Animation> animations = new ArrayList<Animation>();
+		animations.add(up);
+		animations.add(down);
+		animations.add(left);
+		animations.add(right);
+```
+
+Finally lets initialize the AnimationManager with the animations.
+
+```java
+am = new AnimationManager(animations);
+```
+
+In our player class we have a field named 'playerDirection' which keeps track of which way the player is facing, lets use this for our animation.
+
+```java
+Direction d = player.getDirectionFacing();
+```
+
+Now what we can do is start an animation based on which way we are facing.
+
+```java
+am.startAnimation(d == Direction.UP ? up : d == Direction.DOWN ? down : d == Direction.LEFT ? left : right);
+```
+
+Now lets draw the current frame of the animation.
+
+```java
+am.getCurrentPlayingAnimation().drawCurrentFrame(graphics, player.getX(), player.getY());
+```
+
+Now in our tick method we can update the animation.
+
+```java
+if (am.getCurrentPlayingAnimation() != null) {
+			am.getCurrentPlayingAnimation().updateAnimation();
+}
+```
+
+And thats it! 
