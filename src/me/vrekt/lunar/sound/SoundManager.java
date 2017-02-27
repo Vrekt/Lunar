@@ -50,9 +50,20 @@ public class SoundManager {
 	 *            the ID of the Sound.
 	 */
 	public void removeSound(int ID) {
-		Optional<Sound> stream = gameSounds.stream().filter(sound -> sound.getID() == ID).findAny();
-		if (stream.isPresent()) {
-			gameSounds.remove(stream.get());
+		Sound s = getSound(ID);
+		if (gameSounds.contains(s)) {
+			gameSounds.remove(s);
+		}
+	}
+
+	/**
+	 * Remove the sound.
+	 * 
+	 * @param sound
+	 */
+	public void removeSound(Sound sound) {
+		if (gameSounds.contains(sound)) {
+			gameSounds.remove(sound);
 		}
 	}
 
@@ -93,6 +104,15 @@ public class SoundManager {
 	 */
 	public void stopPlayingSound(Sound sound) {
 		sound.stop();
+	}
+
+	/**
+	 * Stop playing the sound.
+	 * 
+	 * @param ID
+	 */
+	public void stopPlayingSound(int ID) {
+		getSound(ID).stop();
 	}
 
 }
