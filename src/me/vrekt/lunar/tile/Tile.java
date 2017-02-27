@@ -3,6 +3,8 @@ package me.vrekt.lunar.tile;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import me.vrekt.lunar.collision.BoundingBox;
+
 public class Tile {
 
 	private BufferedImage texture;
@@ -10,6 +12,8 @@ public class Tile {
 
 	private boolean isSolid = false;
 	private int ID;
+
+	private int x, y;
 
 	/**
 	 * Initialize the tile.
@@ -44,6 +48,32 @@ public class Tile {
 		this.isSolid = isSolid;
 		this.ID = ID;
 
+	}
+
+	public Tile(BufferedImage texture, int ID, int width, int height, int x, int y, boolean isSolid) {
+		this.texture = texture;
+
+		this.width = width;
+		this.height = height;
+
+		this.x = x;
+		this.y = y;
+
+		this.isSolid = isSolid;
+		this.ID = ID;
+	}
+
+	public Tile(BufferedImage texture, int x, int y, boolean isSolid, int ID) {
+		this.texture = texture;
+
+		this.width = texture.getWidth();
+		this.height = texture.getHeight();
+
+		this.x = x;
+		this.y = y;
+
+		this.isSolid = isSolid;
+		this.ID = ID;
 	}
 
 	/**
@@ -101,6 +131,42 @@ public class Tile {
 	}
 
 	/**
+	 * Get the X.
+	 * 
+	 * @return
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
+	 * Get the Y.
+	 * 
+	 * @return
+	 */
+	public int getY() {
+		return y;
+	}
+
+	/**
+	 * Set the X.
+	 * 
+	 * @param x
+	 */
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	/**
+	 * Set the Y.
+	 * 
+	 * @param y
+	 */
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	/**
 	 * Draw the tile.
 	 * 
 	 * @param graphics
@@ -109,6 +175,26 @@ public class Tile {
 	 */
 	public void drawTile(Graphics graphics, int x, int y) {
 		graphics.drawImage(texture, x, y, null);
+	}
+
+	/**
+	 * Create a boundingBox that represents this tile.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public BoundingBox createBounds(int cX, int cY) {
+		return new BoundingBox(cX, cY, width, height);
+	}
+
+	/**
+	 * Create a boundingBox that represents this tile.
+	 * 
+	 * @return
+	 */
+	public BoundingBox createBounds() {
+		return new BoundingBox(x, y, width, height);
 	}
 
 }

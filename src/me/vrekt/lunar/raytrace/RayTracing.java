@@ -1,6 +1,5 @@
 package me.vrekt.lunar.raytrace;
 
-import me.vrekt.lunar.location.Location;
 import me.vrekt.lunar.tile.Tile;
 import me.vrekt.lunar.world.World;
 import me.vrekt.lunar.world.dir.Direction;
@@ -10,7 +9,7 @@ public class RayTracing implements RayTracer {
 	private boolean rayTraceRunning = false;
 
 	@Override
-	public TileInfo getNextSolidTile(World world, int x, int y, Direction dir, int width, int height) {
+	public Tile getNextSolidTile(World world, int x, int y, Direction dir, int width, int height) {
 		Tile reference = null;
 
 		boolean hasTile = false;
@@ -31,15 +30,17 @@ public class RayTracing implements RayTracer {
 				continue;
 			}
 
+			reference.setX(roundedX);
+			reference.setY(roundedY);
 			hasTile = reference.isSolid();
 
 		}
 		rayTraceRunning = false;
-		return hasTile ? new TileInfo(new Location(roundedX, roundedY), reference) : null;
+		return hasTile ? reference : null;
 	}
 
 	@Override
-	public TileInfo getNextTileWithID(World world, int x, int y, Direction dir, int ID, int width, int height) {
+	public Tile getNextTileWithID(World world, int x, int y, Direction dir, int ID, int width, int height) {
 		Tile reference = null;
 
 		boolean hasTile = false;
@@ -60,16 +61,18 @@ public class RayTracing implements RayTracer {
 				continue;
 			}
 
+			reference.setX(roundedX);
+			reference.setY(roundedY);
 			hasTile = reference.getID() == ID;
 
 		}
 
 		rayTraceRunning = false;
-		return hasTile ? new TileInfo(new Location(roundedX, roundedY), reference) : null;
+		return hasTile ? reference : null;
 	}
 
 	@Override
-	public TileInfo getNextSolidTile(World world, int x, int y, int distance, Direction dir, int width, int height) {
+	public Tile getNextSolidTile(World world, int x, int y, int distance, Direction dir, int width, int height) {
 
 		Tile reference = null;
 
@@ -92,16 +95,18 @@ public class RayTracing implements RayTracer {
 				continue;
 			}
 
+			reference.setX(roundedX);
+			reference.setY(roundedY);
 			hasTile = reference.isSolid();
 
 		}
 
 		rayTraceRunning = false;
-		return hasTile ? new TileInfo(new Location(roundedX, roundedY), reference) : null;
+		return hasTile ? reference : null;
 	}
 
 	@Override
-	public TileInfo getNextTileWithID(World world, int x, int y, int distance, Direction dir, int ID, int width,
+	public Tile getNextTileWithID(World world, int x, int y, int distance, Direction dir, int ID, int width,
 			int height) {
 		Tile reference = null;
 
@@ -124,13 +129,14 @@ public class RayTracing implements RayTracer {
 			if (reference == null) {
 				continue;
 			}
-
+			reference.setX(roundedX);
+			reference.setY(roundedY);
 			hasTile = reference.getID() == ID;
 
 		}
 
 		rayTraceRunning = false;
-		return hasTile ? new TileInfo(new Location(roundedX, roundedY), reference) : null;
+		return hasTile ? reference : null;
 	}
 
 	/**

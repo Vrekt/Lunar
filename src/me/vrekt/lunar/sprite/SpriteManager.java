@@ -18,7 +18,7 @@ public class SpriteManager {
 	private BufferedImage spriteSheet;
 
 	/**
-	 * Initialize
+	 * Initialize the spriteManager.
 	 * 
 	 * @param spriteSheet
 	 */
@@ -26,15 +26,30 @@ public class SpriteManager {
 		this.spriteSheet = spriteSheet;
 	}
 
+	/**
+	 * Initializes the spriteManager with a SpriteSheet.
+	 * 
+	 * @param sheet
+	 */
 	public SpriteManager(SpriteSheet sheet) {
 		spriteSheets.add(sheet);
 	}
 
+	/**
+	 * Initializes the spriteManager with an array of SpriteSheets.
+	 * 
+	 * @param sheets
+	 */
 	public SpriteManager(SpriteSheet[] sheets) {
 		List<SpriteSheet> list = Arrays.asList(sheets);
 		list.forEach(sheet -> spriteSheets.add(sheet));
 	}
 
+	/**
+	 * Initializes the spriteManager with a list of SpriteSheets.
+	 * 
+	 * @param sheets
+	 */
 	public SpriteManager(List<SpriteSheet> sheets) {
 		sheets.forEach(sheet -> spriteSheets.add(sheet));
 		sheets.clear();
