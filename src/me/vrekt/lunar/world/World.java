@@ -1,7 +1,6 @@
 package me.vrekt.lunar.world;
 
 import java.awt.Graphics;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,10 +27,6 @@ public abstract class World {
 
 	}
 
-	public World(File file, ArrayList<Tile> tiles) {
-
-	}
-
 	/**
 	 * @return the name
 	 */
@@ -55,6 +50,15 @@ public abstract class World {
 	 */
 	public void addTile(int x, int y, Tile tile) {
 		worldInfo.put(new Location(x, y), tile);
+	}
+
+	/**
+	 * Add a tile.
+	 * 
+	 * @param tile
+	 */
+	public void addTile(Tile tile) {
+		worldInfo.put(new Location(tile.getX(), tile.getY()), tile);
 	}
 
 	/**
@@ -97,7 +101,7 @@ public abstract class World {
 	/**
 	 * Get an entity by ID.
 	 */
-	public Entity getByID(int EID) {
+	public Entity getEntity(int EID) {
 		Optional<Entity> stream = worldEntities.stream().filter(entity -> entity.getEntityID() == EID).findAny();
 		return stream.isPresent() ? stream.get() : null;
 	}
@@ -120,6 +124,28 @@ public abstract class World {
 			Tile tile = worldInfo.get(key);
 			graphics.drawImage(tile.getTexture(), key.getX(), key.getY(), null);
 		}
+	}
+
+	/**
+	 * Check if an entity is at this X and Y.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean isEntityAt(int x, int y) {
+		return worldEntities.stream().filter(entity -> entity.getX() == x && entity.getY() == y).findAny().isPresent();
+	}
+
+	/**
+	 * Get the entity at the X and Y.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public Entity getEntityAt(int x, int y) {
+		return worldEntities.stream().filter(entity -> entity.getX() == x && entity.getY() == y).findAny().get();
 	}
 
 	/**

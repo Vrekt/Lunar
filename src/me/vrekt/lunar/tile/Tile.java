@@ -77,6 +77,7 @@ public class Tile {
 	/**
 	 * Initialize the tile.
 	 * 
+	 * 
 	 * @param texture
 	 * @param x
 	 * @param y
