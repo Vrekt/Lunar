@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public abstract class GameState {
 
-	public int priority = 0;
+	private int priority = 0;
 
 	/**
 	 * Initializes the GameState.
@@ -18,5 +18,9 @@ public abstract class GameState {
 	public abstract void onDraw(Graphics graphics);
 
 	public abstract void onTick();
+
+	public int getPriority() {
+		return priority;
+	}
 
 }

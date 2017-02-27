@@ -50,6 +50,17 @@ public class Tile {
 
 	}
 
+	/**
+	 * Initialize the Tile.
+	 * 
+	 * @param texture
+	 * @param ID
+	 * @param width
+	 * @param height
+	 * @param x
+	 * @param y
+	 * @param isSolid
+	 */
 	public Tile(BufferedImage texture, int ID, int width, int height, int x, int y, boolean isSolid) {
 		this.texture = texture;
 
@@ -63,6 +74,15 @@ public class Tile {
 		this.ID = ID;
 	}
 
+	/**
+	 * Initialize the tile.
+	 * 
+	 * @param texture
+	 * @param x
+	 * @param y
+	 * @param isSolid
+	 * @param ID
+	 */
 	public Tile(BufferedImage texture, int x, int y, boolean isSolid, int ID) {
 		this.texture = texture;
 

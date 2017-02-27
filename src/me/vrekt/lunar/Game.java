@@ -214,11 +214,11 @@ public class Game implements Runnable {
 			@Override
 			public int compare(GameState state1, GameState state2) {
 
-				if (state1.priority < state2.priority) {
+				if (state1.getPriority() < state2.getPriority()) {
 					return 1;
 				}
 
-				if (state1.priority > state2.priority) {
+				if (state1.getPriority() > state2.getPriority()) {
 					return -1;
 				}
 

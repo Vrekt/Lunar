@@ -13,6 +13,7 @@ import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+@Deprecated
 public class PlayingSound implements LineListener {
 
 	private Clip playing;
@@ -21,6 +22,7 @@ public class PlayingSound implements LineListener {
 	 * Play the audio.
 	 * 
 	 * @param sound
+	 *            the sound object.
 	 */
 	public void play(Sound sound) {
 		try {
@@ -51,6 +53,7 @@ public class PlayingSound implements LineListener {
 	 * Play the audio.
 	 * 
 	 * @param file
+	 *            the audio file.
 	 */
 	public void play(File file) {
 		try {
@@ -75,6 +78,11 @@ public class PlayingSound implements LineListener {
 			System.out.println("ERROR PLAYING SOUND. /n");
 			e.printStackTrace();
 		}
+	}
+
+	public void stopClip() {
+		playing.stop();
+		playing.close();
 	}
 
 	/**

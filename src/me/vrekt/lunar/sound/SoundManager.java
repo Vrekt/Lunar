@@ -13,6 +13,7 @@ public class SoundManager {
 	 * Adds a sound.
 	 * 
 	 * @param sound
+	 *            the sound Object.
 	 */
 	public void addSound(Sound sound) {
 		gameSounds.add(sound);
@@ -22,7 +23,9 @@ public class SoundManager {
 	 * Adds a sound.
 	 * 
 	 * @param ID
+	 *            the ID
 	 * @param file
+	 *            the audio file.
 	 */
 	public void addSound(int ID, File file) {
 		gameSounds.add(new Sound(ID, file));
@@ -32,6 +35,7 @@ public class SoundManager {
 	 * Gets a sound via ID.
 	 * 
 	 * @param ID
+	 *            the ID of the Sound.
 	 * @return
 	 */
 	public Sound getSound(int ID) {
@@ -43,6 +47,7 @@ public class SoundManager {
 	 * Removes a sound from the list.
 	 * 
 	 * @param ID
+	 *            the ID of the Sound.
 	 */
 	public void removeSound(int ID) {
 		Optional<Sound> stream = gameSounds.stream().filter(sound -> sound.getID() == ID).findAny();
@@ -55,20 +60,39 @@ public class SoundManager {
 	 * Plays a sound with a clip.
 	 * 
 	 * @param sound
+	 *            the Sound object.
 	 */
 	public void playSound(Sound sound) {
-		PlayingSound playing = new PlayingSound();
-		playing.play(sound);
+		sound.play();
 	}
 
 	/**
 	 * Plays a sound with a clip.
 	 * 
+	 * @param ID
+	 */
+	public void playSound(int ID) {
+		getSound(ID).play();
+	}
+
+	/**
+	 * Plays a sound with a clip. This does not support stopping.
+	 * 
 	 * @param file
+	 *            the audio file.
 	 */
 	public void playSound(File file) {
-		PlayingSound playing = new PlayingSound();
-		playing.play(file);
+		Sound sound = new Sound(0, file);
+		sound.play();
+	}
+
+	/**
+	 * Stop playing the sound.
+	 * 
+	 * @param sound
+	 */
+	public void stopPlayingSound(Sound sound) {
+		sound.stop();
 	}
 
 }
