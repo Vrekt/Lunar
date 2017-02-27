@@ -307,38 +307,38 @@ private SpriteManager characters = new SpriteManager(
 Now we can start, lets create an animation for each direction.
 
 ```java
-        private Animation up;
-	private Animation down;
-	private Animation left;
-	private Animation right;
+private Animation up;
+private Animation down;
+private Animation left;
+private Animation right;
 ```
 
 Now with the SpriteManager we can put the getMultipleSprites method to use.
 
 ```java
-                BufferedImage[] bup = characters.getMultipleSprites(0, 96, 32, 32, Direction.RIGHT, 3);
-		BufferedImage[] bdown = characters.getMultipleSprites(0, 0, 32, 32, Direction.RIGHT, 3);
-		BufferedImage[] bleft = characters.getMultipleSprites(0, 32, 32, 32, Direction.RIGHT, 3);
-		BufferedImage[] bright = characters.getMultipleSprites(0, 64, 32, 32, Direction.RIGHT, 3);
+BufferedImage[] bup = characters.getMultipleSprites(0, 96, 32, 32, Direction.RIGHT, 3);
+BufferedImage[] bdown = characters.getMultipleSprites(0, 0, 32, 32, Direction.RIGHT, 3);
+BufferedImage[] bleft = characters.getMultipleSprites(0, 32, 32, 32, Direction.RIGHT, 3);
+BufferedImage[] bright = characters.getMultipleSprites(0, 64, 32, 32, Direction.RIGHT, 3);
 ```
 
 Now we can initialize the Animations.
 
 ```java
-                up = new Animation(bup, 20, true, 0);
-		down = new Animation(bdown, 20, true, 1);
-		left = new Animation(bleft, 20, true, 2);
-		right = new Animation(bright, 20, true, 3);
+up = new Animation(bup, 20, true, 0);
+down = new Animation(bdown, 20, true, 1);
+left = new Animation(bleft, 20, true, 2);
+right = new Animation(bright, 20, true, 3);
 ```
 
 Lets add them to a list.
 
 ```java
-                List<Animation> animations = new ArrayList<Animation>();
-		animations.add(up);
-		animations.add(down);
-		animations.add(left);
-		animations.add(right);
+List<Animation> animations = new ArrayList<Animation>();
+animations.add(up);
+animations.add(down);
+animations.add(left);
+animations.add(right);
 ```
 
 Finally lets initialize the AnimationManager with the animations.
