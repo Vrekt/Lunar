@@ -1,17 +1,44 @@
 package me.vrekt.lunar.camera;
 
+import me.vrekt.lunar.vec.Vector2f;
+
 public class Camera {
 
 	private int width, height;
-	private int camX, camY;
+	private Vector2f camera;
 
+	/**
+	 * Initialize the camera.
+	 * 
+	 * @param width
+	 * @param height
+	 * @param x
+	 * @param y
+	 */
 	public Camera(int width, int height, int x, int y) {
 		this.width = width;
 		this.height = height;
 
-		this.camX = x;
-		this.camY = y;
+		camera = new Vector2f(x, y);
 
+	}
+
+	/**
+	 * Initialize the camera.
+	 * 
+	 * @param width
+	 * @param height
+	 * @param vec
+	 */
+	public Camera(int width, int height, Vector2f vec) {
+		this.width = width;
+		this.height = height;
+
+		camera = vec;
+	}
+
+	public Vector2f getCamera() {
+		return camera;
 	}
 
 	/**
@@ -38,7 +65,7 @@ public class Camera {
 	 * @return
 	 */
 	public int getCamX() {
-		return camX;
+		return camera.getX();
 	}
 
 	/**
@@ -47,7 +74,7 @@ public class Camera {
 	 * @return
 	 */
 	public int getCamY() {
-		return camY;
+		return camera.getY();
 	}
 
 	/**
@@ -56,7 +83,7 @@ public class Camera {
 	 * @param camX
 	 */
 	public void setCamX(int camX) {
-		this.camX = camX;
+		camera.setX(camX);
 	}
 
 	/**
@@ -65,7 +92,7 @@ public class Camera {
 	 * @param camY
 	 */
 	public void setCamY(int camY) {
-		this.camY = camY;
+		camera.setY(camY);
 	}
 
 }

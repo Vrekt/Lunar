@@ -21,6 +21,7 @@ public abstract class World {
 
 	/**
 	 * Initialize the world.
+	 * 
 	 * @param name
 	 * @param width
 	 * @param height
@@ -47,6 +48,11 @@ public abstract class World {
 		worldEntities.add(entity);
 	}
 
+	/**
+	 * Remove the entity from the world.
+	 * 
+	 * @param entity
+	 */
 	public void removeEntity(Entity entity) {
 		worldEntities.remove(entity);
 	}
@@ -110,6 +116,16 @@ public abstract class World {
 	public Entity getEntity(int EID) {
 		Optional<Entity> stream = worldEntities.stream().filter(entity -> entity.getEntityID() == EID).findAny();
 		return stream.isPresent() ? stream.get() : null;
+	}
+
+	/**
+	 * Get the tile the entity is standing on.
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	public Tile getTileFromEntity(Entity entity) {
+		return getTileAt(entity.getX(), entity.getY());
 	}
 
 	/**
