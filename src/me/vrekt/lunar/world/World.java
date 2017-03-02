@@ -19,6 +19,12 @@ public abstract class World {
 
 	protected int width, height;
 
+	/**
+	 * Initialize the world.
+	 * @param name
+	 * @param width
+	 * @param height
+	 */
 	public World(String name, int width, int height) {
 		this.name = name;
 

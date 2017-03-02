@@ -2,9 +2,15 @@ package me.vrekt.lunar.entity;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import me.vrekt.lunar.collision.BoundingBox;
 import me.vrekt.lunar.location.Location;
+import me.vrekt.lunar.tile.Tile;
+import me.vrekt.lunar.utilities.Utilities;
+import me.vrekt.lunar.world.World;
+import me.vrekt.lunar.world.dir.Direction;
 
 public abstract class Entity {
 
@@ -12,7 +18,7 @@ public abstract class Entity {
 	protected int x, y;
 	protected int width, height;
 	protected int entityID;
-	
+
 	protected BoundingBox boundingBox;
 	protected BufferedImage texture;
 
@@ -193,6 +199,44 @@ public abstract class Entity {
 	 */
 	public BufferedImage getTexture() {
 		return texture;
+	}
+
+	/**
+	 * Get the tiles in the entity line of sight.
+	 * 
+	 * @param facing
+	 * @param direction
+	 * @return
+	 */
+	public List<Tile> getLineOfSight(World world, Direction facing, int distance) {
+
+		int roundedX = 0, roundedY = 0;
+		Tile reference = null;
+
+		List<Tile> list = new ArrayList<Tile>();
+
+		while (distance != 0) {
+
+			roundedX = facing == Direction.RIGHT ? roundedX + width
+					: facing == Direction.LEFT ? roundedX - width : roundedX;
+			roundedY = facing == Direction.DOWN ? roundedY + height
+					: facing == Direction.UP ? roundedY - height : roundedY;
+			distance--;
+
+			roundedX = Utilities.roundToDimensions(x, width);
+			roundedY = Utilities.roundToDimensions(y, height);
+
+			reference = world.getTileAt(roundedX, roundedY);
+			if (reference == null) {
+				continue;
+			}
+
+			list.add(reference);
+
+		}
+
+		return list;
+
 	}
 
 }

@@ -163,7 +163,7 @@ public class RayTracing implements RayTracer {
 	 * @return
 	 */
 	private int roundToDimensions(int value, int f) {
-		return (int) Math.round(value / f) * f;
+		return Math.round(value / f) * f;
 	}
 
 }

@@ -1,9 +1,13 @@
 package me.vrekt.lunar.location;
 
+import me.vrekt.lunar.world.World;
+
 public class Location {
 
 	private int x, y;
 	private boolean onGround;
+
+	private World world;
 
 	public Location(int x, int y, boolean onGround) {
 		this.x = x;
@@ -16,6 +20,13 @@ public class Location {
 	public Location(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	public Location(int x, int y, World world) {
+		this.x = x;
+		this.y = y;
+
+		this.world = world;
 	}
 
 	/**
@@ -66,6 +77,23 @@ public class Location {
 		this.onGround = onGround;
 	}
 
+	/**
+	 * Get the world.
+	 * 
+	 * @return
+	 */
+	public World getWorld() {
+		return world;
+	}
+
+	/**
+	 * Set the world.
+	 * @param world
+	 */
+	public void setWorld(World world) {
+		this.world = world;
+	}
+	
 	/**
 	 * Clone this location.
 	 */
