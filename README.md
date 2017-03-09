@@ -85,8 +85,8 @@ Entities are for example your player or an enemy. To create a custom entity star
 Entity classes have the option to use a sprite, althought not required be sure to remember using built in draw functions for entities use the sprite.
 
 ```java
-	public class MyPlayer extends LivingEntity {
-		public Player(int x, int y, int width, int height, int entityID, float health, double speed) {
+public class MyPlayer extends LivingEntity {
+	public Player(int x, int y, int width, int height, int entityID, float health, double speed) {
 		super(x, y, width, height, entityID, health, speed);
 	}
 
