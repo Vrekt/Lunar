@@ -1,4 +1,4 @@
-https://vrekt.github.io/Lunar/
+https://minz1.github.io/Lunar/
 
 
 # Getting Started!
@@ -304,7 +304,7 @@ Lets create a new SpriteManager with our character spritesheet.
 
 ```java
 private SpriteManager characters = new SpriteManager(
-			SpriteManager.load("C:\\Users\\Vrekt\\Desktop\\characters.png"));
+			SpriteManager.load("C:\\Users\\minz1\\Desktop\\characters.png"));
 ```
 
 Now we can start, lets create an animation for each direction.
