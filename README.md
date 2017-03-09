@@ -8,7 +8,7 @@ Lunar lunar = new Lunar();
 ```
 
 This class holds everything you will need for your game.
-Alternatively you can create a direct object for Game aswell as the SoundManager and AssetManager.
+Alternatively you can create a direct object for Game as well as the SoundManager and AssetManager.
 
 ```java
 Game game = new Game(title, width, height, tickRate);
@@ -43,7 +43,7 @@ gameState; this is not required when starting the game. Choosing to add this wil
 
 GameStates are the base of your game. Each GameState will hold two methods ` onTick(); ` and ` onDraw(Graphics graphics); `.
 In your gameState you may keep track of worlds, players and other entities.
-Heres an example:
+Here is an example:
 
 ```java
 public class MainState extends GameState {
@@ -82,7 +82,7 @@ public class MainState extends GameState {
 
 Entities are for example your player or an enemy. To create a custom entity start by extending ` LivingEntity `. LivingEntity indicates its 'living' and requires health/speed values.
 
-Entity classes have the option to use a sprite, althought not required be sure to remember using built in draw functions for entities use the sprite.
+Entity classes have the option to use a sprite, although not required be sure to remember using built in draw functions for entities use the sprite.
 
 ```java
 public class MyPlayer extends LivingEntity {
@@ -135,7 +135,7 @@ x, y - the position of the player.
 width, height - dimensions of the player.
 
 entityID - in each world entities are managed by their ID. Think of this as a unique number for each entity.
-If we have a player and a mob its up to you which ID theyre assigned.
+If we have a player and a mob its up to you which ID they're assigned.
 
 health - the health of the entity.
 speed - the speed of the entity.
@@ -229,7 +229,7 @@ Each class extending World can use many useful methods within the World class to
 These include:
 
 adding entities
-adding tiles, adding multile tiles at once in one method.
+adding tiles, adding multiple tiles at once in one method.
 drawing all entities and tiles
 getting an entity via their ID.
 and many more!
@@ -277,19 +277,19 @@ Lets store our tile:
 am.addTile(tile);
 ```
 
-AssetManager includes the ability to get a tile via ID aswell as remove and add tiles.
+AssetManager includes the ability to get a tile via ID as well as remove and add tiles.
 
 # RayTracing
 
 RayTracing can be used to find for example a wall or a certain tile.
-If we wanted to check if there is a solid tile infront of the player we can!
+If we wanted to check if there is a solid tile in front of the player we can!
 Start by making new instance of the RayTracing.
 
 ```java
 RayTracing rayTrace = new RayTracing();
 ```
 
-Now lets check if there are any solid blocks infront of us.
+Now lets check if there are any solid blocks in front of us.
 Our direction is RIGHT and lets go to a distance of 4.
 
 ```java
@@ -376,4 +376,4 @@ if (am.getCurrentPlayingAnimation() != null) {
 }
 ```
 
-And thats it! 
+And that's it! 
