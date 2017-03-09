@@ -1,16 +1,15 @@
 package me.vrekt.lunar;
 
-import java.awt.Graphics;
+import me.vrekt.lunar.input.InputListener;
+import me.vrekt.lunar.input.MouseInput;
+import me.vrekt.lunar.state.GameState;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-import javax.swing.JFrame;
-
-import me.vrekt.lunar.input.InputListener;
-import me.vrekt.lunar.input.MouseInput;
-import me.vrekt.lunar.state.GameState;
 
 public class Game implements Runnable {
 
@@ -29,21 +28,17 @@ public class Game implements Runnable {
 
 	/**
 	 * Initialize the project.
-	 * 
-	 * @param title
-	 * @param width
-	 * @param height
-	 * @param useStack
-	 *            if you have multiple GameStates that need updated every
-	 *            tick/draw.
-	 * @param tickRate
-	 *            how fast the game loop is.
+	 *
+	 * @param title    The string on the window's title bar.
+	 * @param width    Width of the window
+	 * @param height   Height of the window
+	 * @param tickRate Determines how fast the game loop is.
 	 */
 	public Game(String title, int width, int height, int tickRate) {
 		this.width = width;
 		this.height = height;
 
-		stack = new ArrayList<GameState>();
+		stack = new ArrayList<>();
 
 		this.ticks = tickRate;
 
@@ -60,29 +55,25 @@ public class Game implements Runnable {
 
 	/**
 	 * Initialize the project.
-	 * 
-	 * @param title
-	 * @param width
-	 * @param height
-	 * @param state
-	 * @param useStack
-	 *            if you have multiple GameStates that need updated every
-	 *            tick/draw.
-	 * @param tickRate
-	 *            how fast the game loop is.
+	 *
+	 * @param title    The string on the window's title bar.
+	 * @param width    Width of the window
+	 * @param state    A game state (if you have that)
+	 * @param height   Height of the window
+	 * @param tickRate Determines how fast the game loop is.
 	 */
 	public Game(String title, int width, int height, GameState state, int tickRate) {
 		this.width = width;
 		this.height = height;
 
-		stack = new ArrayList<GameState>();
+		stack = new ArrayList<>();
 		addToStack(state);
 
 		this.ticks = tickRate;
 
 		frame = new JFrame(title);
 		frame.setSize(width, height);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setFocusable(true);
@@ -176,9 +167,7 @@ public class Game implements Runnable {
 	 */
 
 	private void onTick() {
-
-		stack.forEach(state -> state.onTick());
-
+		stack.forEach(GameState::onTick);
 	}
 
 	/**
@@ -204,7 +193,7 @@ public class Game implements Runnable {
 
 	/**
 	 * Add a state to the stack.
-	 * 
+	 *
 	 * @param state
 	 */
 	public void addToStack(GameState state) {
@@ -229,8 +218,8 @@ public class Game implements Runnable {
 
 	/**
 	 * Remove the state from the stack.
-	 * 
-	 * @param state
+	 *
+	 * @param state the state that should be removed from the game stack.
 	 */
 	public void removeFromStack(GameState state) {
 		stack.remove(state);
