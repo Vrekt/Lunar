@@ -12,11 +12,6 @@ public class Lunar {
 
 	/**
 	 * Initialize the game.
-	 * 
-	 * @param title
-	 * @param width
-	 * @param height
-	 * @param tickRate
 	 */
 	public void initializeGame(String title, int width, int height, int tickRate) {
 		game = new Game(title, width, height, tickRate);
@@ -28,12 +23,6 @@ public class Lunar {
 
 	/**
 	 * Initialize the game.
-	 * 
-	 * @param title
-	 * @param width
-	 * @param height
-	 * @param state
-	 * @param tickRate
 	 */
 	public void initializeGame(String title, int width, int height, GameState state, int tickRate) {
 		game = new Game(title, width, height, state, tickRate);
@@ -44,27 +33,21 @@ public class Lunar {
 	}
 
 	/**
-	 * Get the game object.
-	 * 
-	 * @return game
+	 * Returns the game object of this instance of lunar.
 	 */
 	public Game getGame() {
 		return game;
 	}
 
 	/**
-	 * Get the soundManager.
-	 * 
-	 * @return soundManager
+	 * Returns the soundManager.
 	 */
 	public SoundManager getSoundManager() {
 		return soundManager;
 	}
 
 	/**
-	 * Get the assetManager
-	 * 
-	 * @return assetManager
+	 * Returns the assetManager
 	 */
 	public AssetManager getAssetManager() {
 		return assetManager;

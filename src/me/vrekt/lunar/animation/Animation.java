@@ -1,6 +1,6 @@
 package me.vrekt.lunar.animation;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Animation {
@@ -17,16 +17,14 @@ public class Animation {
 
 	/**
 	 * Initialize the animation.
-	 * 
+	 *
 	 * @param animations
 	 * @param perFrameDelay
 	 * @param loop
 	 */
 	public Animation(BufferedImage[] animations, int perFrameDelay, boolean loop) {
 		frames = new BufferedImage[animations.length];
-		for (int i = 0; i < frames.length; i++) {
-			frames[i] = animations[i];
-		}
+		System.arraycopy(animations, 0, frames, 0, frames.length);
 
 		currentFrame = 0;
 		frameCount = 0;
@@ -39,7 +37,7 @@ public class Animation {
 	/**
 	 * Initializes the Animation with an ID. Only use this if you're using the
 	 * AnimationManager.
-	 * 
+	 *
 	 * @param animations
 	 * @param perFrameDelay
 	 * @param loop
@@ -47,9 +45,7 @@ public class Animation {
 	 */
 	public Animation(BufferedImage[] animations, int perFrameDelay, boolean loop, int ID) {
 		frames = new BufferedImage[animations.length];
-		for (int i = 0; i < frames.length; i++) {
-			frames[i] = animations[i];
-		}
+		System.arraycopy(animations, 0, frames, 0, frames.length);
 
 		currentFrame = 0;
 		frameCount = 0;
@@ -77,7 +73,7 @@ public class Animation {
 	public void stopAnimation() {
 		currentFrame = 0;
 		frameCount = 0;
-		
+
 		running = false;
 	}
 
@@ -109,7 +105,7 @@ public class Animation {
 
 	/**
 	 * Get the current frame.
-	 * 
+	 *
 	 * @return
 	 */
 	public int getCurrentFrame() {
@@ -118,7 +114,7 @@ public class Animation {
 
 	/**
 	 * Check if the animation is running.
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isRunning() {
@@ -127,7 +123,7 @@ public class Animation {
 
 	/**
 	 * Get the ID.
-	 * 
+	 *
 	 * @return
 	 */
 	public int getID() {
@@ -136,7 +132,7 @@ public class Animation {
 
 	/**
 	 * Draw the current frame.
-	 * 
+	 *
 	 * @param graphics
 	 * @param x
 	 * @param y
@@ -147,7 +143,7 @@ public class Animation {
 
 	/**
 	 * Set if we should loop or not.
-	 * 
+	 *
 	 * @param loop
 	 */
 	public void setLoop(boolean loop) {

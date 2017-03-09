@@ -17,7 +17,7 @@ public interface RayTracer {
 	 * @param height
 	 * @return
 	 */
-	public Tile getNextSolidTile(World world, int x, int y, Direction dir, int width, int height);
+	Tile getNextSolidTile(World world, int x, int y, Direction dir, int width, int height);
 
 	/**
 	 * Get the next tile with the matching ID.
@@ -31,7 +31,7 @@ public interface RayTracer {
 	 * @param height
 	 * @return
 	 */
-	public Tile getNextTileWithID(World world, int x, int y, Direction dir, int ID, int width, int height);
+	Tile getNextTileWithID(World world, int x, int y, Direction dir, int ID, int width, int height);
 
 	/**
 	 * Get the next solid tile with a distance cap.
@@ -45,7 +45,7 @@ public interface RayTracer {
 	 * @param height
 	 * @return
 	 */
-	public Tile getNextSolidTile(World world, int x, int y, int distance, Direction dir, int width, int height);
+	Tile getNextSolidTile(World world, int x, int y, int distance, Direction dir, int width, int height);
 
 	/**
 	 * Get the next tile with the matching ID (Distance cap).
@@ -60,7 +60,7 @@ public interface RayTracer {
 	 * @param height
 	 * @return
 	 */
-	public Tile getNextTileWithID(World world, int x, int y, int distance, Direction dir, int ID, int width,
-			int height);
+	Tile getNextTileWithID(World world, int x, int y, int distance, Direction dir, int ID, int width,
+						   int height);
 
 }
