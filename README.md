@@ -1,6 +1,3 @@
-https://vrekt.github.io/Lunar/
-
-
 # Getting Started!
 To start you want to initialize the Lunar class.
 ```java
