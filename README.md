@@ -173,18 +173,14 @@ MouseInput has many useful methods, as documented here:
 
 ```java
 /**
- * Get the click coordinates.
- * 
- * @return
+ * Gets the click coordinates.
  */
 public static Point getLastClick() {
 	return lastClick;
 }
 
 /**
- * Returns if the mouse is down.
- * 
- * @return
+ * @return true of the mouse is down, false otherwise.
  */
 public static boolean isMouseDown() {
 	return isMouseDown;
@@ -193,8 +189,6 @@ public static boolean isMouseDown() {
 /**
  * Get the component the mouse entered. This can return null if the mouse
  * exited the component.
- * 
- * @return
  */
 public static Component getEnteredComponent() {
 	return enteredComponent;
