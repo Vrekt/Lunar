@@ -47,7 +47,7 @@ Here is an example:
 
 ```java
 public class MainState extends GameState {
-        private Player player;
+	private Player player;
 	private Level1 world;
 
 	public MainState(int priority) {
@@ -86,7 +86,7 @@ Entity classes have the option to use a sprite, although not required be sure to
 
 ```java
 public class MyPlayer extends LivingEntity {
-        public Player(int x, int y, int width, int height, int entityID, float health, double speed) {
+	public Player(int x, int y, int width, int height, int entityID, float health, double speed) {
 		super(x, y, width, height, entityID, health, speed);
 	}
 
@@ -172,33 +172,27 @@ InputListener.isKeyPressed(KeyEvent.KEY);
 MouseInput has many useful methods, as documented here:
 
 ```java
-         /**
-	 * Get the click coordinates.
-	 * 
-	 * @return
-	 */
-	public static Point getLastClick() {
-		return lastClick;
-	}
+/**
+ * Gets the click coordinates.
+ */
+public static Point getLastClick() {
+	return lastClick;
+}
 
-	/**
-	 * Returns if the mouse is down.
-	 * 
-	 * @return
-	 */
-	public static boolean isMouseDown() {
-		return isMouseDown;
-	}
+/**
+ * @return true of the mouse is down, false otherwise.
+ */
+public static boolean isMouseDown() {
+	return isMouseDown;
+}
 
-	/**
-	 * Get the component the mouse entered. This can return null if the mouse
-	 * exited the component.
-	 * 
-	 * @return
-	 */
-	public static Component getEnteredComponent() {
-		return enteredComponent;
-	}
+/**
+ * Get the component the mouse entered. This can return null if the mouse
+ * exited the component.
+ */
+public static Component getEnteredComponent() {
+	return enteredComponent;
+}
 ```
 
 # Worlds
@@ -212,8 +206,8 @@ public class MyWorld extends World {
 	public Level1(String name, int width, int height) {
 		super(name, width, height);
 	}
-	
-        @Override
+
+	@Override
 	public void onDraw(Graphics graphics) {
 
 	}
@@ -372,7 +366,7 @@ Now in our tick method we can update the animation.
 
 ```java
 if (am.getCurrentPlayingAnimation() != null) {
-			am.getCurrentPlayingAnimation().updateAnimation();
+	am.getCurrentPlayingAnimation().updateAnimation();
 }
 ```
 
