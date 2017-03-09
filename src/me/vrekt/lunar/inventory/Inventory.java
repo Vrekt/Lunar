@@ -69,7 +69,7 @@ public class Inventory {
 	 * @return
 	 */
 	public boolean hasEmptySlot() {
-		return inventory.stream().filter(slot -> !slot.hasItem()).findAny().isPresent();
+		return inventory.stream().anyMatch(slot -> !slot.hasItem());
 	}
 
 	/**
