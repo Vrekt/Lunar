@@ -1,6 +1,7 @@
 package me.vrekt.lunar.raytrace;
 
 import me.vrekt.lunar.tile.Tile;
+import me.vrekt.lunar.utilities.Utilities;
 import me.vrekt.lunar.world.World;
 import me.vrekt.lunar.world.dir.Direction;
 
@@ -15,15 +16,15 @@ public class RayTracing implements RayTracer {
 		boolean hasTile = false;
 		rayTraceRunning = true;
 
-		int roundedX = 0;
-		int roundedY = 0;
+		int roundedX;
+		int roundedY;
 
 		while (!hasTile && rayTraceRunning) {
 			x = dir == Direction.RIGHT ? x + width : dir == Direction.LEFT ? x - width : x;
 			y = dir == Direction.DOWN ? y + height : dir == Direction.UP ? y - height : y;
 
-			roundedX = roundToDimensions(x, width);
-			roundedY = roundToDimensions(y, height);
+			roundedX = Utilities.roundToDimensions(x, width);
+			roundedY = Utilities.roundToDimensions(y, height);
 
 			reference = world.getTileAt(roundedX, roundedY);
 			if (reference == null) {
@@ -46,15 +47,15 @@ public class RayTracing implements RayTracer {
 		boolean hasTile = false;
 		rayTraceRunning = true;
 
-		int roundedX = 0;
-		int roundedY = 0;
+		int roundedX;
+		int roundedY;
 
 		while (!hasTile && rayTraceRunning) {
 			x = dir == Direction.RIGHT ? x + width : dir == Direction.LEFT ? x - width : x;
 			y = dir == Direction.DOWN ? y + height : dir == Direction.UP ? y - height : y;
 
-			roundedX = roundToDimensions(x, width);
-			roundedY = roundToDimensions(y, height);
+			roundedX = Utilities.roundToDimensions(x, width);
+			roundedY = Utilities.roundToDimensions(y, height);
 
 			reference = world.getTileAt(roundedX, roundedY);
 			if (reference == null) {
@@ -79,16 +80,16 @@ public class RayTracing implements RayTracer {
 		boolean hasTile = false;
 		rayTraceRunning = true;
 
-		int roundedX = 0;
-		int roundedY = 0;
+		int roundedX;
+		int roundedY;
 
 		while (!hasTile && rayTraceRunning && distance > 0) {
 			x = dir == Direction.RIGHT ? x + width : dir == Direction.LEFT ? x - width : x;
 			y = dir == Direction.DOWN ? y + height : dir == Direction.UP ? y - height : y;
 			distance--;
 
-			roundedX = roundToDimensions(x, width);
-			roundedY = roundToDimensions(y, height);
+			roundedX = Utilities.roundToDimensions(x, width);
+			roundedY = Utilities.roundToDimensions(y, height);
 
 			reference = world.getTileAt(roundedX, roundedY);
 			if (reference == null) {
@@ -113,8 +114,8 @@ public class RayTracing implements RayTracer {
 		boolean hasTile = false;
 		rayTraceRunning = true;
 
-		int roundedX = 0;
-		int roundedY = 0;
+		int roundedX;
+		int roundedY;
 
 		while (!hasTile && rayTraceRunning && distance > 0) {
 			x = dir == Direction.RIGHT ? x + width : dir == Direction.LEFT ? x - width : x;
@@ -122,8 +123,8 @@ public class RayTracing implements RayTracer {
 
 			distance--;
 
-			roundedX = roundToDimensions(x, width);
-			roundedY = roundToDimensions(y, height);
+			roundedX = Utilities.roundToDimensions(x, width);
+			roundedY = Utilities.roundToDimensions(y, height);
 
 			reference = world.getTileAt(roundedX, roundedY);
 			if (reference == null) {
@@ -141,7 +142,7 @@ public class RayTracing implements RayTracer {
 
 	/**
 	 * Check if the rayTrace is running.
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isRayTraceRunning() {
@@ -153,17 +154,6 @@ public class RayTracing implements RayTracer {
 	 */
 	public void stopRayTrace() {
 		rayTraceRunning = false;
-	}
-
-	/**
-	 * Round.
-	 * 
-	 * @param value
-	 * @param f
-	 * @return
-	 */
-	private int roundToDimensions(int value, int f) {
-		return Math.round(value / f) * f;
 	}
 
 }

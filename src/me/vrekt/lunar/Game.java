@@ -148,14 +148,16 @@ public class Game implements Runnable {
      */
 
     private void onDraw() {
-        BufferStrategy frameStrat = frame.getBufferStrategy();
-        graphics = frameStrat.getDrawGraphics();
+        BufferStrategy frameStrategy = frame.getBufferStrategy();
+        graphics = frameStrategy.getDrawGraphics();
         graphics.clearRect(0, 0, width, height);
 
         stack.forEach(state -> state.onDraw(graphics));
 
         graphics.dispose();
-        frameStrat.show();
+        frameStrategy.show();
+
+        frameStrategy.dispose();
 
     }
 

@@ -207,14 +207,14 @@ public abstract class Entity {
      * @param world
      * @param facing
      * @param distance
-     * @return
+     * @return list of tiles representing what they can "see".
      */
     public List<Tile> getLineOfSight(World world, Direction facing, int distance) {
 
         int roundedX = 0, roundedY = 0;
-        Tile reference = null;
+        Tile reference;
 
-        List<Tile> list = new ArrayList<Tile>();
+        List<Tile> list = new ArrayList<>();
 
         while (distance != 0) {
 
