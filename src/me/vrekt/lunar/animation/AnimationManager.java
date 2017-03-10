@@ -75,7 +75,7 @@ public class AnimationManager {
 	/**
 	 * Start the animation, stops all other animations.
 	 *
-	 * @param animation
+	 * @param anim the animation
 	 */
 	public void startAnimation(Animation anim) {
 		if (anim.isRunning()) {
