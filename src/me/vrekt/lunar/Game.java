@@ -11,220 +11,214 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game implements Runnable {
+	private JFrame frame;
+	private int width, height, fps;
 
-    private JFrame frame;
-    private int width, height, fps;
+	private Thread thread;
+	private boolean running = true;
 
-    private Thread thread;
-    private boolean running = true;
+	private Graphics graphics;
 
-    private Graphics graphics;
+	private List<GameState> stack;
+	private int ticks = 0;
 
-    private List<GameState> stack;
-    private int ticks = 0;
+	/**
+	 * Initialize the project.
+	 *
+	 * @param title    The string on the window's title bar.
+	 * @param width    Width of the window
+	 * @param height   Height of the window
+	 * @param tickRate Determines how fast the game loop is.
+	 */
+	public Game(String title, int width, int height, int tickRate) {
+		this.width = width;
+		this.height = height;
 
-    /**
-     * Initialize the project.
-     *
-     * @param title    The string on the window's title bar.
-     * @param width    Width of the window
-     * @param height   Height of the window
-     * @param tickRate Determines how fast the game loop is.
-     */
-    public Game(String title, int width, int height, int tickRate) {
-        this.width = width;
-        this.height = height;
+		stack = new ArrayList<>();
 
-        stack = new ArrayList<>();
+		this.ticks = tickRate;
 
-        this.ticks = tickRate;
+		frame = new JFrame(title);
+		frame.setSize(width, height);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setFocusable(true);
 
-        frame = new JFrame(title);
-        frame.setSize(width, height);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setFocusable(true);
+		frame.addKeyListener(new InputListener());
+	}
 
-        frame.addKeyListener(new InputListener());
+	/**
+	 * Initialize the project.
+	 *
+	 * @param title    The string on the window's title bar.
+	 * @param width    Width of the window
+	 * @param state    A game state (if you have that)
+	 * @param height   Height of the window
+	 * @param tickRate Determines how fast the game loop is.
+	 */
+	public Game(String title, int width, int height, GameState state, int tickRate) {
+		this.width = width;
+		this.height = height;
 
-    }
+		stack = new ArrayList<>();
+		addToStack(state);
 
-    /**
-     * Initialize the project.
-     *
-     * @param title    The string on the window's title bar.
-     * @param width    Width of the window
-     * @param state    A game state (if you have that)
-     * @param height   Height of the window
-     * @param tickRate Determines how fast the game loop is.
-     */
-    public Game(String title, int width, int height, GameState state, int tickRate) {
-        this.width = width;
-        this.height = height;
+		this.ticks = tickRate;
 
-        stack = new ArrayList<>();
-        addToStack(state);
+		frame = new JFrame(title);
+		frame.setSize(width, height);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setFocusable(true);
 
-        this.ticks = tickRate;
+		frame.addKeyListener(new InputListener());
+		frame.addMouseListener(new MouseInput());
+	}
 
-        frame = new JFrame(title);
-        frame.setSize(width, height);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setFocusable(true);
+	/**
+	 * Start the thread.
+	 */
 
-        frame.addKeyListener(new InputListener());
-        frame.addMouseListener(new MouseInput());
+	public synchronized void start() {
+		frame.setVisible(true);
+		frame.createBufferStrategy(3);
 
-    }
+		running = true;
+		thread = new Thread(this);
+		thread.start();
+	}
 
-    /**
-     * Start the thread.
-     */
+	/**
+	 * Stop the thread.
+	 */
 
-    public synchronized void start() {
+	public synchronized void stop() {
+		running = false;
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
-        frame.setVisible(true);
-        frame.createBufferStrategy(3);
+	}
 
-        running = true;
-        thread = new Thread(this);
-        thread.start();
-    }
+	/**
+	 * The game-loop, handles drawing, updating, etc.
+	 */
 
-    /**
-     * Stop the thread.
-     */
+	@Override
+	public void run() {
+		long lastTime = System.nanoTime();
+		double ticksDelta = 1000000000 / ticks;
+		double d = 0;
 
-    public synchronized void stop() {
-        running = false;
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+		long now = System.currentTimeMillis();
+		int frCount = 0;
 
-    }
+		while (running) {
+			long current = System.nanoTime();
+			d += (current - lastTime) / ticksDelta;
+			lastTime = current;
+			while (d >= 1) {
+				onTick();
+				d--;
+			}
 
-    /**
-     * The game-loop, handles drawing, updating, etc.
-     */
+			onDraw();
+			frCount++;
 
-    @Override
-    public void run() {
-        long lastTime = System.nanoTime();
-        double ticksDelta = 1000000000 / ticks;
-        double d = 0;
+			if (System.currentTimeMillis() - now >= 1000) {
+				now += 1000;
+				fps = frCount;
+				frCount = 0;
+			}
 
-        long now = System.currentTimeMillis();
-        int frCount = 0;
+		}
+		stop();
+	}
 
-        while (running) {
-            long current = System.nanoTime();
-            d += (current - lastTime) / ticksDelta;
-            lastTime = current;
-            while (d >= 1) {
-                onTick();
-                d--;
-            }
+	/**
+	 * Draw all game objects.
+	 */
 
-            onDraw();
-            frCount++;
+	private void onDraw() {
+		BufferStrategy frameStrategy = frame.getBufferStrategy();
+		graphics = frameStrategy.getDrawGraphics();
+		graphics.clearRect(0, 0, width, height);
 
-            if (System.currentTimeMillis() - now >= 1000) {
-                now += 1000;
-                fps = frCount;
-                frCount = 0;
-            }
+		stack.forEach(state -> state.onDraw(graphics));
 
-        }
-        stop();
-    }
+		graphics.dispose();
+		frameStrategy.show();
 
-    /**
-     * Draw all game objects.
-     */
+		frameStrategy.dispose();
+	}
 
-    private void onDraw() {
-        BufferStrategy frameStrategy = frame.getBufferStrategy();
-        graphics = frameStrategy.getDrawGraphics();
-        graphics.clearRect(0, 0, width, height);
+	/**
+	 * Update all game objects.
+	 */
 
-        stack.forEach(state -> state.onDraw(graphics));
+	private void onTick() {
+		stack.forEach(GameState::onTick);
+	}
 
-        graphics.dispose();
-        frameStrategy.show();
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
 
-        frameStrategy.dispose();
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
 
-    }
+	/**
+	 * @return the FPS
+	 */
+	public int getFPS() {
+		return fps;
+	}
 
-    /**
-     * Update all game objects.
-     */
+	/**
+	 * Add a state to the stack.
+	 *
+	 * @param state
+	 */
+	public void addToStack(GameState state) {
+		stack.add(state);
+		stack.sort((state1, state2) -> {
 
-    private void onTick() {
-        stack.forEach(GameState::onTick);
-    }
+			if (state1.getPriority() < state2.getPriority()) {
+				return 1;
+			}
 
-    /**
-     * @return the width
-     */
-    public int getWidth() {
-        return width;
-    }
+			if (state1.getPriority() > state2.getPriority()) {
+				return -1;
+			}
 
-    /**
-     * @return the height
-     */
-    public int getHeight() {
-        return height;
-    }
+			return 0;
+		});
+	}
 
-    /**
-     * @return the FPS
-     */
-    public int getFPS() {
-        return fps;
-    }
+	/**
+	 * Remove the state from the stack.
+	 *
+	 * @param state the state that should be removed from the game stack.
+	 */
+	public void removeFromStack(GameState state) {
+		stack.remove(state);
+	}
 
-    /**
-     * Add a state to the stack.
-     *
-     * @param state
-     */
-    public void addToStack(GameState state) {
-        stack.add(state);
-        stack.sort((state1, state2) -> {
-
-            if (state1.getPriority() < state2.getPriority()) {
-                return 1;
-            }
-
-            if (state1.getPriority() > state2.getPriority()) {
-                return -1;
-            }
-
-            return 0;
-        });
-    }
-
-    /**
-     * Remove the state from the stack.
-     *
-     * @param state the state that should be removed from the game stack.
-     */
-    public void removeFromStack(GameState state) {
-        stack.remove(state);
-    }
-
-    /**
-     * Clear the stack.
-     */
-    public void clearStack() {
-        stack.clear();
-    }
-
+	/**
+	 * Clear the stack.
+	 */
+	public void clearStack() {
+		stack.clear();
+	}
 }

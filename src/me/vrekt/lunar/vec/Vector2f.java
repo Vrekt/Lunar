@@ -1,14 +1,14 @@
 package me.vrekt.lunar.vec;
 
+/**
+ * To be honest it isn't even a vector, it doesn't have direction or force. It's more like a utility to calculate points.
+ */
 public class Vector2f {
 
 	private int x, y;
 
 	/**
 	 * Initialize.
-	 * 
-	 * @param x
-	 * @param y
 	 */
 	public Vector2f(int x, int y) {
 		this.x = x;
@@ -17,35 +17,27 @@ public class Vector2f {
 
 	/**
 	 * Get the X.
-	 * 
-	 * @return
 	 */
 	public int getX() {
 		return x;
 	}
 
 	/**
-	 * Get the Y.
-	 * 
-	 * @return
-	 */
-	public int getY() {
-		return y;
-	}
-
-	/**
 	 * Set the X.
-	 * 
-	 * @param x
 	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
 	/**
+	 * Get the Y.
+	 */
+	public int getY() {
+		return y;
+	}
+
+	/**
 	 * Set the Y.
-	 * 
-	 * @param y
 	 */
 	public void setY(int y) {
 		this.y = y;
@@ -53,9 +45,6 @@ public class Vector2f {
 
 	/**
 	 * Add to this vector.
-	 * 
-	 * @param other
-	 * @return
 	 */
 	public Vector2f add(Vector2f other) {
 		return new Vector2f(x + other.getX(), y + other.getY());
@@ -63,9 +52,6 @@ public class Vector2f {
 
 	/**
 	 * Subtract this vector by another.
-	 * 
-	 * @param other
-	 * @return
 	 */
 	public Vector2f subtract(Vector2f other) {
 		return new Vector2f(x - other.getX(), y - other.getY());
@@ -73,9 +59,6 @@ public class Vector2f {
 
 	/**
 	 * Multiply this vector by another.
-	 * 
-	 * @param other
-	 * @return
 	 */
 	public Vector2f multiply(Vector2f other) {
 		return new Vector2f(x * other.getX(), y * other.getY());
@@ -83,9 +66,6 @@ public class Vector2f {
 
 	/**
 	 * Dive this vector by another.
-	 * 
-	 * @param other
-	 * @return
 	 */
 	public Vector2f divide(Vector2f other) {
 		return new Vector2f(x / other.getX(), y / other.getY());
@@ -93,9 +73,6 @@ public class Vector2f {
 
 	/**
 	 * Get the distance.
-	 * 
-	 * @param other
-	 * @return
 	 */
 	public double distance(Vector2f other) {
 		double dX = other.getX() - x;

@@ -1,6 +1,6 @@
 package me.vrekt.lunar.collision;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 public class BoundingBox {
 
@@ -9,11 +9,6 @@ public class BoundingBox {
 
 	/**
 	 * Initialize the boundingBox
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
 	 */
 	public BoundingBox(int x, int y, int width, int height) {
 		this.x = x;
@@ -22,16 +17,10 @@ public class BoundingBox {
 		this.height = height;
 
 		this.bounds = new Rectangle(x, y, width, height);
-
 	}
 
 	/**
 	 * Update the boundingBox.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
 	 */
 	public void update(int x, int y, int width, int height) {
 		this.x = x;
@@ -44,12 +33,8 @@ public class BoundingBox {
 
 	/**
 	 * Return if the current boundingBox intersects with another.
-	 * 
-	 * @param box
-	 * @return
 	 */
 	public boolean doesIntersect(BoundingBox box) {
 		return bounds.intersects(box.bounds);
 	}
-
 }

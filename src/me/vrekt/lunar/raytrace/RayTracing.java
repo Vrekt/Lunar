@@ -142,8 +142,6 @@ public class RayTracing implements RayTracer {
 
 	/**
 	 * Check if the rayTrace is running.
-	 *
-	 * @return
 	 */
 	public boolean isRayTraceRunning() {
 		return rayTraceRunning;

@@ -86,7 +86,6 @@ public abstract class World {
 			y = direction == Direction.DOWN ? y + height : direction == Direction.UP ? y - height : y;
 
 		}
-
 	}
 
 	/**

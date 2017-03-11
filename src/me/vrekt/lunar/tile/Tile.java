@@ -1,12 +1,11 @@
 package me.vrekt.lunar.tile;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
 import me.vrekt.lunar.collision.BoundingBox;
 
-public class Tile {
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
+public class Tile {
 	private BufferedImage texture;
 	private int width, height;
 
@@ -17,9 +16,6 @@ public class Tile {
 
 	/**
 	 * Initialize the tile.
-	 * 
-	 * @param ID
-	 * @param texture
 	 */
 	public Tile(BufferedImage texture, int ID, boolean isSolid) {
 		this.texture = texture;
@@ -33,11 +29,6 @@ public class Tile {
 
 	/**
 	 * Initialize the tile.
-	 * 
-	 * @param ID
-	 * @param texture
-	 * @param width
-	 * @param height
 	 */
 	public Tile(BufferedImage texture, int ID, int width, int height, boolean isSolid) {
 		this.texture = texture;
@@ -52,14 +43,6 @@ public class Tile {
 
 	/**
 	 * Initialize the Tile.
-	 * 
-	 * @param texture
-	 * @param ID
-	 * @param width
-	 * @param height
-	 * @param x
-	 * @param y
-	 * @param isSolid
 	 */
 	public Tile(BufferedImage texture, int ID, int width, int height, int x, int y, boolean isSolid) {
 		this.texture = texture;
@@ -76,13 +59,6 @@ public class Tile {
 
 	/**
 	 * Initialize the tile.
-	 * 
-	 * 
-	 * @param texture
-	 * @param x
-	 * @param y
-	 * @param isSolid
-	 * @param ID
 	 */
 	public Tile(BufferedImage texture, int x, int y, boolean isSolid, int ID) {
 		this.texture = texture;
@@ -99,8 +75,6 @@ public class Tile {
 
 	/**
 	 * Get the texture.
-	 * 
-	 * @return texture
 	 */
 	public BufferedImage getTexture() {
 		return texture;
@@ -108,8 +82,6 @@ public class Tile {
 
 	/**
 	 * Get the width
-	 * 
-	 * @return width
 	 */
 	public int getWidth() {
 		return width;
@@ -117,8 +89,6 @@ public class Tile {
 
 	/**
 	 * Get the height.
-	 * 
-	 * @return height
 	 */
 	public int getHeight() {
 		return height;
@@ -126,8 +96,6 @@ public class Tile {
 
 	/**
 	 * Get the ID.
-	 * 
-	 * @return
 	 */
 	public int getID() {
 		return ID;
@@ -135,8 +103,6 @@ public class Tile {
 
 	/**
 	 * Return if the tile is solid.
-	 * 
-	 * @return
 	 */
 	public boolean isSolid() {
 		return isSolid;
@@ -144,8 +110,6 @@ public class Tile {
 
 	/**
 	 * Set if the tile is solid or not.
-	 * 
-	 * @param isSolid
 	 */
 	public void setSolid(boolean isSolid) {
 		this.isSolid = isSolid;
@@ -153,35 +117,27 @@ public class Tile {
 
 	/**
 	 * Get the X.
-	 * 
-	 * @return
 	 */
 	public int getX() {
 		return x;
 	}
 
 	/**
-	 * Get the Y.
-	 * 
-	 * @return
-	 */
-	public int getY() {
-		return y;
-	}
-
-	/**
 	 * Set the X.
-	 * 
-	 * @param x
 	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
 	/**
+	 * Get the Y.
+	 */
+	public int getY() {
+		return y;
+	}
+
+	/**
 	 * Set the Y.
-	 * 
-	 * @param y
 	 */
 	public void setY(int y) {
 		this.y = y;
@@ -189,10 +145,6 @@ public class Tile {
 
 	/**
 	 * Draw the tile.
-	 * 
-	 * @param graphics
-	 * @param x
-	 * @param y
 	 */
 	public void drawTile(Graphics graphics, int x, int y) {
 		graphics.drawImage(texture, x, y, null);
@@ -200,10 +152,6 @@ public class Tile {
 
 	/**
 	 * Create a boundingBox that represents this tile.
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
 	 */
 	public BoundingBox createBounds(int cX, int cY) {
 		return new BoundingBox(cX, cY, width, height);
@@ -211,8 +159,6 @@ public class Tile {
 
 	/**
 	 * Create a boundingBox that represents this tile.
-	 * 
-	 * @return
 	 */
 	public BoundingBox createBounds() {
 		return new BoundingBox(x, y, width, height);

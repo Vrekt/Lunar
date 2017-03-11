@@ -1,5 +1,8 @@
 package me.vrekt.lunar.sprite;
 
+import me.vrekt.lunar.world.dir.Direction;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,10 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import javax.imageio.ImageIO;
-
-import me.vrekt.lunar.world.dir.Direction;
-
 public class SpriteManager {
 
 	private List<SpriteSheet> spriteSheets = new ArrayList<>();
@@ -19,8 +18,6 @@ public class SpriteManager {
 
 	/**
 	 * Initialize the spriteManager.
-	 * 
-	 * @param spriteSheet
 	 */
 	public SpriteManager(BufferedImage spriteSheet) {
 		this.spriteSheet = spriteSheet;
@@ -28,8 +25,6 @@ public class SpriteManager {
 
 	/**
 	 * Initializes the spriteManager with a SpriteSheet.
-	 * 
-	 * @param sheet
 	 */
 	public SpriteManager(SpriteSheet sheet) {
 		spriteSheets.add(sheet);
@@ -37,8 +32,6 @@ public class SpriteManager {
 
 	/**
 	 * Initializes the spriteManager with an array of SpriteSheets.
-	 * 
-	 * @param sheets
 	 */
 	public SpriteManager(SpriteSheet[] sheets) {
 		List<SpriteSheet> list = Arrays.asList(sheets);
@@ -47,8 +40,6 @@ public class SpriteManager {
 
 	/**
 	 * Initializes the spriteManager with a list of SpriteSheets.
-	 * 
-	 * @param sheets
 	 */
 	public SpriteManager(List<SpriteSheet> sheets) {
 		sheets.forEach(sheet -> spriteSheets.add(sheet));
@@ -56,9 +47,26 @@ public class SpriteManager {
 	}
 
 	/**
+	 * Return a section of the image.
+	 */
+	public static BufferedImage getSectionAt(BufferedImage image, int x, int y, int width, int height) {
+		return image.getSubimage(x, y, width, height);
+	}
+
+	/**
+	 * Load the spriteSheet.
+	 */
+	public static BufferedImage load(String path) {
+		try {
+			return ImageIO.read(new File(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
 	 * Get the sprite sheet.
-	 * 
-	 * @return
 	 */
 	public BufferedImage getSpriteSheet() {
 		return spriteSheet;
@@ -66,9 +74,6 @@ public class SpriteManager {
 
 	/**
 	 * Get a spriteSheet via ID.
-	 * 
-	 * @param ID
-	 * @return
 	 */
 	public SpriteSheet getSheet(int ID) {
 		Optional<SpriteSheet> stream = spriteSheets.stream().filter(sheet -> sheet.getID() == ID).findAny();
@@ -77,40 +82,13 @@ public class SpriteManager {
 
 	/**
 	 * Return an image from the section selected.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @return
 	 */
 	public BufferedImage getSectionAt(int x, int y, int width, int height) {
 		return spriteSheet.getSubimage(x, y, width, height);
 	}
 
 	/**
-	 * Return a section of the image.
-	 * 
-	 * @param image
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @return
-	 */
-	public static BufferedImage getSectionAt(BufferedImage image, int x, int y, int width, int height) {
-		return image.getSubimage(x, y, width, height);
-	}
-
-	/**
 	 * Return an image from one of the spriteSheets in the list.
-	 * 
-	 * @param ID
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @return
 	 */
 	public BufferedImage getSectionAt(int ID, int x, int y, int width, int height) {
 		BufferedImage i = getSheet(ID).getSheet();
@@ -119,18 +97,9 @@ public class SpriteManager {
 
 	/**
 	 * Returns an array of Images.
-	 * 
-	 * @param ID
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param direction
-	 * @param spriteCount
-	 * @return
 	 */
 	public BufferedImage[] getMultipleSprites(int ID, int x, int y, int width, int height, Direction direction,
-			int spriteCount) {
+											  int spriteCount) {
 		BufferedImage i = getSheet(ID).getSheet();
 
 		BufferedImage[] frames = new BufferedImage[spriteCount];
@@ -153,17 +122,9 @@ public class SpriteManager {
 	/**
 	 * Returns an array of Images for animations. Using this would be perfect
 	 * for getting multiple sequences of images for animations.
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param direction
-	 * @param spriteCount
-	 * @return
 	 */
 	public BufferedImage[] getMultipleSprites(int x, int y, int width, int height, Direction direction,
-			int spriteCount) {
+											  int spriteCount) {
 		BufferedImage[] frames = new BufferedImage[spriteCount];
 
 		int frameCount = 0;
@@ -179,20 +140,4 @@ public class SpriteManager {
 
 		return frames;
 	}
-
-	/**
-	 * Load the spriteSheet.
-	 * 
-	 * @param path
-	 * @return
-	 */
-	public static BufferedImage load(String path) {
-		try {
-			return ImageIO.read(new File(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 }

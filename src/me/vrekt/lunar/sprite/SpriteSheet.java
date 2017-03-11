@@ -9,9 +9,6 @@ public class SpriteSheet {
 
 	/**
 	 * Initialize the SpriteSheet
-	 * 
-	 * @param sheet
-	 * @param ID
 	 */
 	public SpriteSheet(BufferedImage sheet, int ID) {
 		this.sheet = sheet;
@@ -20,8 +17,6 @@ public class SpriteSheet {
 
 	/**
 	 * Get the sheet.
-	 * 
-	 * @return
 	 */
 	public BufferedImage getSheet() {
 		return sheet;
@@ -29,8 +24,6 @@ public class SpriteSheet {
 
 	/**
 	 * Get the ID.
-	 * 
-	 * @return
 	 */
 	public int getID() {
 		return ID;

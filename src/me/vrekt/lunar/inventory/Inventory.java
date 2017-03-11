@@ -1,10 +1,10 @@
 package me.vrekt.lunar.inventory;
 
+import me.vrekt.lunar.inventory.item.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import me.vrekt.lunar.inventory.item.Item;
 
 public class Inventory {
 
@@ -15,9 +15,6 @@ public class Inventory {
 
 	/**
 	 * Initialize the inventory.
-	 * 
-	 * @param name
-	 * @param size
 	 */
 	public Inventory(String name, int size) {
 		this.name = name;
@@ -26,8 +23,6 @@ public class Inventory {
 
 	/**
 	 * Get the contents.
-	 * 
-	 * @return
 	 */
 	public List<Slot> getInventory() {
 		return inventory;
@@ -35,8 +30,6 @@ public class Inventory {
 
 	/**
 	 * Get the inventory name.
-	 * 
-	 * @return
 	 */
 	public String getName() {
 		return name;
@@ -44,8 +37,6 @@ public class Inventory {
 
 	/**
 	 * Get the size.
-	 * 
-	 * @return
 	 */
 	public int getSize() {
 		return size;
@@ -53,9 +44,6 @@ public class Inventory {
 
 	/**
 	 * Get a slot with the item.
-	 * 
-	 * @param item
-	 * @return
 	 */
 	public Slot getSlotWithItem(Item item) {
 		Optional<Slot> stream = inventory.stream().filter(slot -> slot.getItem().getName().equals(item.getName()))
@@ -65,8 +53,6 @@ public class Inventory {
 
 	/**
 	 * Check if we have an empty slot.
-	 * 
-	 * @return
 	 */
 	public boolean hasEmptySlot() {
 		return inventory.stream().anyMatch(slot -> !slot.hasItem());
@@ -74,8 +60,6 @@ public class Inventory {
 
 	/**
 	 * Get an empty slot.
-	 * 
-	 * @return
 	 */
 	public Slot getEmptySlot() {
 		return inventory.stream().filter(slot -> !slot.hasItem()).findAny().get();
@@ -83,9 +67,6 @@ public class Inventory {
 
 	/**
 	 * Get a slot via ID.
-	 * 
-	 * @param ID
-	 * @return
 	 */
 	public Slot getViaID(int ID) {
 		Optional<Slot> stream = inventory.stream().filter(slot -> slot.getSlotID() == ID).findAny();
@@ -94,9 +75,6 @@ public class Inventory {
 
 	/**
 	 * Move the item to the slot.
-	 * @param item
-	 * @param original
-	 * @param moveTo
 	 */
 	public void moveItemToSlot(Item item, Slot original, Slot moveTo) {
 		original.setItem(null);
@@ -109,10 +87,6 @@ public class Inventory {
 
 	/**
 	 * Move the item to the slot.
-	 * 
-	 * @param item
-	 * @param original
-	 * @param moveTo
 	 */
 	public void moveItemToSlot(Item item, int original, int moveTo) {
 		Slot slot = getViaID(original);
@@ -129,12 +103,8 @@ public class Inventory {
 
 	/**
 	 * Add an item.
-	 * 
-	 * @param item
-	 * @return
 	 */
 	public boolean addItem(Item item) {
-
 		Slot slot = getSlotWithItem(item);
 		if (slot != null) {
 			Item si = slot.getItem();
@@ -142,7 +112,6 @@ public class Inventory {
 				si.giveAmount(item.getAmount());
 				slot.setItem(si);
 				return true;
-
 			} else {
 				if (!hasEmptySlot()) {
 					return false;
@@ -151,7 +120,6 @@ public class Inventory {
 				empty.setItem(item);
 				return true;
 			}
-
 		} else {
 			if (!hasEmptySlot()) {
 				return false;
@@ -160,7 +128,5 @@ public class Inventory {
 			empty.setItem(item);
 			return true;
 		}
-
 	}
-
 }

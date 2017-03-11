@@ -1,17 +1,8 @@
 package me.vrekt.lunar.sound;
 
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Sound implements LineListener {
 
@@ -23,11 +14,9 @@ public class Sound implements LineListener {
 
 	/**
 	 * Initialize the sound.
-	 * 
-	 * @param ID
-	 *            the ID.
-	 * @param audio
-	 *            the audio file.
+	 *
+	 * @param ID    The ID.
+	 * @param audio The audio file.
 	 */
 	public Sound(int ID, File audio) {
 		this.ID = ID;
@@ -36,8 +25,6 @@ public class Sound implements LineListener {
 
 	/**
 	 * Get the sound ID
-	 * 
-	 * @return the ID.
 	 */
 	public int getID() {
 		return ID;
@@ -45,8 +32,6 @@ public class Sound implements LineListener {
 
 	/**
 	 * Get the audio file.
-	 * 
-	 * @return the audio file.
 	 */
 	public File getAudio() {
 		return audio;
@@ -98,8 +83,6 @@ public class Sound implements LineListener {
 
 	/**
 	 * Get if we are playing.
-	 * 
-	 * @return
 	 */
 	public boolean isPlaying() {
 		return isPlaying;
@@ -113,7 +96,5 @@ public class Sound implements LineListener {
 			isPlaying = false;
 			clip.close();
 		}
-
 	}
-
 }

@@ -1,6 +1,6 @@
 package me.vrekt.lunar.state;
 
-import java.awt.Graphics;
+import java.awt.*;
 
 public abstract class GameState {
 
@@ -8,8 +8,6 @@ public abstract class GameState {
 
 	/**
 	 * Initializes the GameState.
-	 * 
-	 * @param priority
 	 */
 	public GameState(int priority) {
 		this.priority = priority;

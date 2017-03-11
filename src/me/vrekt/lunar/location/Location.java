@@ -37,6 +37,13 @@ public class Location {
 	}
 
 	/**
+	 * @param x the x to set
+	 */
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	/**
 	 * @return the y
 	 */
 	public int getY() {
@@ -44,16 +51,7 @@ public class Location {
 	}
 
 	/**
-	 * @param x
-	 *            the x to set
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	/**
-	 * @param y
-	 *            the y to set
+	 * @param y The y to set
 	 */
 	public void setY(int y) {
 		this.y = y;
@@ -61,8 +59,6 @@ public class Location {
 
 	/**
 	 * Return if we are on ground or not.
-	 * 
-	 * @return
 	 */
 	public boolean isOnGround() {
 		return onGround;
@@ -70,8 +66,6 @@ public class Location {
 
 	/**
 	 * Set if we are on ground or not.
-	 * 
-	 * @param onGround
 	 */
 	public void setOnGround(boolean onGround) {
 		this.onGround = onGround;
@@ -79,8 +73,6 @@ public class Location {
 
 	/**
 	 * Get the world.
-	 * 
-	 * @return
 	 */
 	public World getWorld() {
 		return world;
@@ -88,12 +80,11 @@ public class Location {
 
 	/**
 	 * Set the world.
-	 * @param world
 	 */
 	public void setWorld(World world) {
 		this.world = world;
 	}
-	
+
 	/**
 	 * Clone this location.
 	 */
@@ -103,9 +94,6 @@ public class Location {
 
 	/**
 	 * Get the distance between two points.
-	 * 
-	 * @param location
-	 * @return
 	 */
 	public double distance(Location location) {
 		double dX = location.getX() - x;
@@ -115,15 +103,10 @@ public class Location {
 
 	/**
 	 * Get the distance between two points.
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
 	 */
 	public double distance(int x, int y) {
 		double dX = x - this.x;
 		double dY = y - this.y;
 		return Math.sqrt(dX * dX + dY * dY);
 	}
-
 }

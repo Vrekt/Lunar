@@ -9,8 +9,6 @@ public class Slot {
 
 	/**
 	 * Initialize the Slot.
-	 * 
-	 * @param slotID
 	 */
 	public Slot(int slotID) {
 		this.slotID = slotID;
@@ -18,8 +16,6 @@ public class Slot {
 
 	/**
 	 * Get the slotID.
-	 * 
-	 * @return
 	 */
 	public int getSlotID() {
 		return slotID;
@@ -27,8 +23,6 @@ public class Slot {
 
 	/**
 	 * Get the item in the slot.
-	 * 
-	 * @return
 	 */
 	public Item getItem() {
 		return item;
@@ -36,8 +30,6 @@ public class Slot {
 
 	/**
 	 * Set the item.
-	 * 
-	 * @param item
 	 */
 	public void setItem(Item item) {
 		this.item = item;
@@ -45,11 +37,8 @@ public class Slot {
 
 	/**
 	 * Check if we have an item.
-	 * 
-	 * @return
 	 */
 	public boolean hasItem() {
 		return item != null && item.getAmount() > 0;
 	}
-
 }

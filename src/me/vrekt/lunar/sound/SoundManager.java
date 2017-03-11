@@ -11,9 +11,8 @@ public class SoundManager {
 
 	/**
 	 * Adds a sound.
-	 * 
-	 * @param sound
-	 *            the sound Object.
+	 *
+	 * @param sound The sound Object.
 	 */
 	public void addSound(Sound sound) {
 		gameSounds.add(sound);
@@ -21,11 +20,9 @@ public class SoundManager {
 
 	/**
 	 * Adds a sound.
-	 * 
-	 * @param ID
-	 *            the ID
-	 * @param file
-	 *            the audio file.
+	 *
+	 * @param ID   The ID
+	 * @param file The audio file.
 	 */
 	public void addSound(int ID, File file) {
 		gameSounds.add(new Sound(ID, file));
@@ -33,10 +30,8 @@ public class SoundManager {
 
 	/**
 	 * Gets a sound via ID.
-	 * 
-	 * @param ID
-	 *            the ID of the Sound.
-	 * @return
+	 *
+	 * @param ID The ID of the Sound.
 	 */
 	public Sound getSound(int ID) {
 		Optional<Sound> stream = gameSounds.stream().filter(sound -> sound.getID() == ID).findAny();
@@ -45,9 +40,8 @@ public class SoundManager {
 
 	/**
 	 * Removes a sound from the list.
-	 * 
-	 * @param ID
-	 *            the ID of the Sound.
+	 *
+	 * @param ID The ID of the Sound.
 	 */
 	public void removeSound(int ID) {
 		Sound s = getSound(ID);
@@ -58,8 +52,6 @@ public class SoundManager {
 
 	/**
 	 * Remove the sound.
-	 * 
-	 * @param sound
 	 */
 	public void removeSound(Sound sound) {
 		if (gameSounds.contains(sound)) {
@@ -69,9 +61,8 @@ public class SoundManager {
 
 	/**
 	 * Plays a sound with a clip.
-	 * 
-	 * @param sound
-	 *            the Sound object.
+	 *
+	 * @param sound The Sound object.
 	 */
 	public void playSound(Sound sound) {
 		sound.play();
@@ -79,8 +70,6 @@ public class SoundManager {
 
 	/**
 	 * Plays a sound with a clip.
-	 * 
-	 * @param ID
 	 */
 	public void playSound(int ID) {
 		getSound(ID).play();
@@ -88,9 +77,8 @@ public class SoundManager {
 
 	/**
 	 * Plays a sound with a clip. This does not support stopping.
-	 * 
-	 * @param file
-	 *            the audio file.
+	 *
+	 * @param file The audio file.
 	 */
 	public void playSound(File file) {
 		Sound sound = new Sound(0, file);
@@ -99,8 +87,6 @@ public class SoundManager {
 
 	/**
 	 * Stop playing the sound.
-	 * 
-	 * @param sound
 	 */
 	public void stopPlayingSound(Sound sound) {
 		sound.stop();
@@ -108,8 +94,6 @@ public class SoundManager {
 
 	/**
 	 * Stop playing the sound.
-	 * 
-	 * @param ID
 	 */
 	public void stopPlayingSound(int ID) {
 		getSound(ID).stop();

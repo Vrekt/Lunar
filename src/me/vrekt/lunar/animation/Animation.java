@@ -17,10 +17,6 @@ public class Animation {
 
 	/**
 	 * Initialize the animation.
-	 *
-	 * @param animations
-	 * @param perFrameDelay
-	 * @param loop
 	 */
 	public Animation(BufferedImage[] animations, int perFrameDelay, boolean loop) {
 		frames = new BufferedImage[animations.length];
@@ -35,13 +31,7 @@ public class Animation {
 	}
 
 	/**
-	 * Initializes the Animation with an ID. Only use this if you're using the
-	 * AnimationManager.
-	 *
-	 * @param animations
-	 * @param perFrameDelay
-	 * @param loop
-	 * @param ID
+	 * Initializes the Animation with an ID. Only use this if you're using the AnimationManager.
 	 */
 	public Animation(BufferedImage[] animations, int perFrameDelay, boolean loop, int ID) {
 		frames = new BufferedImage[animations.length];
@@ -96,17 +86,12 @@ public class Animation {
 						currentFrame--;
 					}
 				}
-
 			}
-
 		}
-
 	}
 
 	/**
 	 * Get the current frame.
-	 *
-	 * @return
 	 */
 	public int getCurrentFrame() {
 		return currentFrame;
@@ -114,8 +99,6 @@ public class Animation {
 
 	/**
 	 * Check if the animation is running.
-	 *
-	 * @return
 	 */
 	public boolean isRunning() {
 		return running;
@@ -123,8 +106,6 @@ public class Animation {
 
 	/**
 	 * Get the ID.
-	 *
-	 * @return
 	 */
 	public int getID() {
 		return ID;
@@ -132,10 +113,6 @@ public class Animation {
 
 	/**
 	 * Draw the current frame.
-	 *
-	 * @param graphics
-	 * @param x
-	 * @param y
 	 */
 	public void drawCurrentFrame(Graphics graphics, int x, int y) {
 		graphics.drawImage(frames[currentFrame], x, y, null);
@@ -143,11 +120,8 @@ public class Animation {
 
 	/**
 	 * Set if we should loop or not.
-	 *
-	 * @param loop
 	 */
 	public void setLoop(boolean loop) {
 		this.loop = loop;
 	}
-
 }

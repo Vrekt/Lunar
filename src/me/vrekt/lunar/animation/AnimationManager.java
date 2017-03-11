@@ -10,8 +10,6 @@ public class AnimationManager {
 
 	/**
 	 * Initialize the AnimationManager
-	 * 
-	 * @param animations
 	 */
 	public AnimationManager(Animation[] animations) {
 		animationInfo = Arrays.asList(animations);
@@ -20,8 +18,6 @@ public class AnimationManager {
 
 	/**
 	 * Initializes the AnimationManager
-	 * 
-	 * @param animations
 	 */
 	public AnimationManager(List<Animation> animations) {
 		animationInfo = animations;
@@ -29,8 +25,6 @@ public class AnimationManager {
 
 	/**
 	 * Get the animations.
-	 * 
-	 * @return
 	 */
 	public List<Animation> getAnimations() {
 		return animationInfo;
@@ -38,8 +32,6 @@ public class AnimationManager {
 
 	/**
 	 * Get the current playing Animation.
-	 * 
-	 * @return
 	 */
 	public Animation getCurrentPlayingAnimation() {
 		Optional<Animation> stream = animationInfo.stream().filter(animation -> animation.isRunning()).findAny();
@@ -48,9 +40,6 @@ public class AnimationManager {
 
 	/**
 	 * Get the animation via ID.
-	 * 
-	 * @param ID
-	 * @return
 	 */
 	public Animation getViaID(int ID) {
 		Optional<Animation> stream = animationInfo.stream().filter(anim -> anim.getID() == ID).findAny();
@@ -59,8 +48,6 @@ public class AnimationManager {
 
 	/**
 	 * Start the animation, stops all other animations.
-	 * 
-	 * @param ID
 	 */
 	public void startAnimation(int ID) {
 		Animation anim = getViaID(ID);
@@ -69,7 +56,6 @@ public class AnimationManager {
 		}
 		animationInfo.forEach(animation -> animation.stopAnimation());
 		anim.startAnimation();
-
 	}
 
 	/**
@@ -84,5 +70,4 @@ public class AnimationManager {
 		animationInfo.forEach(animation -> animation.stopAnimation());
 		anim.startAnimation();
 	}
-
 }

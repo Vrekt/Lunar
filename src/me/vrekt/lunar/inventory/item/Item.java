@@ -12,11 +12,6 @@ public class Item {
 
 	/**
 	 * Initialize the item.
-	 * 
-	 * @param name
-	 * @param texture
-	 * @param amount
-	 * @param maxAmount
 	 */
 	public Item(String name, BufferedImage texture, int amount, int maxAmount) {
 		this.name = name;
@@ -29,81 +24,69 @@ public class Item {
 
 	/**
 	 * Get the name.
-	 * 
-	 * @return
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Get the texture.
-	 * 
-	 * @return
-	 */
-	public BufferedImage getTexture() {
-		return texture;
-	}
-
-	/**
-	 * Get the amount.
-	 * 
-	 * @return
-	 */
-	public int getAmount() {
-		return amount;
-	}
-
-	/**
-	 * Get the max amount this item can carry.
-	 * 
-	 * @return
-	 */
-	public int getMaxAmount() {
-		return maxAmount;
-	}
-
-	/**
-	 * Return if we can carry more or not.
-	 * 
-	 * @param items
-	 * @return
-	 */
-	public boolean canCarry(int items) {
-		return amount + items < maxAmount;
-	}
-
-	/**
 	 * Set the name.
-	 * 
-	 * @param name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
+	 * Get the texture.
+	 */
+	public BufferedImage getTexture() {
+		return texture;
+	}
+
+	/**
 	 * Set the texture.
-	 * 
-	 * @param texture
 	 */
 	public void setTexture(BufferedImage texture) {
 		this.texture = texture;
 	}
 
 	/**
+	 * Get the amount.
+	 */
+	public int getAmount() {
+		return amount;
+	}
+
+	/**
 	 * Set the amount.
-	 * 
-	 * @param amount
 	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
 	/**
+	 * Get the max amount this item can carry.
+	 */
+	public int getMaxAmount() {
+		return maxAmount;
+	}
+
+	/**
+	 * Set the max amount.
+	 */
+	public void setMaxAmount(int maxAmount) {
+		this.maxAmount = maxAmount;
+	}
+
+	/**
+	 * Return if we can carry more or not.
+	 */
+	public boolean canCarry(int items) {
+		return amount + items < maxAmount;
+	}
+
+	/**
 	 * Give the item.
-	 * 
-	 * @param items
 	 */
 	public void giveAmount(int items) {
 		amount += items;
@@ -111,20 +94,8 @@ public class Item {
 
 	/**
 	 * Take the item.
-	 * 
-	 * @param items
 	 */
 	public void takeAmount(int items) {
 		amount -= items;
 	}
-
-	/**
-	 * Set the max amount.
-	 * 
-	 * @param maxAmount
-	 */
-	public void setMaxAmount(int maxAmount) {
-		this.maxAmount = maxAmount;
-	}
-
 }
