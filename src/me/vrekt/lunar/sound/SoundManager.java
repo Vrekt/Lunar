@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class SoundManager {
 
-	private List<Sound> gameSounds = new ArrayList<Sound>();
+	private List<Sound> gameSounds = new ArrayList<>();
 
 	/**
 	 * Adds a sound.

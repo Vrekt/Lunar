@@ -94,8 +94,9 @@ public class Inventory {
 
 	/**
 	 * Move the item to the slot.
-	 * 
-	 * @param slot
+	 * @param item
+	 * @param original
+	 * @param moveTo
 	 */
 	public void moveItemToSlot(Item item, Slot original, Slot moveTo) {
 		original.setItem(null);

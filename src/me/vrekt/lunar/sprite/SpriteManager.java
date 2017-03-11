@@ -14,7 +14,7 @@ import me.vrekt.lunar.world.dir.Direction;
 
 public class SpriteManager {
 
-	private List<SpriteSheet> spriteSheets = new ArrayList<SpriteSheet>();
+	private List<SpriteSheet> spriteSheets = new ArrayList<>();
 	private BufferedImage spriteSheet;
 
 	/**
@@ -53,7 +53,6 @@ public class SpriteManager {
 	public SpriteManager(List<SpriteSheet> sheets) {
 		sheets.forEach(sheet -> spriteSheets.add(sheet));
 		sheets.clear();
-		sheets = null;
 	}
 
 	/**
