@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class AssetManager {
 
-	private List<Tile> tiles = new ArrayList<Tile>();
+	private List<Tile> tiles = new ArrayList<>();
 
 	/**
 	 * Add a tile.
