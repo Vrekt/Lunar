@@ -78,7 +78,7 @@ public class Game implements Runnable {
 	}
 
 	/**
-	 * Start the thread.
+	 * Start the game thread.
 	 */
 
 	public synchronized void start() {
@@ -91,7 +91,7 @@ public class Game implements Runnable {
 	}
 
 	/**
-	 * Stop the thread.
+	 * Stop the game thread.
 	 */
 
 	public synchronized void stop() {
