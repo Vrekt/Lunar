@@ -109,4 +109,32 @@ public class Location {
 		double dY = y - this.y;
 		return Math.sqrt(dX * dX + dY * dY);
 	}
+
+	/**
+	 * Add to this location.
+	 */
+	public Location add(Location other) {
+		return new Location(x + other.getX(), y + other.getY());
+	}
+
+	/**
+	 * Subtract this location by another.
+	 */
+	public Location subtract(Location other) {
+		return new Location(x - other.getX(), y - other.getY());
+	}
+
+	/**
+	 * Multiply this location by another.
+	 */
+	public Location multiply(Location other) {
+		return new Location(x * other.getX(), y * other.getY());
+	}
+
+	/**
+	 * Divide this location by another.
+	 */
+	public Location divide(Location other) {
+		return new Location(x / other.getX(), y / other.getY());
+	}
 }

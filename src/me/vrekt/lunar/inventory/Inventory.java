@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class Inventory {
 
-	private List<Slot> inventory = new ArrayList<Slot>();
+	private List<Slot> inventory = new ArrayList<>();
 
 	private String name;
 	private int size;
