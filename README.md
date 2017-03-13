@@ -367,4 +367,18 @@ if (am.getCurrentPlayingAnimation() != null) {
 }
 ```
 
-And that's it! 
+# Using the Capture utility.
+
+The Capture class provides easy access to creating screenshots.
+To screenshot and save it simply use:
+
+```java
+Capture.screenshotAndSave(int width, int height, File saveTo, String imageType);
+```
+
+imageType indicates what type the image is, eg: bmp, png, etc.
+There is also methods for capturing parts of the window.
+
+```java
+Capture.screenshotPart(int x, int y, int width, int height);
+```
