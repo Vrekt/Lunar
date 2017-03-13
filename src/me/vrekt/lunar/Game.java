@@ -187,8 +187,6 @@ public class Game implements Runnable {
 
 	/**
 	 * Add a state to the stack.
-	 *
-	 * @param state
 	 */
 	public void addToStack(GameState state) {
 		stack.add(state);

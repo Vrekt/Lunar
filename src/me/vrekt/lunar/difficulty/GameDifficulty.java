@@ -1,8 +1,8 @@
 package me.vrekt.lunar.difficulty;
 
 public enum GameDifficulty {
-	EASY,
-	MEDIUM,
-	HARD,
-	EXTREME
+    EASY,
+    MEDIUM,
+    HARD,
+    EXTREME
 }

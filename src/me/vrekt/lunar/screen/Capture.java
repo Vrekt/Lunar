@@ -9,8 +9,6 @@ import java.io.IOException;
 public class Capture {
 
     /**
-     * @param width
-     * @param height
      * @return Image of the screenshot.
      */
     public static BufferedImage screenshot(int width, int height) {
@@ -29,11 +27,6 @@ public class Capture {
 
     /**
      * Save the screenshot.
-     *
-     * @param width
-     * @param height
-     * @param saveTo
-     * @param imageType
      */
     public static void screenshotAndSave(int width, int height, File saveTo, String imageType) {
         Rectangle r = new Rectangle(0, 0, width, height);
@@ -49,11 +42,6 @@ public class Capture {
 
     /**
      * Save the screenshot.
-     *
-     * @param width
-     * @param height
-     * @param saveTo
-     * @param imageType
      */
     public static void screenshotAndSave(int width, int height, String saveTo, String imageType) {
         screenshotAndSave(width, height, new File(saveTo), imageType);
@@ -61,11 +49,6 @@ public class Capture {
 
     /**
      * Take a screenshot from the X and Y.
-     *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
      * @return Image of the screenshot.
      */
     public static BufferedImage screenshotPart(int x, int y, int width, int height) {
@@ -84,13 +67,6 @@ public class Capture {
 
     /**
      * Take a screenshot from the X and Y and save it.
-     *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param saveTo
-     * @param imageType
      */
     public static void screenshotPartAndSave(int x, int y, int width, int height, File saveTo, String imageType) {
         Rectangle r = new Rectangle(x, y, width, height);
@@ -105,13 +81,6 @@ public class Capture {
 
     /**
      * Take a screenshot from the X and Y and save it.
-     *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param saveTo
-     * @param imageType
      */
     public static void screenshotPartAndSave(int x, int y, int width, int height, String saveTo, String imageType) {
         screenshotPartAndSave(x, y, width, height, new File(saveTo), imageType);
