@@ -4,8 +4,9 @@ import me.vrekt.lunar.input.InputListener;
 import me.vrekt.lunar.input.MouseInput;
 import me.vrekt.lunar.state.GameState;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;

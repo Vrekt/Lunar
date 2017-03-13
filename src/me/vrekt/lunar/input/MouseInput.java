@@ -1,6 +1,7 @@
 package me.vrekt.lunar.input;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 

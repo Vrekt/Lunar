@@ -1,6 +1,6 @@
 package me.vrekt.lunar.state;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 public abstract class GameState {
 
