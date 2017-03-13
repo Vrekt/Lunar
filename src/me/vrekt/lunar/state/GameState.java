@@ -4,21 +4,26 @@ import java.awt.*;
 
 public abstract class GameState {
 
-	private int priority = 0;
+    private int priority = 0;
 
-	/**
-	 * Initializes the GameState.
-	 */
-	public GameState(int priority) {
-		this.priority = priority;
-	}
+    /**
+     * Initializes the GameState.
+     */
+    public GameState(int priority) {
+        this.priority = priority;
+    }
 
-	public abstract void onDraw(Graphics graphics);
+    public abstract void onDraw(Graphics graphics);
 
-	public abstract void onTick();
+    public abstract void onTick();
 
-	public int getPriority() {
-		return priority;
-	}
+    /**
+     * Get the priority.
+     *
+     * @return priority.
+     */
+    public int getPriority() {
+        return priority;
+    }
 
 }
