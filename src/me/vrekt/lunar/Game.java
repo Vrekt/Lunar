@@ -154,7 +154,6 @@ public class Game implements Runnable {
 		graphics.dispose();
 		frameStrategy.show();
 
-		frameStrategy.dispose();
 	}
 
 	/**
