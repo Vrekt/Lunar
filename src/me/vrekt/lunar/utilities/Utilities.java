@@ -4,7 +4,7 @@ public class Utilities {
 	/**
 	 * Round.
 	 */
-	public static int roundToDimensions(int value, int f) {
-		return Math.round(value / f) * f;
+	public static int roundToDimensions(int value, int nearestValue) {
+		return Math.round(value / nearestValue) * nearestValue;
 	}
 }

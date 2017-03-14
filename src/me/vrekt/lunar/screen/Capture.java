@@ -29,15 +29,12 @@ public class Capture {
      * Save the screenshot.
      */
     public static void screenshotAndSave(int width, int height, File saveTo, String imageType) {
-        Rectangle r = new Rectangle(0, 0, width, height);
-
+        BufferedImage image = screenshot(width, height);
         try {
-            Robot robot = new Robot();
-            ImageIO.write(robot.createScreenCapture(r), imageType, saveTo);
-        } catch (AWTException | IOException e) {
+            ImageIO.write(image, imageType, saveTo);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -49,6 +46,7 @@ public class Capture {
 
     /**
      * Take a screenshot from the X and Y.
+     *
      * @return Image of the screenshot.
      */
     public static BufferedImage screenshotPart(int x, int y, int width, int height) {
@@ -69,12 +67,10 @@ public class Capture {
      * Take a screenshot from the X and Y and save it.
      */
     public static void screenshotPartAndSave(int x, int y, int width, int height, File saveTo, String imageType) {
-        Rectangle r = new Rectangle(x, y, width, height);
-
+        BufferedImage image = screenshotPart(x, y, width, height);
         try {
-            Robot robot = new Robot();
-            ImageIO.write(robot.createScreenCapture(r), imageType, saveTo);
-        } catch (AWTException | IOException e) {
+            ImageIO.write(image, imageType, saveTo);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -37,7 +37,7 @@ public class AnimationManager {
         Optional<Animation> stream = animationInfo.stream().filter(animation -> animation.isRunning()).findAny();
         return stream.isPresent() ? stream.get() : null;
     }
-    
+
     /**
      * Get the animation via ID.
      */
