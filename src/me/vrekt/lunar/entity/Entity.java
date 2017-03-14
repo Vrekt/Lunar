@@ -170,6 +170,9 @@ public abstract class Entity {
         return texture;
     }
 
+    /**
+     * Set the texture
+     */
     public void setTexture(BufferedImage newTexture) {
         texture = newTexture;
     }
