@@ -58,17 +58,9 @@ public abstract class Entity {
      * Initialize the entity.
      */
     public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID) {
-        this.x = x;
-        this.y = y;
-
-        this.width = width;
-        this.height = height;
-        this.entityID = entityID;
-        this.location = new Location(x, y);
+        this(x, y, width, height, entityID);
 
         this.texture = texture;
-
-        boundingBox = new BoundingBox(x, y, width, height);
 
     }
 
@@ -76,17 +68,10 @@ public abstract class Entity {
      * Initialize the entity.
      */
     public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID, BoundingBox bb) {
-        this.x = x;
-        this.y = y;
-
-        this.width = width;
-        this.height = height;
-        this.entityID = entityID;
-        this.location = new Location(x, y);
+        this(x, y, width, height, entityID, bb);
 
         this.texture = texture;
 
-        boundingBox = bb;
     }
 
     public abstract void drawEntity(Graphics graphics);
