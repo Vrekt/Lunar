@@ -37,56 +37,7 @@ public class AnimationManager {
         Optional<Animation> stream = animationInfo.stream().filter(animation -> animation.isRunning()).findAny();
         return stream.isPresent() ? stream.get() : null;
     }
-
-    public static int[] sort(int a[]) {
-
-
-        int array[] = a.clone();
-        int itemToInsert, j;
-
-        boolean keepGoing;
-
-//On kth pass, insert item k into its correct position among the first k items in the array
-
-        for (int r = 1; r < array.length; r++) {
-
-//Go backwards through the list, looking for the slot to insert a[k]
-
-            itemToInsert = array[r];
-            j = r--;
-
-
-            keepGoing = true;
-
-            while ((j >= 0) && keepGoing)
-
-            {
-
-                if (itemToInsert < array[j])
-
-                {
-
-                    array[j + 1] = array[j]; //Salient feature
-
-                    j--;
-
-                    if (j == -1) //special case for inserting an item at [0]
-
-                        array[0] = itemToInsert;
-
-                } else //Upon leaving loop, j + 1 is the index where itemToInsert belongs
-                {
-
-                    keepGoing = false;
-                    array[j + 1] = itemToInsert;
-
-                }
-            }
-        }
-        return array;
-    }
-
-
+    
     /**
      * Get the animation via ID.
      */
