@@ -58,17 +58,9 @@ public abstract class Entity {
      * Initialize the entity.
      */
     public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID) {
-        this.x = x;
-        this.y = y;
-
-        this.width = width;
-        this.height = height;
-        this.entityID = entityID;
-        this.location = new Location(x, y);
+        this(x, y, width, height, entityID);
 
         this.texture = texture;
-
-        boundingBox = new BoundingBox(x, y, width, height);
 
     }
 
@@ -76,17 +68,10 @@ public abstract class Entity {
      * Initialize the entity.
      */
     public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID, BoundingBox bb) {
-        this.x = x;
-        this.y = y;
-
-        this.width = width;
-        this.height = height;
-        this.entityID = entityID;
-        this.location = new Location(x, y);
+        this(x, y, width, height, entityID, bb);
 
         this.texture = texture;
 
-        boundingBox = bb;
     }
 
     public abstract void drawEntity(Graphics graphics);
@@ -122,6 +107,20 @@ public abstract class Entity {
     }
 
     /**
+     * Set x
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * Set y
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
      * Get the width of the entity.
      */
     public int getWidth() {
@@ -154,6 +153,13 @@ public abstract class Entity {
      */
     public BufferedImage getTexture() {
         return texture;
+    }
+
+    /**
+     * Set the texture
+     */
+    public void setTexture(BufferedImage newTexture) {
+        texture = newTexture;
     }
 
     /**

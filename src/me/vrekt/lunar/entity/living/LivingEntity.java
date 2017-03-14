@@ -39,7 +39,7 @@ public abstract class LivingEntity extends Entity {
 	/**
 	 * Sets the health to this value.
 	 */
-	public void setHealth(int health) {
+	public void setHealth(float health) {
 		this.health = health;
 	}
 
@@ -53,7 +53,7 @@ public abstract class LivingEntity extends Entity {
 	/**
 	 * @param speed to set
 	 */
-	public void setSpeed(int speed) {
+	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
 
@@ -67,22 +67,29 @@ public abstract class LivingEntity extends Entity {
 	/**
 	 * Damage the entity
 	 */
-	public void damageEntity(int amount) {
+	public void damageEntity(float amount) {
 		health = health - amount < 0 ? 0 : health - amount;
 	}
 
 	/**
 	 * Slow the entity
 	 */
-	public void slow(int amount) {
+	public void slow(double amount) {
 		speed -= amount;
 	}
 
 	/**
 	 * Increase the speed of the entity
 	 */
-	public void speed(int amount) {
+	public void speed(double amount) {
 		speed += amount;
+	}
+
+	/**
+	 * Scale the speed by the given amount
+	 */
+	public void scaleSpeed(double amount) {
+		speed *= amount;
 	}
 
 }
