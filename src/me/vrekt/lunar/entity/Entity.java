@@ -122,6 +122,20 @@ public abstract class Entity {
     }
 
     /**
+     * Set x
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * Set y
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
      * Get the width of the entity.
      */
     public int getWidth() {
@@ -154,6 +168,10 @@ public abstract class Entity {
      */
     public BufferedImage getTexture() {
         return texture;
+    }
+
+    public void setTexture(BufferedImage newTexture) {
+        texture = newTexture;
     }
 
     /**
