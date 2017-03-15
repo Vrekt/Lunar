@@ -83,7 +83,7 @@ Entity classes have the option to use a sprite, although not required be sure to
 
 ```java
 public class MyPlayer extends LivingEntity {
-	public Player(int x, int y, int width, int height, int entityID, float health, double speed) {
+	public MyPlayer(int x, int y, int width, int height, int entityID, float health, double speed) {
 		super(x, y, width, height, entityID, health, speed);
 	}
 
