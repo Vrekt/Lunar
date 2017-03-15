@@ -42,14 +42,7 @@ public abstract class Entity {
      * Initialize the entity.
      */
     public Entity(int x, int y, int width, int height, int entityID, BoundingBox bb) {
-        this.x = x;
-        this.y = y;
-
-        this.width = width;
-        this.height = height;
-        this.entityID = entityID;
-        this.location = new Location(x, y);
-
+        this(x, y, width, height, entityID);
         boundingBox = bb;
 
     }
@@ -195,4 +188,5 @@ public abstract class Entity {
         }
         return list;
     }
+
 }
