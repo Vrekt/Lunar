@@ -14,6 +14,7 @@ public void onDrawEvent(DrawEvent event) {
 - Updates and fixes to the Inventory system, I did it quickly and its not great but not horrible.
 - Maybe make entity x and y doubles? (would cause trouble with drawing and lots of other stuff)
 - Update and revise the tutorial
+- Networking system in which the client and server could communicate via TCP. (No client trust for multiplayer games)
 
 # Issues
 No major issues known yet.
