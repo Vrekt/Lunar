@@ -1,3 +1,16 @@
+# About Lunar
+
+This engine is good for:
+- creating casual 2D games.
+- create some sort of prototype fast.
+- hobby developers, etc!
+
+Not good for:
+- 3D games, mobile, games with lots of physics
+
+# Tutorial
+
+
 # Getting Started!
 To start you want to initialize the Lunar class.
 ```java
@@ -83,7 +96,7 @@ Entity classes have the option to use a sprite, although not required be sure to
 
 ```java
 public class MyPlayer extends LivingEntity {
-	public Player(int x, int y, int width, int height, int entityID, float health, double speed) {
+	public MyPlayer(int x, int y, int width, int height, int entityID, float health, double speed) {
 		super(x, y, width, height, entityID, health, speed);
 	}
 
