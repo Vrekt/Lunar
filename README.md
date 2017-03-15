@@ -1,3 +1,16 @@
+# About Lunar
+
+This engine is good for:
+- creating casual 2D games.
+- create some sort of prototype fast.
+- hobby developers, etc!
+
+Not good for:
+- 3D games, mobile, games with lots of physics
+
+# Tutorial
+
+
 # Getting Started!
 To start you want to initialize the Lunar class.
 ```java
