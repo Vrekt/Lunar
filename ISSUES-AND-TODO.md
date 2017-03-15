@@ -15,6 +15,7 @@ public void onDrawEvent(DrawEvent event) {
 - Maybe make entity x and y doubles? (would cause trouble with drawing and lots of other stuff)
 - Update and revise the tutorial
 - Networking system in which the client and server could communicate via TCP. (No client trust for multiplayer games)
+- 2D physics and particles.
 
 # Issues
 No major issues known yet.
