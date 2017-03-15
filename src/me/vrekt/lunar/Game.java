@@ -7,6 +7,8 @@ import me.vrekt.lunar.state.GameState;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.Graphics;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
@@ -218,5 +220,53 @@ public class Game implements Runnable {
 	 */
 	public void clearStack() {
 		stack.clear();
+	}
+
+	/**
+	 * Add a key listener
+	 */
+	public void addKeyListener(KeyListener listener) {
+		frame.addKeyListener(listener);
+	}
+
+	/**
+	 * Clear all key listeners
+	 */
+	public void clearKeyListeners() {
+		KeyListener[] listeners = frame.getKeyListeners();
+		for (KeyListener listener : listeners) {
+		    removeKeyListener(listener);
+		}
+	}
+
+	/**
+	 * Remove the given key listener
+	 */
+	public void removeKeyListener(KeyListener listener) {
+		frame.removeKeyListener(listener);
+	}
+
+	/**
+	 * Add a mouse listener
+	 */
+	public void addMouseListener(MouseListener listener) {
+		frame.addMouseListener(listener);
+	}
+
+	/**
+	 * Clear all mouse listeners
+	 */
+	public void clearMouseListeners() {
+		MouseListener[] listeners = frame.getMouseListeners();
+		for (MouseListener listener : listeners) {
+			removeMouseListener(listener);
+		}
+	}
+
+	/**
+	 * Remove the given mouse listener
+	 */
+	public void removeMouseListener(MouseListener listener) {
+		frame.removeMouseListener(listener);
 	}
 }
