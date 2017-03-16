@@ -16,6 +16,7 @@ public void onDrawEvent(DrawEvent event) {
 - Update and revise the tutorial
 - Networking system in which the client and server could communicate via TCP. (No client trust for multiplayer games)
 - 2D physics and particles.
+- Improve world and tile, I feel im missing something and lots of things could be added.
 
 # Issues
 No major issues known yet.
