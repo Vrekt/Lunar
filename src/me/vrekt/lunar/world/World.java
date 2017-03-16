@@ -102,8 +102,7 @@ public abstract class World {
      * Get an entity by ID.
      */
     public final Entity getEntity(int entityID) {
-        Optional<Entity> stream = worldEntities.stream().filter(entity -> entity.getEntityID() == entityID).findAny();
-        return stream.isPresent() ? stream.get() : null;
+        return worldEntities.stream().filter(entity -> entity.getEntityID() == entityID).findAny().orElse(null);
     }
 
     /**
@@ -141,7 +140,7 @@ public abstract class World {
      * Get the entity at the X and Y.
      */
     public final Entity getEntityAt(int x, int y) {
-        return worldEntities.stream().filter(entity -> entity.getX() == x && entity.getY() == y).findAny().get();
+        return worldEntities.stream().filter(entity -> entity.getX() == x && entity.getY() == y).findAny().orElse(null);
     }
 
     /**

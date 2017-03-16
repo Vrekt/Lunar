@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public class SpriteManager {
 
@@ -77,8 +76,7 @@ public class SpriteManager {
      * Get a spriteSheet via ID.
      */
     public SpriteSheet getSheet(int ID) {
-        Optional<SpriteSheet> stream = spriteSheets.stream().filter(sheet -> sheet.getID() == ID).findAny();
-        return stream.isPresent() ? stream.get() : null;
+        return spriteSheets.stream().filter(sheet -> sheet.getID() == ID).findAny().orElse(null);
     }
 
     /**

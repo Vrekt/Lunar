@@ -3,7 +3,6 @@ package me.vrekt.lunar.sound;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class SoundManager {
 
@@ -34,8 +33,7 @@ public class SoundManager {
      * @param ID The ID of the Sound.
      */
     public Sound getSound(int ID) {
-        Optional<Sound> stream = gameSounds.stream().filter(sound -> sound.getID() == ID).findAny();
-        return stream.isPresent() ? stream.get() : null;
+        return gameSounds.stream().filter(sound -> sound.getID() == ID).findAny().orElse(null);
     }
 
     /**
