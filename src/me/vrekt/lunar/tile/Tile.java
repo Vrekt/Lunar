@@ -9,6 +9,7 @@ public class Tile {
     private BufferedImage texture;
     private int width, height;
 
+    private boolean isVisible = true;
     private boolean isSolid = false;
     private int ID;
 
@@ -30,8 +31,22 @@ public class Tile {
     /**
      * Initialize the tile.
      */
-    public Tile(BufferedImage texture, int ID, int width, int height, boolean isSolid) {
-        this(texture, ID, isSolid);
+    public Tile(BufferedImage texture, int ID, boolean isSolid, boolean isVisible) {
+        this.texture = texture;
+
+        this.width = texture.getWidth();
+        this.height = texture.getHeight();
+
+        this.isVisible = isVisible;
+        this.isSolid = isSolid;
+        this.ID = ID;
+    }
+
+    /**
+     * Initialize the tile.
+     */
+    public Tile(BufferedImage texture, int ID, int width, int height, boolean isSolid, boolean isVisible) {
+        this(texture, ID, isSolid, isVisible);
 
         this.width = width;
         this.height = height;
@@ -41,8 +56,8 @@ public class Tile {
     /**
      * Initialize the Tile.
      */
-    public Tile(BufferedImage texture, int ID, int width, int height, int x, int y, boolean isSolid) {
-        this(texture, ID, width, height, isSolid);
+    public Tile(BufferedImage texture, int ID, int width, int height, int x, int y, boolean isSolid, boolean isVisible) {
+        this(texture, ID, width, height, isSolid, isVisible);
 
         this.x = x;
         this.y = y;
@@ -52,8 +67,8 @@ public class Tile {
     /**
      * Initialize the tile.
      */
-    public Tile(BufferedImage texture, int x, int y, boolean isSolid, int ID) {
-        this(texture, ID, isSolid);
+    public Tile(BufferedImage texture, int x, int y, boolean isSolid, boolean isVisible, int ID) {
+        this(texture, ID, isSolid, isVisible);
 
         this.x = x;
         this.y = y;
@@ -131,6 +146,20 @@ public class Tile {
     }
 
     /**
+     * @return if the tile is visible or not.
+     */
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    /**
+     * Set if the tile is visible or not.
+     */
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
+    /**
      * Draw the tile.
      */
     public void drawTile(Graphics graphics, int x, int y) {
@@ -150,5 +179,6 @@ public class Tile {
     public BoundingBox createBounds() {
         return new BoundingBox(x, y, width, height);
     }
+
 
 }
