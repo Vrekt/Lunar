@@ -230,7 +230,7 @@ public class Game implements Runnable {
 	}
 
 	/**
-	 * Clear all key listeners
+	 * Clear all key listeners. Please note this method will also remove the default listeners.
 	 */
 	public void clearKeyListeners() {
 		KeyListener[] listeners = frame.getKeyListeners();
