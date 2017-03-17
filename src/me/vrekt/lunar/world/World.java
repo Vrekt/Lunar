@@ -14,7 +14,8 @@ public abstract class World {
     protected final List<Entity> worldEntities = new ArrayList<>();
     protected String name;
 
-    protected int width, height;
+    protected int width, height, tileWidth, tileHeight;
+    private WorldGrid grid;
 
     /**
      * Initialize the world.
@@ -27,6 +28,44 @@ public abstract class World {
         this.name = name;
         this.width = width;
         this.height = height;
+    }
+
+    /**
+     * Initialize the world. Use this constructor for grids.
+     *
+     * @param name       Name of the world
+     * @param width      Width of the world
+     * @param height     Height of the world
+     * @param tileWidth  the width of the tiles.
+     * @param tileHeight the height of the tiles.
+     */
+    public World(String name, int width, int height, int tileWidth, int tileHeight) {
+        this.name = name;
+        this.width = width;
+        this.height = height;
+
+        this.tileHeight = tileHeight;
+        this.tileWidth = tileWidth;
+
+        this.grid = new WorldGrid(width, height, tileWidth, tileHeight);
+
+    }
+
+    /**
+     * Initialize the world. Use this constructor for grids.
+     *
+     * @param name   Name of the world.
+     * @param width  Width of the world.
+     * @param height Height of the world.
+     * @param grid   the WorldGrid
+     */
+    public World(String name, int width, int height, WorldGrid grid) {
+        this.name = name;
+        this.width = width;
+        this.height = height;
+
+        this.grid = grid;
+
     }
 
     /**
@@ -173,6 +212,22 @@ public abstract class World {
      */
     public final int getHeight() {
         return height;
+    }
+
+    /**
+     * @return the world grid.
+     */
+    public WorldGrid getGrid() {
+        return grid;
+    }
+
+    /**
+     * Set the world grid.
+     *
+     * @param grid the world grid.
+     */
+    public void setGrid(WorldGrid grid) {
+        this.grid = grid;
     }
 
     /**
