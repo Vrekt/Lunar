@@ -40,8 +40,8 @@ public class WorldGrid {
     public List<Rectangle> generateGrid() {
         List<Rectangle> list = new ArrayList<>();
 
-        for (int x = 0; x < width; x += tileWidth) {
-            for (int y = 0; y < height; y += tileHeight) {
+        for (int x = 0; x <= width; x += tileWidth) {
+            for (int y = 0; y <= height; y += tileHeight) {
                 list.add(new Rectangle(x, y, tileWidth, tileHeight));
             }
         }
