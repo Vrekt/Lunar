@@ -20,12 +20,12 @@ import java.util.List;
 public class RayCast {
     public class RayCastResult {
         private boolean collided;
-        private Location collidedLocation;
+        private Location location;
         private Tile collidedTile;
 
         public RayCastResult(Tile t, Location l, boolean c) {
             collidedTile = t;
-            collidedLocation = l;
+            location = l;
             collided = c;
         }
 
@@ -43,7 +43,7 @@ public class RayCast {
          * @return
          */
         public Location getLocation() {
-            return collidedLocation;
+            return location;
         }
 
         /**
@@ -58,7 +58,7 @@ public class RayCast {
         @Override
         public String toString() {
             return String.format("RayCastResult[collided: %b, location: (%d, %d), tile: %s]",
-                    collided, collidedLocation.getX(), collidedLocation.getY(), collidedTile == null ? "null" : collidedTile.toString());
+                    collided, location.getX(), location.getY(), collidedTile == null ? "null" : collidedTile.toString());
         }
     }
 

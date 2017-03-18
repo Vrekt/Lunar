@@ -2,6 +2,7 @@ package me.vrekt.lunar.world;
 
 import me.vrekt.lunar.entity.Entity;
 import me.vrekt.lunar.location.Location;
+import me.vrekt.lunar.raycast.RayCast;
 import me.vrekt.lunar.tile.Tile;
 import me.vrekt.lunar.world.dir.Direction;
 
@@ -242,6 +243,20 @@ public abstract class World {
      */
     public void setGrid(WorldGrid grid) {
         this.grid = grid;
+    }
+
+    /**
+     * Perform a ray cast from (originX, originY) in the direction of (dirX, dirY) for the given distance.
+     */
+    public RayCast.RayCastResult rayCast(int x, int y, int dirX, int dirY, float distance) {
+        return new RayCast(this).doRayCast(x, y, dirX, dirY, distance);
+    }
+
+    /**
+     * Perform a ray cast from (originX, originY) to (targetX, targetY).
+     */
+    public RayCast.RayCastResult rayCast(int x, int y, int targetX, int targetY) {
+        return new RayCast(this).doRayCast(x, y, targetX, targetY);
     }
 
     /**
