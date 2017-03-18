@@ -1,5 +1,6 @@
 package me.vrekt.lunar.location;
 
+import me.vrekt.lunar.utilities.Utilities;
 import me.vrekt.lunar.world.World;
 
 public class Location {
@@ -145,5 +146,80 @@ public class Location {
      */
     public Location divide(Location other) {
         return new Location(x / other.getX(), y / other.getY());
+    }
+
+    /**
+     * Add value to x and y of this location.
+     */
+    public Location scalarAdd(int value) {
+        return new Location(x + value, y + value);
+    }
+
+    /**
+     * Subtract value from x and y of this location.
+     */
+    public Location scalarSub(int value) {
+        return new Location(x - value, y - value);
+    }
+
+    /**
+     * Subtract x and y from value.
+     */
+    public Location scalarPreSub(int value) {
+        return new Location(value - x, value - y);
+    }
+
+    /**
+     * Multiply x and y by value
+     */
+    public Location scalarMultiply(int value) {
+        return new Location(x * value, y * value);
+    }
+
+    /**
+     * Divide x and y by value
+     */
+    public Location scalarDivide(int value) {
+        return new Location(x / value, y / value);
+    }
+
+    /**
+     * Divide value by x and y
+     */
+    public Location scalarPreDivide(int value) {
+        return new Location(value / x, value / y);
+    }
+
+    /**
+     * Set this location as the lerp from one location to another location by step t. See Utilites#lerp.
+     *
+     * NOTE: This modifies this location
+     */
+    public Location lerpSelf(Location from, Location to, double t) {
+        Location lerped = Utilities.lerp(from, to, t);
+        this.setX(lerped.getX());
+        this.setY(lerped.getY());
+
+        return this;
+    }
+    /**
+     * Lerp this location to another location by step t. See Utilites#lerp.
+     *
+     * NOTE: This modifies this location
+     */
+    public Location lerpSelf(Location to, double t) {
+        Location lerped = Utilities.lerp(this, to, t);
+        this.setX(lerped.getX());
+        this.setY(lerped.getY());
+
+        return this;
+    }
+
+    /**
+     * Lerp from this location to another by t, returns a new Location object, does not
+     * modify this location.
+     */
+    public Location lerp(Location to, double t) {
+        return Utilities.lerp(this, to, t);
     }
 }

@@ -1,5 +1,7 @@
 package me.vrekt.lunar.utilities;
 
+import me.vrekt.lunar.location.Location;
+
 public class Utilities {
 	/**
 	 * Round.
@@ -29,5 +31,32 @@ public class Utilities {
      */
     public static double clamp(double value, double lower, double upper) {
         return Math.max(Math.min(value, upper), lower);
+    }
+
+    /**
+     * Linearly interpolate between (xi, yi) and (xf, yf) at time t. t should be incremented, and
+     * should satisfy 0 <= t <= 1.
+     */
+    public static Location lerp(int xi, int yi, int xf, int yf, double t) {
+        t = t % 1.0;
+        return new Location(xi + (int)((xf - xi) * t), yi + (int)((yf - yi) * t));
+    }
+
+    /**
+     * Linearly interpolate between (xi, yi) and (xf, yf) at time t. t should be incremented, and
+     * should satisfy 0 <= t <= 1.
+     */
+    public static Location lerp(Location a, Location b, double t) {
+        t = t % 1.0;
+        return new Location(a.getX() + (int)((b.getX() - a.getX()) * t), a.getY() + (int)((b.getY() - a.getY()) * t));
+    }
+
+    /**
+     * Linearly interpolate between a and b at time t. t should be incremented, and
+     * should be satisfy 0 <= t <= 1.
+     */
+    public static double lerp(double a, double b, double t) {
+        t = t % 1.0;
+        return a + (b - a) * t;
     }
 }
