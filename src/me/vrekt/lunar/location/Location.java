@@ -222,4 +222,12 @@ public class Location {
     public Location lerp(Location to, double t) {
         return Utilities.lerp(this, to, t);
     }
+
+
+    /**
+     * Lerp from one location to another with progress t. See Utilites#lerp
+     */
+    public static Location lerp(Location from, Location to, double t) {
+        return Utilities.lerp(from, to , t);
+    }
 }
