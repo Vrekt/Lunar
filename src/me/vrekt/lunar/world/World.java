@@ -13,6 +13,8 @@ import java.util.List;
 public abstract class World {
     protected final Map<Location, Tile> worldInfo = new HashMap<>();
     protected final List<Entity> worldEntities = new ArrayList<>();
+    protected final List<Entity> worldEntitiesAdd = new ArrayList<>();
+    protected final List<Entity> worldEntitiesRemove = new ArrayList<>();
     protected String name;
 
     protected int width, height, tileWidth, tileHeight, worldAnchorX, worldAnchorY;
@@ -90,6 +92,38 @@ public abstract class World {
      */
     public final void removeEntity(Entity entity) {
         worldEntities.remove(entity);
+    }
+
+    /**
+     * Add the entity to the list for removal. Will be removed at the beginning
+     * of the next world tick.
+     */
+    public void queueEntityForRemoval(Entity entity) {
+        worldEntitiesRemove.add(entity);
+    }
+
+    /**
+     * Add the entity to the list for addition. Will be added at the beginning
+     * of the next world tick.
+     */
+    public void queueEntityForAdd(Entity entity) {
+        worldEntitiesAdd.add(entity);
+    }
+
+    /**
+     * Remove all entities in the removal list from the world.
+     */
+    public void removeQueuedEntities() {
+        worldEntitiesRemove.forEach(this::removeEntity);
+        worldEntitiesRemove.clear();
+    }
+
+    /**
+     * Add all entities in the add list to the world.
+     */
+    public void addQueuedEntities() {
+        worldEntitiesAdd.forEach(this::addEntity);
+        worldEntitiesAdd.clear();
     }
 
     /**
@@ -342,5 +376,8 @@ public abstract class World {
     /**
      * Gets executed when the world ticks
      */
-    public abstract void onTick();
+    public void onTick() {
+        removeQueuedEntities();
+        addQueuedEntities();
+    }
 }
