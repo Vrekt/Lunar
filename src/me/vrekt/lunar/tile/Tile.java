@@ -18,6 +18,17 @@ public class Tile {
     /**
      * Initialize the tile.
      */
+    public Tile(BufferedImage texture, int ID) {
+        this.texture = texture;
+
+        this.width = texture.getWidth();
+        this.height = texture.getHeight();
+        this.ID = ID;
+    }
+
+    /**
+     * Initialize the tile.
+     */
     public Tile(BufferedImage texture, int ID, boolean isSolid) {
         this.texture = texture;
 

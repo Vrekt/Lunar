@@ -13,6 +13,14 @@ public class Location {
     /**
      * Initialize the location.
      */
+    public Location(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Initialize the location.
+     */
     public Location(int x, int y, boolean onGround) {
         this.x = x;
         this.y = y;
@@ -24,18 +32,20 @@ public class Location {
     /**
      * Initialize the location.
      */
-    public Location(int x, int y) {
+    public Location(int x, int y, World world) {
         this.x = x;
         this.y = y;
+
+        this.world = world;
     }
 
     /**
      * Initialize the location.
      */
-    public Location(int x, int y, World world) {
+    public Location(int x, int y, World world, boolean onGround) {
         this.x = x;
         this.y = y;
-
+        this.onGround = onGround;
         this.world = world;
     }
 
@@ -192,7 +202,7 @@ public class Location {
 
     /**
      * Set this location as the lerp from one location to another location by step t. See Utilites#lerp.
-     *
+     * <p>
      * NOTE: This modifies this location
      */
     public Location lerpSelf(Location from, Location to, double t) {
@@ -202,9 +212,10 @@ public class Location {
 
         return this;
     }
+
     /**
      * Lerp this location to another location by step t. See Utilites#lerp.
-     *
+     * <p>
      * NOTE: This modifies this location
      */
     public Location lerpSelf(Location to, double t) {
@@ -228,6 +239,6 @@ public class Location {
      * Lerp from one location to another with progress t. See Utilites#lerp
      */
     public static Location lerp(Location from, Location to, double t) {
-        return Utilities.lerp(from, to , t);
+        return Utilities.lerp(from, to, t);
     }
 }

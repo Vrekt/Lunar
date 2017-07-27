@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public abstract class GameState {
 
-    private int priority = 0;
+    protected int priority = 0;
 
     /**
      * Initializes the GameState.

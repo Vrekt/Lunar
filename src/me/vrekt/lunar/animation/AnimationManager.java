@@ -12,7 +12,6 @@ public class AnimationManager {
      */
     public AnimationManager(Animation[] animations) {
         animationInfo = Arrays.asList(animations);
-
     }
 
     /**

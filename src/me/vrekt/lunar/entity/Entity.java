@@ -158,7 +158,7 @@ public abstract class Entity {
     /**
      * Get the entities line of sight.
      *
-     * @return List of tiles representing what they can "see".
+     * @return List of tiles representing what the entity can "see".
      */
     public List<Tile> getLineOfSight(World world, Direction facing, int distance) {
 

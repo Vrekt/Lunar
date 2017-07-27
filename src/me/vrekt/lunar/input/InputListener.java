@@ -26,6 +26,5 @@ public class InputListener implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent event) {
-
 	}
 }
