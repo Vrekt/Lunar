@@ -2,7 +2,6 @@ package me.vrekt.lunar.animation;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public class AnimationManager {
 
@@ -34,8 +33,7 @@ public class AnimationManager {
      * Get the current playing Animation.
      */
     public Animation getCurrentPlayingAnimation() {
-        Optional<Animation> stream = animationInfo.stream().filter(animation -> animation.isRunning()).findAny();
-        return stream.isPresent() ? stream.get() : null;
+        return animationInfo.stream().filter(animation -> animation.isRunning()).findAny().orElse(null);
     }
 
     /**
@@ -43,8 +41,7 @@ public class AnimationManager {
      */
 
     public Animation getViaID(int ID) {
-        Optional<Animation> stream = animationInfo.stream().filter(anim -> anim.getID() == ID).findAny();
-        return stream.isPresent() ? stream.get() : null;
+        return animationInfo.stream().filter(anim -> anim.getID() == ID).findAny().orElse(null);
     }
 
     /**
