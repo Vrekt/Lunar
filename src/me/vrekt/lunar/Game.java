@@ -24,7 +24,8 @@ public class Game implements Runnable {
     private Graphics graphics;
 
     private List<GameState> stack;
-    private int ticks = 0;
+    private int maxTPS = 0; // The maximum tick rate
+    private int maxFPS = 0; // The maximum frame rate
 
     /**
      * Initialize the project.
@@ -40,7 +41,7 @@ public class Game implements Runnable {
 
         stack = new ArrayList<>();
 
-        this.ticks = tickRate;
+        this.maxTPS = tickRate;
 
         frame = new JFrame(title);
         frame.setSize(width, height);
@@ -69,7 +70,7 @@ public class Game implements Runnable {
         stack = new ArrayList<>();
         addToStack(state);
 
-        this.ticks = tickRate;
+        this.maxTPS = tickRate;
 
         frame = new JFrame(title);
         frame.setSize(width, height);
@@ -97,7 +98,7 @@ public class Game implements Runnable {
 
         stack = new ArrayList<>();
 
-        this.ticks = tickRate;
+        maxTPS = tickRate;
 
         frame = new JFrame(title);
         frame.setSize(width, height);
@@ -121,13 +122,13 @@ public class Game implements Runnable {
      * @param tickRate Determines how fast the game loop is.
      */
     public Game(String title, int width, int height, FramePreferences pref, GameState state, int tickRate) {
-        this.width = width;
+    	this.width = width;
         this.height = height;
 
         stack = new ArrayList<>();
         addToStack(state);
 
-        this.ticks = tickRate;
+        maxTPS = tickRate;
 
         frame = new JFrame(title);
         frame.setSize(width, height);
@@ -174,29 +175,40 @@ public class Game implements Runnable {
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        double ticksDelta = 1000000000 / ticks;
+        
+        double maxTickDelta = 1000000000 / maxTPS;
         double d = 0;
-
+        
         long now = System.currentTimeMillis();
-        int frCount = 0;
+        int frameCount = 0;
 
         while (running) {
             long current = System.nanoTime();
-            d += (current - lastTime) / ticksDelta;
-            lastTime = current;
+            
+            // Ticking
+            
+            d += (current - lastTime) / maxTickDelta;
             while (d >= 1) {
                 onTick();
                 d--;
             }
+            
+            // Drawing
 
-            onDraw();
-            frCount++;
+            if (frameCount < maxFPS || maxFPS == 0) {
+            	onDraw();
+                frameCount++;
+            }
 
+            // Updating FPS count
+            
             if (System.currentTimeMillis() - now >= 1000) {
                 now += 1000;
-                fps = frCount;
-                frCount = 0;
+                fps = frameCount;
+                frameCount = 0;
             }
+            
+            lastTime = current;
 
         }
         stop();
@@ -244,6 +256,14 @@ public class Game implements Runnable {
         return height;
     }
 
+    /**
+     * Limits the maximum FPS.
+     * Set to 0 for unlimited FPS.
+     */
+    public void setMaxFPS(int frames) {
+    	this.maxFPS = frames;
+    }
+    
     /**
      * @return the FPS
      */
