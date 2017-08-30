@@ -68,23 +68,9 @@ public class Game implements Runnable {
      * @param tickRate Determines how fast the game loop is.
      */
     public Game(String title, int width, int height, GameState state, int tickRate) {
-        this.width = width;
-        this.height = height;
-
-        stack = new ArrayList<>();
+        this(title, width, height, tickRate);
+        
         addToStack(state);
-
-        this.maxTPS = tickRate;
-
-        frame = new JFrame(title);
-        frame.setSize(width, height);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setFocusable(true);
-
-        frame.addKeyListener(new InputListener());
-        frame.addMouseListener(new MouseInput());
     }
 
     /**
