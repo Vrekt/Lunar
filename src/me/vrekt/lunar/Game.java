@@ -7,6 +7,8 @@ import me.vrekt.lunar.window.FramePreferences;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -26,6 +28,8 @@ public class Game implements Runnable {
     private List<GameState> stack;
     private int maxTPS = 0; // The maximum tick rate
     private int maxFPS = 0; // The maximum frame rate
+    
+    private boolean showFPS = false;
 
     /**
      * Initialize the project.
@@ -226,8 +230,13 @@ public class Game implements Runnable {
         }
         graphics = frameStrategy.getDrawGraphics();
         graphics.clearRect(0, 0, width, height);
-
+        
         stack.forEach(state -> state.onDraw(graphics));
+
+        if (showFPS) {
+        	graphics.setColor(Color.GRAY);
+        	graphics.drawString(Integer.toString(fps) + " fps", 20, 20);
+        }
 
         graphics.dispose();
         frameStrategy.show();
@@ -256,6 +265,14 @@ public class Game implements Runnable {
         return height;
     }
 
+    /**
+     * Shows or hides the current FPS.
+     * Mainly for debugging purposes.
+     */
+    public void setFPSVisibility(boolean showFPS) {
+    	this.showFPS = showFPS;
+    }
+    
     /**
      * Limits the maximum FPS.
      * Set to 0 for unlimited FPS.
