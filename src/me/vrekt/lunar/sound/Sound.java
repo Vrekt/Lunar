@@ -10,8 +10,17 @@ public class Sound implements LineListener {
 	private File audio;
 
 	private Clip clip;
-	private boolean isPlaying;
-
+	
+	/**
+	 * Initialize the sound.
+	 *
+	 * @param ID    The ID.
+	 * @param audioPath The audio file's path.
+	 */
+	public Sound(int ID, String audioPath) {
+		this(ID, new File(audioPath));
+	}
+	
 	/**
 	 * Initialize the sound.
 	 *
@@ -34,39 +43,66 @@ public class Sound implements LineListener {
 	 * Get the audio file.
 	 */
 	public File getAudio() {
-		return audio;
+	        return audio;
 	}
 
 	public Clip getClip() {
 		return clip;
 	}
-
+	
+	/**
+	 * This method is called automatically by play().
+	 * The only reason for an end user to call load()
+	 * is if they wish to provide custom error handling for
+	 * any of the exceptions that play() would otherwise log to the console.
+	 * 
+	 * Note: this method opens the Clip object that this object holds, so trying to call load()
+	 * on another Sound object using the same file path while this object's isLoaded() returns
+	 * true may cause problems.
+	 * @throws UnsupportedAudioFileException
+	 * @throws IOException
+	 * @throws LineUnavailableException 
+	 */
+	public void load() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+	    AudioInputStream stream = AudioSystem.getAudioInputStream(audio);
+	    AudioFormat format = stream.getFormat();
+	    
+	    DataLine.Info fi = new DataLine.Info(Clip.class, format);
+	    this.clip = (Clip) AudioSystem.getLine(fi);
+	    clip.addLineListener(this);
+	    clip.open(stream);
+	}
+	
+	/**
+	 * If providing custom exception handling
+	 * for load(), call unload() after an exception has been caught.
+	 * Otherwise, there is no reason for an end user to call this method, as
+	 * it is called automatically by stop().
+	 * @return A boolean indicating whether or not the operation was successful.
+	 */
+	public boolean unload() {
+	    if (this.isPlaying()) { // Can't unload mid-playback
+		 return false;
+	    }
+	    if (clip != null) {
+	          clip = null;
+	    }
+	    return true;
+	}
+	
 	/**
 	 * Play the audio.
 	 */
 	public void play() {
 		try {
-			isPlaying = true;
-			AudioInputStream stream = AudioSystem.getAudioInputStream(audio);
-			AudioFormat format = stream.getFormat();
-
-			DataLine.Info fi = new DataLine.Info(Clip.class, format);
-			Clip clip = (Clip) AudioSystem.getLine(fi);
-			this.clip = clip;
-
-			clip.addLineListener(this);
-			clip.open(stream);
+		      if (!isLoaded()) {
+			   load();
+		      }
 			clip.start();
-
-		} catch (UnsupportedAudioFileException e) {
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
 			System.out.println("ERROR PLAYING SOUND. /n");
 			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("ERROR PLAYING SOUND. /n");
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			System.out.println("ERROR PLAYING SOUND. /n");
-			e.printStackTrace();
+			this.stop();
 		}
 	}
 
@@ -74,18 +110,40 @@ public class Sound implements LineListener {
 	 * Stop playing the audio.
 	 */
 	public void stop() {
-		if (isPlaying) {
-			clip.stop();
-			clip.close();
-			isPlaying = false;
-		}
+	    if (clip != null) {
+		 if (clip.isOpen()) {
+		     clip.close();
+		 }
+		 if (clip.isRunning()) {
+		     clip.stop();
+		 }
+		 this.unload();
+	    }   
 	}
 
 	/**
 	 * Get if we are playing.
 	 */
 	public boolean isPlaying() {
-		return isPlaying;
+		if (clip != null) {
+		    return clip.isRunning();
+		}
+		else {
+		    return false;
+		}
+	}
+	
+	/**
+	 * Returns true after load() has been called but before stop() has been called.
+	 * @return Whether or not this object has loaded its resources.
+	 */
+	public boolean isLoaded() {
+		if (clip != null) {
+		    return clip.isOpen();
+		}
+		else {
+		    return false;
+		}
 	}
 
 	@Override
@@ -93,7 +151,6 @@ public class Sound implements LineListener {
 		LineEvent.Type type = event.getType();
 
 		if (type == LineEvent.Type.STOP) {
-			isPlaying = false;
 			clip.close();
 		}
 	}
