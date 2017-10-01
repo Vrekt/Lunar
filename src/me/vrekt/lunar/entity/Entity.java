@@ -23,7 +23,12 @@ public abstract class Entity {
     protected BufferedImage texture;
 
     /**
-     * Initialize the entity.
+     * Initialize the entity; this is the primary constructor.
+     * @param x The x position of this entity.
+     * @param y The y position of this entity.
+     * @param width The width of this entity.
+     * @param height The height of this entity.
+     * @param entityID A number uniquely identifiying this enemy.
      */
     public Entity(int x, int y, int width, int height, int entityID) {
         this.x = x;
@@ -39,7 +44,14 @@ public abstract class Entity {
     }
 
     /**
-     * Initialize the entity.
+     * Convenience constructor that allows you to
+     * specify a BoundingBox to use with this entity.
+     * @param x The x position of this entity.
+     * @param y The y position of this entity.
+     * @param width The width of this entity.
+     * @param height The height of this entity.
+     * @param entityID A number uniquely identifiying this enemy.
+     * @param bb The collision box for this entity.
      */
     public Entity(int x, int y, int width, int height, int entityID, BoundingBox bb) {
         this(x, y, width, height, entityID);
@@ -48,7 +60,14 @@ public abstract class Entity {
     }
 
     /**
-     * Initialize the entity.
+     * Convenience constructor that allows you to provide a
+     * BufferedImage to use as a texture for this entity.
+     * @param texture The image to use as a texture for this entity.
+     * @param x The x position of this entity.
+     * @param y The y position of this entity.
+     * @param width The width of this entity.
+     * @param height The height of this entity.
+     * @param entityID A number uniquely identifiying this enemy.
      */
     public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID) {
         this(x, y, width, height, entityID);
@@ -58,7 +77,15 @@ public abstract class Entity {
     }
 
     /**
-     * Initialize the entity.
+     * Convenience constructor that allows you to supply both a BufferedImage
+     * and a BoundingBox.
+     * @param texture The image to use as a texture for this entity.
+     * @param x The x position of this entity.
+     * @param y The y position of this entity.
+     * @param width The width of this entity.
+     * @param height The height of this entity.
+     * @param entityID A number uniquely identifiying this enemy.
+     * @param bb The collision box for this entity.
      */
     public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID, BoundingBox bb) {
         this(x, y, width, height, entityID, bb);
@@ -67,6 +94,12 @@ public abstract class Entity {
 
     }
 
+    /**
+     * Draw the entity's visual representation herea
+     * @param graphics A Graphics object for this method to draw to. It
+     * is the responsibility of the caller to make sure the Graphics object
+     * passed in is displayed on the screen.
+     */
     public abstract void drawEntity(Graphics graphics);
 
     public abstract void updateEntity();
