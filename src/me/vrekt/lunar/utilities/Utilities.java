@@ -35,7 +35,7 @@ public class Utilities {
 
     /**
      * Linearly interpolate between (xi, yi) and (xf, yf) at time t. t should be incremented, and
-     * should satisfy 0 <= t <= 1.
+     * should satisfy {@literal 0 <= t <= 1.}
      */
     public static Location lerp(int xi, int yi, int xf, int yf, double t) {
         t = t % 1.0;
@@ -44,7 +44,7 @@ public class Utilities {
 
     /**
      * Linearly interpolate between (xi, yi) and (xf, yf) at time t. t should be incremented, and
-     * should satisfy 0 <= t <= 1.
+     * should satisfy {@literal 0 <= t <= 1.}
      */
     public static Location lerp(Location a, Location b, double t) {
         t = t % 1.0;
@@ -53,7 +53,7 @@ public class Utilities {
 
     /**
      * Linearly interpolate between a and b at time t. t should be incremented, and
-     * should be satisfy 0 <= t <= 1.
+     * should be satisfy {@literal 0 <= t <= 1.}
      */
     public static double lerp(double a, double b, double t) {
         t = t % 1.0;
