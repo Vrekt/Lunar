@@ -238,6 +238,7 @@ public class Game implements Runnable {
     }
 
     /**
+     * Gets the width of the Game's window.
      * @return the width
      */
     public int getWidth() {
@@ -245,6 +246,7 @@ public class Game implements Runnable {
     }
 
     /**
+     * Gets the height of the Game's window.
      * @return the height
      */
     public int getHeight() {
@@ -268,7 +270,9 @@ public class Game implements Runnable {
     }
     
     /**
-     * @return the FPS
+     * Gets the FPS of the Game.
+     * @return the frames per second count,
+     * which is how many times the game renders in a given second.
      */
     public int getFPS() {
         return fps;
