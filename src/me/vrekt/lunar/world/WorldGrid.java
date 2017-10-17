@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Vrekt on 3/16/2017.
  */
-public class WorldGrid {
+public abstract class WorldGrid {
 
     private int tileWidth, tileHeight;
     private int width, height;

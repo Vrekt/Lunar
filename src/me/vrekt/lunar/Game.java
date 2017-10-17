@@ -7,7 +7,6 @@ import me.vrekt.lunar.window.FramePreferences;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyListener;
@@ -28,7 +27,7 @@ public class Game implements Runnable {
     private List<GameState> stack;
     private int maxTPS = 0; // The maximum tick rate
     private int maxFPS = 0; // The maximum frame rate
-    
+
     private boolean showFPS = false;
 
     /**
@@ -112,7 +111,7 @@ public class Game implements Runnable {
      * @param tickRate Determines how fast the game loop is.
      */
     public Game(String title, int width, int height, FramePreferences pref, GameState state, int tickRate) {
-    	this.width = width;
+        this.width = width;
         this.height = height;
 
         stack = new ArrayList<>();
@@ -165,28 +164,28 @@ public class Game implements Runnable {
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        
+
         double maxTickDelta = 1000000000 / maxTPS;
         double d = 0;
-        
+
         long now = System.currentTimeMillis();
         int frameCount = 0;
 
         while (running) {
             long current = System.nanoTime();
-            
+
             // Ticking
-            
+
             d += (current - lastTime) / maxTickDelta;
             while (d >= 1) {
                 onTick();
                 d--;
             }
-            
+
             // Drawing
 
             if (frameCount < maxFPS || maxFPS == 0) {
-            	onDraw();
+                onDraw();
                 frameCount++;
             }
 
@@ -197,7 +196,7 @@ public class Game implements Runnable {
                 fps = frameCount;
                 frameCount = 0;
             }
-            
+
             lastTime = current;
 
         }
@@ -216,12 +215,12 @@ public class Game implements Runnable {
         }
         graphics = frameStrategy.getDrawGraphics();
         graphics.clearRect(0, 0, width, height);
-        
+
         stack.forEach(state -> state.onDraw(graphics));
 
         if (showFPS) {
-        	graphics.setColor(Color.GRAY);
-        	graphics.drawString(Integer.toString(fps) + " fps", 20, 20);
+            graphics.setColor(Color.GRAY);
+            graphics.drawString(Integer.toString(fps) + " fps", 20, 20);
         }
 
         graphics.dispose();
@@ -258,17 +257,17 @@ public class Game implements Runnable {
      * Mainly for debugging purposes.
      */
     public void setFPSVisibility(boolean showFPS) {
-    	this.showFPS = showFPS;
+        this.showFPS = showFPS;
     }
-    
+
     /**
      * Limits the maximum FPS.
      * Set to 0 for unlimited FPS.
      */
     public void setMaxFPS(int frames) {
-    	this.maxFPS = frames;
+        this.maxFPS = frames;
     }
-    
+
     /**
      * Gets the FPS of the Game.
      * @return the frames per second count,

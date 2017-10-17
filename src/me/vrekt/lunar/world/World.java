@@ -6,11 +6,14 @@ import me.vrekt.lunar.raycast.RayCast;
 import me.vrekt.lunar.tile.Tile;
 import me.vrekt.lunar.world.dir.Direction;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-public abstract class World {
+public abstract class World extends WorldRenderer {
     protected final Map<Location, Tile> worldInfo = new HashMap<>();
     protected final List<Entity> worldEntities = new ArrayList<>();
     protected final List<Entity> worldEntitiesAdd = new ArrayList<>();
@@ -18,7 +21,7 @@ public abstract class World {
     protected String name;
 
     protected int width, height, tileWidth, tileHeight, worldAnchorX, worldAnchorY;
-    private WorldGrid grid;
+    protected WorldGridRenderer gridRenderer;
 
     /**
      * Initialize the world.
@@ -52,22 +55,7 @@ public abstract class World {
         this.tileHeight = tileHeight;
         this.tileWidth = tileWidth;
 
-        this.grid = new WorldGrid(width, height, tileWidth, tileHeight);
-
-    }
-
-    /**
-     * Initialize the world. Use this constructor for grids.
-     *
-     * @param name   Name of the world.
-     * @param width  Width of the world.
-     * @param height Height of the world.
-     * @param grid   the WorldGrid
-     */
-    public World(String name, int width, int height, WorldGrid grid) {
-        this(name, width, height);
-
-        this.grid = grid;
+        gridRenderer = new WorldGridRenderer(width, height, tileWidth, tileHeight);
 
     }
 
@@ -187,23 +175,6 @@ public abstract class World {
     }
 
     /**
-     * Draw all world entities
-     */
-    public final void drawAllEntities(Graphics graphics) {
-        worldEntities.forEach(entity -> graphics.drawImage(entity.getTexture(), entity.getX(), entity.getY(), null));
-    }
-
-    /**
-     * Draw all tiles.
-     */
-    public final void drawAllTiles(Graphics graphics) {
-        for (Location key : worldInfo.keySet()) {
-            Tile tile = worldInfo.get(key);
-            graphics.drawImage(tile.getTexture(), key.getX(), key.getY(), null);
-        }
-    }
-
-    /**
      * Check if an entity is at this X and Y.
      */
     public final boolean isEntityAt(int x, int y) {
@@ -261,22 +232,6 @@ public abstract class World {
      */
     public int getTileHeight() {
         return tileHeight;
-    }
-
-    /**
-     * @return the world grid.
-     */
-    public WorldGrid getGrid() {
-        return grid;
-    }
-
-    /**
-     * Set the world grid.
-     *
-     * @param grid the world grid.
-     */
-    public void setGrid(WorldGrid grid) {
-        this.grid = grid;
     }
 
     /**

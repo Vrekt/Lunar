@@ -3,7 +3,7 @@ package me.vrekt.lunar.entity;
 import me.vrekt.lunar.collision.BoundingBox;
 import me.vrekt.lunar.location.Location;
 import me.vrekt.lunar.tile.Tile;
-import me.vrekt.lunar.utilities.Utilities;
+import me.vrekt.lunar.utilities.MathHelper;
 import me.vrekt.lunar.world.World;
 import me.vrekt.lunar.world.dir.Direction;
 
@@ -96,9 +96,10 @@ public abstract class Entity {
 
     /**
      * Draw the entity's visual representation herea
+     *
      * @param graphics A Graphics object for this method to draw to. It
-     * is the responsibility of the caller to make sure the Graphics object
-     * passed in is displayed on the screen.
+     *                 is the responsibility of the caller to make sure the Graphics object
+     *                 passed in is displayed on the screen.
      */
     public abstract void drawEntity(Graphics graphics);
 
@@ -208,8 +209,8 @@ public abstract class Entity {
                     : facing == Direction.UP ? roundedY - height : roundedY;
             distance--;
 
-            roundedX = Utilities.roundToDimensions(roundedX, width);
-            roundedY = Utilities.roundToDimensions(roundedY, height);
+            roundedX = MathHelper.roundToDimensions(roundedX, width);
+            roundedY = MathHelper.roundToDimensions(roundedY, height);
 
             reference = world.getTileAt(roundedX, roundedY);
             if (reference == null) {

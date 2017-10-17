@@ -2,10 +2,10 @@ package me.vrekt.lunar.raycast;
 
 import me.vrekt.lunar.location.Location;
 import me.vrekt.lunar.tile.Tile;
-import me.vrekt.lunar.utilities.Utilities;
+import me.vrekt.lunar.utilities.MathHelper;
 import me.vrekt.lunar.world.World;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +71,7 @@ public class RayCast {
     }
 
     private List<Location> BresenhamLine(int xi, int yi, int xf, int yf) {
-        int dist = (int) Math.ceil(Utilities.distance(xi, yi, xf, yf));
+        int dist = (int) Math.ceil(MathHelper.distance(xi, yi, xf, yf));
         List<Location> list = new ArrayList<>(dist);
 
         boolean steep = Math.abs(yf - yi) > Math.abs(xf - xi);
