@@ -213,7 +213,7 @@ Start by extending ` World `.
 ```java
 public class MyWorld extends World {
 
-	public Level1(String name, int width, int height) {
+	public MyWorld(String name, int width, int height) {
 		super(name, width, height);
 	}
 
