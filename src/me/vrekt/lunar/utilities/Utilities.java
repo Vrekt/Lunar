@@ -1,62 +1,41 @@
 package me.vrekt.lunar.utilities;
 
-import me.vrekt.lunar.location.Location;
-
 public class Utilities {
-	/**
-	 * Round.
-	 */
-	public static int roundToDimensions(int value, int nearestValue) {
-		return Math.round(value / nearestValue) * nearestValue;
-	}
 
     /**
-     * Calculate the Pythagorean distance from (x, y) to (xx, yy)
+     * Log information.
+     *
+     * @param information the information.
      */
-	public static double distance(double x, double y, double xx, double yy) {
-        double dx = xx - x;
-        double dy = yy - y;
-	    return Math.sqrt(dx*dx + dy*dy);
+    public static void logInformation(String information) {
+        System.out.println("[INFO] " + information);
     }
 
     /**
-     * Calculate the Manhattan distance from (x, y) to (xx, yy). Useful for tile based movement.
+     * Log an error.
+     *
+     * @param error the error
      */
-    public static double manhattanDistance(double x, double y, double xx, double yy) {
-        return Math.abs((x - xx) + (y - yy));
+    public static void logError(String error) {
+        System.out.println("[ERROR] " + error);
     }
 
     /**
-     * Clamp a value between a lower and an upper bound
+     * Log a warning
+     *
+     * @param warning the warning
      */
-    public static double clamp(double value, double lower, double upper) {
-        return Math.max(Math.min(value, upper), lower);
+    public static void logWarning(String warning) {
+        System.out.println("[WARNING] " + warning);
     }
 
     /**
-     * Linearly interpolate between (xi, yi) and (xf, yf) at time t. t should be incremented, and
-     * should satisfy 0 <= t <= 1.
+     * Log a critical message.
+     *
+     * @param critical the critical message.
      */
-    public static Location lerp(int xi, int yi, int xf, int yf, double t) {
-        t = t % 1.0;
-        return new Location(xi + (int)((xf - xi) * t), yi + (int)((yf - yi) * t));
+    public static void logCritical(String critical) {
+        System.out.println("[CRITICAL] " + critical);
     }
 
-    /**
-     * Linearly interpolate between (xi, yi) and (xf, yf) at time t. t should be incremented, and
-     * should satisfy 0 <= t <= 1.
-     */
-    public static Location lerp(Location a, Location b, double t) {
-        t = t % 1.0;
-        return new Location(a.getX() + (int)((b.getX() - a.getX()) * t), a.getY() + (int)((b.getY() - a.getY()) * t));
-    }
-
-    /**
-     * Linearly interpolate between a and b at time t. t should be incremented, and
-     * should be satisfy 0 <= t <= 1.
-     */
-    public static double lerp(double a, double b, double t) {
-        t = t % 1.0;
-        return a + (b - a) * t;
-    }
 }
