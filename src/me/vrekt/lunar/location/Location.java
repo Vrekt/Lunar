@@ -1,6 +1,6 @@
 package me.vrekt.lunar.location;
 
-import me.vrekt.lunar.utilities.Utilities;
+import me.vrekt.lunar.utilities.MathHelper;
 import me.vrekt.lunar.world.World;
 
 public class Location {
@@ -206,7 +206,7 @@ public class Location {
      * NOTE: This modifies this location
      */
     public Location lerpSelf(Location from, Location to, double t) {
-        Location lerped = Utilities.lerp(from, to, t);
+        Location lerped = MathHelper.lerp(from, to, t);
         this.setX(lerped.getX());
         this.setY(lerped.getY());
 
@@ -219,7 +219,7 @@ public class Location {
      * NOTE: This modifies this location
      */
     public Location lerpSelf(Location to, double t) {
-        Location lerped = Utilities.lerp(this, to, t);
+        Location lerped = MathHelper.lerp(this, to, t);
         this.setX(lerped.getX());
         this.setY(lerped.getY());
 
@@ -231,7 +231,7 @@ public class Location {
      * modify this location.
      */
     public Location lerp(Location to, double t) {
-        return Utilities.lerp(this, to, t);
+        return MathHelper.lerp(this, to, t);
     }
 
 
@@ -239,6 +239,6 @@ public class Location {
      * Lerp from one location to another with progress t. See Utilites#lerp
      */
     public static Location lerp(Location from, Location to, double t) {
-        return Utilities.lerp(from, to, t);
+        return MathHelper.lerp(from, to, t);
     }
 }
