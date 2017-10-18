@@ -16,6 +16,7 @@ public abstract class Entity {
 
     protected Location location;
     protected int x, y;
+    protected int velX, velY;
     protected int width, height;
     protected int entityID;
 
@@ -166,6 +167,28 @@ public abstract class Entity {
      */
     public int getEntityID() {
         return entityID;
+    }
+
+    /**
+     * Get the current x velocity of the entity
+     */
+    public int getVelocityX() {
+        return velX;
+    }
+
+    /**
+     * Get the current y velocity of the entity
+     */
+    public int getVelocityY() {
+        return velY;
+    }
+
+    /**
+     * Set the entity's velocity.
+     */
+    public void setVelocity(int x, int y) {
+        velX = x;
+        velY = y;
     }
 
     /**
