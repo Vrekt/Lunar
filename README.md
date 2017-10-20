@@ -2,15 +2,15 @@
 Lunar is a 2D game engine written in java. Its made for simplicity and ease of use. 
 Some things to consider before using Lunar.
 
-	- Must be using java 8.
-	- This engine is not meant for:
-		- 3D games, mobile, games with lots of physics.
-	- This engine is meant for:
-		- Creating casual 2D games.
-		- Creating prototypes fast.
-		- Hobby developers.
-	- Lunar is still being worked on and is nowhere near finished.
-	- Development will slow overtime but will eventually pick back up.
+* Must be using java 8.
+* This engine is not meant for:
+	* 3D games, mobile, games with lots of physics.
+* This engine is meant for:
+	* Creating casual 2D games.
+	* Creating prototypes fast.
+	* Hobby developers.
+* Lunar is still being worked on and is nowhere near finished.
+* Development will slow overtime but will eventually pick back up.
 
 Thank you for using Lunar.
 
@@ -28,10 +28,10 @@ Game game = new Game(String title, int width, int height, FramePreferences pref,
 Game game = new Game(String title, int width, int height, FramePreferences pref, GameState state, int tickRate)
 ```
 
-	- title is the title of the window.
-	- tickRate is the rate at which the game runs. Something good as a default is 60.
-	- GameState is the default GameStart to start with, this is so you dont have to push one to the stack later.
-	- FramePreferences is an object which holds all settings for the window.
+* `title` is the title of the window.
+* `tickRate` is the rate at which the game runs. Something good as a default is `60`.
+* `GameState` is the default GameStart to start with, this is so you dont have to push one to the stack later.
+* `FramePreferences` is an object which holds all settings for the window.
 
 Now we need to 'start' the game.
 Simply do ` game.start(); ` to start the game.
@@ -115,11 +115,11 @@ public class MyPlayer extends LivingEntity {
 ```
 
 Lets go over the params.
-	- x, y is the starting coordinates of the player.
-	- width, height is the dimensions of the player.
-	- entityID is the unique ID of the entity. Useful for finding entities, filtering them, etc.
-	- health is the health of the player.
-	- speed is how fast the player should move.
+* `x`, `y` is the starting coordinates of the player.
+* `width`, `height` is the dimensions of the player.
+* `entityID` is the unique ID of the entity. Useful for finding entities, filtering them, etc.
+* `health` is the health of the player.
+* `speed` is how fast the player should move.
 
 # Sound
 Playing sounds is very easy.
@@ -128,8 +128,8 @@ First start we must create a new ` Sound ` object.
 ```java
 Sound mySound = new Sound(int ID, File audioFile);
 ```
-	- ID is the ID of the sound.
-	- audioFile is the file which contains the audio.
+* `ID` is the ID of the sound.
+* `audioFile` is the file which contains the audio.
 
 Now to play our sound we must create new instance of SoundManager. Its best to have already created one and stored it.
 
@@ -191,9 +191,9 @@ public class MyWorld extends World {
 
 The World class holds many useful methods.
 These include:
-	- adding/removing entities.
-	- Drawing all entities/tiles at once.
-	- etc.
+* adding/removing entities.
+* Drawing all entities/tiles at once.
+* etc.
 
 # Tiles/Sprites
 Tiles are also essential for the game. 
@@ -315,7 +315,8 @@ To screenshot do:
 ```java
 Capture.screenshotAndSave(int width, int height, File saveTo, String imageType);
 ```
-imageType is the extension, for example .png. bmp.
+* `imageType` is the extension, for example .png. bmp.
+
 This screenshots then it saves it.
 
 Say we don't wanna screenshot the whole screen for that we can use ` screenshotPart `.
@@ -323,25 +324,3 @@ Say we don't wanna screenshot the whole screen for that we can use ` screenshotP
 ```java
 Capture.screenshotPart(int x, int y, int width, int height);
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
