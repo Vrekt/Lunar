@@ -68,5 +68,14 @@ public class Velocity {
         this.magnitude = magnitude;
     }
 
+    /**
+     * Changes the magnitude of the velocity over an amount of time.
+     */
+    public void changeMagnitude(int time, int rate, float incrementValue) {
+        for (int time = this.time; time > 0; time-rate) {
+            magnitude = magnitude + incrementValue;
+        }
+    }
+
     // TODO Add object manipulation functions tha will be executed in loop
 }
