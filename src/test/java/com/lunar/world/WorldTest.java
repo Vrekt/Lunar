@@ -28,7 +28,9 @@ class WorldTest {
         world = null;
     }
 
-    /** World Entity Tests **/
+    /**
+     * World Entity Tests
+     **/
     @Nested
     @Tag("world_entity")
     @DisplayName("entity handling")
@@ -37,6 +39,7 @@ class WorldTest {
         @DisplayName("manipulate world entity list")
         class ManipulateWorldEntityList {
             TestEntity ent;
+
             @BeforeEach
             void addEntity() {
                 ent = new TestEntity();
