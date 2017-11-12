@@ -40,13 +40,10 @@ Simply do ` game.start(); ` to start the game.
 
 GameStates are the base of your project. This is where you will store everything preferably. 
 Things like worlds, entities, etc are stored here. GameStates also include two methods:
-` onDraw(Graphics graphics); `
-` onTick(); `
-
-` onDraw(Graphics graphics); ` handles drawing things, not automatically though. Its up to you to handle what to call.
+* ` onDraw(Graphics graphics); ` handles drawing things, not automatically though. Its up to you to handle what to call.
 For example in the constructor of the drawing method you would draw the world.
 
-` onTick(); ` handles updating things, stuff like entities, maybe the time, etc. This is also not automatic, its up to you.
+* ` onTick(); ` handles updating things, stuff like entities, maybe the time, etc. This is also not automatic, its up to you.
 For example in the constructor of the tick method you would update the world and its entities.
 
 GameStates also include a priority field. This is the order in which GameStates are called.
@@ -186,8 +183,8 @@ public class MyWorld extends World {
 	}
 }
 ```
-	- name is the name of the world.
-	- width, height is the dimensions of it.
+* `name` is the name of the world.
+* `width`, height is the dimensions of it.
 
 The World class holds many useful methods.
 These include:
