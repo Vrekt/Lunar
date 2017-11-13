@@ -11,11 +11,12 @@ public class Lunar {
 
     /**
      * Initialize the game.
-     * @param title The title of the game's window.
-     * @param width The width of the game's window.
-     * @param height The height of the game's window.
+     *
+     * @param title    The title of the game's window.
+     * @param width    The width of the game's window.
+     * @param height   The height of the game's window.
      * @param tickRate indicates how fast the game is drawn/updated.
-     * A good tickrate is 64 or above.
+     *                 A good tickrate is 64 or above.
      */
     public void initializeGame(String title, int width, int height, int tickRate) {
         game = new Game(title, width, height, tickRate);
@@ -26,12 +27,13 @@ public class Lunar {
 
     /**
      * Initialize the game.
-     * @param title The title of the game's window.
-     * @param width The width of the game's window.
-     * @param height The height of the game's window.
-     * @param state A default {@link GameState} object to use.
+     *
+     * @param title    The title of the game's window.
+     * @param width    The width of the game's window.
+     * @param height   The height of the game's window.
+     * @param state    A default {@link GameState} object to use.
      * @param tickRate indicates how fast the game is drawn/updated.
-     * A good tickrate is 64 or above.
+     *                 A good tickrate is 64 or above.
      */
     public void initializeGame(String title, int width, int height, GameState state, int tickRate) {
         game = new Game(title, width, height, state, tickRate);
@@ -41,21 +43,21 @@ public class Lunar {
     }
 
     /**
-     * Returns the game object of this instance of lunar.
+     * @return the game.
      */
     public Game getGame() {
         return game;
     }
 
     /**
-     * Returns the soundManager.
+     * @return the sound manager.
      */
     public SoundManager getSoundManager() {
         return soundManager;
     }
 
     /**
-     * Returns the assetManager
+     * @return the asset manager.
      */
     public AssetManager getAssetManager() {
         return assetManager;

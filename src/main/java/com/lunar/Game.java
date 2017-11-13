@@ -68,7 +68,7 @@ public class Game implements Runnable {
      */
     public Game(String title, int width, int height, GameState state, int tickRate) {
         this(title, width, height, tickRate);
-        
+
         addToStack(state);
     }
 
@@ -190,7 +190,7 @@ public class Game implements Runnable {
             }
 
             // Updating FPS count
-            
+
             if (System.currentTimeMillis() - now >= 1000) {
                 now += 1000;
                 fps = frameCount;
@@ -210,12 +210,15 @@ public class Game implements Runnable {
     private void onDraw() {
         BufferStrategy frameStrategy = frame.getBufferStrategy();
         if (frameStrategy == null) {
+            // create the buffer strategy, its null.
             frame.createBufferStrategy(3);
             frameStrategy = frame.getBufferStrategy();
         }
+        // clear and get our graphics object.
         graphics = frameStrategy.getDrawGraphics();
         graphics.clearRect(0, 0, width, height);
 
+        // update stack.
         stack.forEach(state -> state.onDraw(graphics));
 
         if (showFPS) {
@@ -238,6 +241,7 @@ public class Game implements Runnable {
 
     /**
      * Gets the width of the Game's window.
+     *
      * @return the width
      */
     public int getWidth() {
@@ -246,6 +250,7 @@ public class Game implements Runnable {
 
     /**
      * Gets the height of the Game's window.
+     *
      * @return the height
      */
     public int getHeight() {
@@ -270,6 +275,7 @@ public class Game implements Runnable {
 
     /**
      * Gets the FPS of the Game.
+     *
      * @return the frames per second count,
      * which is how many times the game renders in a given second.
      */

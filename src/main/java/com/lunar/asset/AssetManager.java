@@ -24,14 +24,15 @@ public class AssetManager {
 	}
 
 	/**
-	 * Get the tile by ID.
+	 * @param ID the tile ID.
+	 * @return the Tile with the ID.
 	 */
 	public Tile getByID(int ID) {
 		return tiles.stream().filter(tile -> tile.getID() == ID).findAny().orElse(null);
 	}
 
 	/**
-	 * Get all the tiles.
+	 * @return list of all tiles.
 	 */
 	public List<Tile> getTiles() {
 		return tiles;

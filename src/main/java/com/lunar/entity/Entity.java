@@ -109,6 +109,9 @@ public abstract class Entity {
      */
     public abstract void drawEntity(Graphics graphics);
 
+    /**
+     * Update the entity.
+     */
     public abstract void updateEntity();
 
     /**
@@ -219,6 +222,7 @@ public abstract class Entity {
 
     /**
      * Get the entities line of sight.
+     * TODO: Update this method with new raytracing functions.
      *
      * @return List of tiles representing what the entity can "see".
      */

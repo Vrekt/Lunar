@@ -72,10 +72,12 @@ public class Animation {
         if (!running) return;
         frameCount++;
 
+        // make sure we've waiting long enough for the next frame.
         if (frameCount >= frameDelay) {
             frameCount = 0;
 
             currentFrame++;
+            // animation is finished.
             if (currentFrame >= frames.length) {
                 if (loop) {
                     startAnimation();
@@ -97,14 +99,14 @@ public class Animation {
     }
 
     /**
-     * Check if the animation is running.
+     * @return if the animation is running or not.
      */
     public boolean isRunning() {
         return running;
     }
 
     /**
-     * Get the ID.
+     * @return the ID of the animation.
      */
     public int getID() {
         return ID;

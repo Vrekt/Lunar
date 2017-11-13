@@ -22,23 +22,23 @@ public class AnimationManager {
     }
 
     /**
-     * Get the animations.
+     * @return all the animations.
      */
     public List<Animation> getAnimations() {
         return animationInfo;
     }
 
     /**
-     * Get the current playing Animation.
+     * @return the current animation frame that's playing.
      */
     public Animation getCurrentPlayingAnimation() {
         return animationInfo.stream().filter(animation -> animation.isRunning()).findAny().orElse(null);
     }
 
     /**
-     * Get the animation via ID.
+     * @param ID the animation ID.
+     * @return the animation with the supplied ID.
      */
-
     public Animation getViaID(int ID) {
         return animationInfo.stream().filter(anim -> anim.getID() == ID).findAny().orElse(null);
     }
