@@ -1,5 +1,6 @@
 package com.lunar.entity;
 
+
 import com.lunar.collision.BoundingBox;
 import com.lunar.location.Location;
 import com.lunar.tile.Tile;
@@ -16,6 +17,7 @@ public abstract class Entity {
 
     protected Location location;
     protected int x, y;
+    protected int velX, velY;
     protected int width, height;
     protected int entityID;
 
@@ -173,6 +175,28 @@ public abstract class Entity {
     }
 
     /**
+     * Get the current x velocity of the entity
+     */
+    public int getVelocityX() {
+        return velX;
+    }
+
+    /**
+     * Get the current y velocity of the entity
+     */
+    public int getVelocityY() {
+        return velY;
+    }
+
+    /**
+     * Set the entity's velocity.
+     */
+    public void setVelocity(int x, int y) {
+        velX = x;
+        velY = y;
+    }
+
+    /**
      * Get the boundingBox
      */
     public BoundingBox getBoundingBox() {
@@ -195,7 +219,6 @@ public abstract class Entity {
 
     /**
      * Get the entities line of sight.
-     * TODO: Redo with new ray-trace system.
      *
      * @return List of tiles representing what the entity can "see".
      */
