@@ -5,7 +5,7 @@ import java.util.List;
 
 public class AnimationManager {
 
-    private List<Animation> animationInfo;
+    private final List<Animation> animationInfo;
 
     /**
      * Initialize the AnimationManager
@@ -32,7 +32,7 @@ public class AnimationManager {
      * @return the current animation frame that's playing.
      */
     public Animation getCurrentPlayingAnimation() {
-        return animationInfo.stream().filter(animation -> animation.isRunning()).findAny().orElse(null);
+        return animationInfo.stream().filter(Animation::isRunning).findAny().orElse(null);
     }
 
     /**
@@ -51,7 +51,7 @@ public class AnimationManager {
         if (anim.isRunning()) {
             return;
         }
-        animationInfo.forEach(animation -> animation.stopAnimation());
+        animationInfo.forEach(Animation::stopAnimation);
         anim.startAnimation();
     }
 
@@ -64,7 +64,7 @@ public class AnimationManager {
         if (anim.isRunning()) {
             return;
         }
-        animationInfo.forEach(animation -> animation.stopAnimation());
+        animationInfo.forEach(Animation::stopAnimation);
         anim.startAnimation();
     }
 }

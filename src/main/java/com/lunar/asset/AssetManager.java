@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AssetManager {
 
-	private List<Tile> tiles = new ArrayList<>();
+	private final List<Tile> tiles = new ArrayList<>();
 
 	/**
 	 * Add a tile.

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SoundManager {
 
-    private List<Sound> gameSounds = new ArrayList<>();
+    private final List<Sound> gameSounds = new ArrayList<>();
 
     /**
      * Adds a sound.

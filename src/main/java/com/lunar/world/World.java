@@ -5,6 +5,7 @@ import com.lunar.location.Location;
 import com.lunar.raycast.RayCast;
 import com.lunar.tile.Tile;
 import com.lunar.world.dir.Direction;
+import com.lunar.world.entity.MutableEntity;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -14,13 +15,13 @@ import java.util.Map;
 import java.util.Optional;
 
 public abstract class World extends WorldRenderer {
-    protected final Map<Location, Tile> worldInfo = new HashMap<>();
-    protected final List<Entity> worldEntities = new ArrayList<>();
-    protected final List<Entity> worldEntitiesAdd = new ArrayList<>();
-    protected final List<Entity> worldEntitiesRemove = new ArrayList<>();
-    protected String name;
+    protected final Map<Location, Tile> WORLD_TILES = new HashMap<>();
 
-    protected int width, height, tileWidth, tileHeight, worldAnchorX, worldAnchorY;
+    protected final List<MutableEntity> ENTITY_ACTION_LIST = new ArrayList<>();
+    protected final List<Entity> WORLD_ENTITIES = new ArrayList<>();
+
+    protected String name;
+    protected int width, height, tileWidth, tileHeight, worldAnchorX, worldAnchorY = 0;
     protected WorldGridRenderer gridRenderer;
 
     /**
@@ -34,10 +35,6 @@ public abstract class World extends WorldRenderer {
         this.name = name;
         this.width = width;
         this.height = height;
-
-        worldAnchorX = 0;
-        worldAnchorY = 0;
-
     }
 
     /**
@@ -68,68 +65,72 @@ public abstract class World extends WorldRenderer {
 
     /**
      * Add an entity to the world.
+     * NOTE: Do not use this method for adding entities! Queue them first.
+     *
+     * @param entity
      */
     public final void addEntity(Entity entity) {
-        worldEntities.add(entity);
+        WORLD_ENTITIES.add(entity);
     }
 
     /**
-     * Remove the entity from the world.
+     * Remove an entity from the world.
+     * NOTE: Do not use this method for removing entities! Queue them first.
      *
      * @param entity the entity that should be removed from the world.
      */
     public final void removeEntity(Entity entity) {
-        worldEntities.remove(entity);
+        WORLD_ENTITIES.remove(entity);
     }
 
     /**
-     * Add the entity to the list for removal. Will be removed at the beginning
-     * of the next world tick.
+     * Queue an entity to be added.
+     *
+     * @param entity the entity.
      */
-    public void queueEntityForRemoval(Entity entity) {
-        worldEntitiesRemove.add(entity);
+    public final void queueEntityForAdd(Entity entity) {
+        MutableEntity mutableEntity = new MutableEntity(entity, MutableEntity.EntityAction.ADD);
+        ENTITY_ACTION_LIST.add(mutableEntity);
     }
 
     /**
-     * Add the entity to the list for addition. Will be added at the beginning
-     * of the next world tick.
+     * Queue an entity to be removed.
+     *
+     * @param entity the entity.
      */
-    public void queueEntityForAdd(Entity entity) {
-        worldEntitiesAdd.add(entity);
+    public final void queueEntityForRemoval(Entity entity) {
+        MutableEntity mutableEntity = new MutableEntity(entity, MutableEntity.EntityAction.REMOVE);
+        ENTITY_ACTION_LIST.add(mutableEntity);
     }
 
-    /**
-     * Remove all entities in the removal list from the world.
-     */
-    public void removeQueuedEntities() {
-        worldEntitiesRemove.forEach(this::removeEntity);
-        worldEntitiesRemove.clear();
-    }
-
-    /**
-     * Add all entities in the add list to the world.
-     */
-    public void addQueuedEntities() {
-        worldEntitiesAdd.forEach(this::addEntity);
-        worldEntitiesAdd.clear();
-    }
-
-    /**
-     * Add a tile
-     */
-    public final void addTile(int x, int y, Tile tile) {
-        worldInfo.put(new Location(x, y), tile);
+    public final void finishQueueActions() {
+        ENTITY_ACTION_LIST.forEach(entity -> removeEntity(entity.getThisEntity()));
+        ENTITY_ACTION_LIST.forEach(entity -> addEntity(entity.getThisEntity()));
     }
 
     /**
      * Add a tile.
+     *
+     * @param x    the x
+     * @param y    the y
+     * @param tile the tile.
+     */
+    public final void addTile(int x, int y, Tile tile) {
+        WORLD_TILES.put(new Location(x, y), tile);
+    }
+
+    /**
+     * Add a tile.
+     *
+     * @param tile the tile.
      */
     public final void addTile(Tile tile) {
-        worldInfo.put(new Location(tile.getX(), tile.getY()), tile);
+        WORLD_TILES.put(new Location(tile.getX(), tile.getY()), tile);
     }
 
     /**
      * Add multiple tiles in one direction, easier for making worlds/maps.
+     * TODO: Threaded method.
      *
      * @param x          coordinate of the tile
      * @param y          coordinate of the tile
@@ -143,7 +144,7 @@ public abstract class World extends WorldRenderer {
         while (tileAmount > 0) {
             tileAmount--;
 
-            worldInfo.put(new Location(x, y), tile);
+            WORLD_TILES.put(new Location(x, y), tile);
             x = direction == Direction.RIGHT ? x + width : direction == Direction.LEFT ? x - width : x;
             y = direction == Direction.DOWN ? y + height : direction == Direction.UP ? y - height : y;
 
@@ -151,59 +152,69 @@ public abstract class World extends WorldRenderer {
     }
 
     /**
-     * Remove the tile.
+     * Remove a tile at the given x and y.
+     *
+     * @param x the x
+     * @param y the y
      */
     public final void removeTileAt(int x, int y) {
-        Location loc = new Location(x, y);
-        if (worldInfo.containsKey(loc)) {
-            worldInfo.remove(loc);
+        Location location = new Location(x, y);
+        if (WORLD_TILES.containsKey(location)) {
+            WORLD_TILES.remove(location);
         }
+
     }
 
     /**
-     * Get an entity by ID.
+     * @param entityID the entityID.
+     * @return the entity with the given ID.
      */
     public final Entity getEntity(int entityID) {
-        return worldEntities.stream().filter(entity -> entity.getEntityID() == entityID).findAny().orElse(null);
+        return WORLD_ENTITIES.stream().filter(entity -> entity.getEntityID() == entityID).findAny().orElse(null);
     }
 
     /**
-     * Get the tile the entity is standing on.
+     * @param entity the entity
+     * @return the tile the entity is standing on.
      */
-    public final Tile getTileFromEntity(Entity entity) {
+    public final Tile getTileEntityIsOn(Entity entity) {
         return getTileAt(entity.getX(), entity.getY());
     }
 
     /**
-     * Check if an entity is at this X and Y.
+     * @param x the x
+     * @param y the y
+     * @return true if an entity is at the given x and y.
      */
     public final boolean isEntityAt(int x, int y) {
-        return worldEntities.stream().anyMatch(entity -> entity.getX() == x && entity.getY() == y);
+        return WORLD_ENTITIES.stream().anyMatch(entity -> entity.getX() == x && entity.getY() == y);
     }
 
     /**
-     * Get the entity at the X and Y.
+     * @param x the x
+     * @param y the y
+     * @return the entity at the given x and y.
      */
     public final Entity getEntityAt(int x, int y) {
-        return worldEntities.stream().filter(entity -> entity.getX() == x && entity.getY() == y).findAny().orElse(null);
+        return WORLD_ENTITIES.stream().filter(entity -> entity.getX() == x && entity.getY() == y).findAny().orElse(null);
     }
 
     /**
-     * Gets a list of all entities in the world
-     *
-     * @return the entities in the world
+     * @return all the entities in the world.
      */
     public final List<Entity> getWorldEntities() {
-        return worldEntities;
+        return WORLD_ENTITIES;
     }
 
     /**
-     * Get the tile at the specified X and Y.
+     * @param x the x
+     * @param y the y
+     * @return the tile at the given x and y.
      */
     public final Tile getTileAt(int x, int y) {
-        Optional<Location> stream = worldInfo.keySet().stream()
+        Optional<Location> stream = WORLD_TILES.keySet().stream()
                 .filter(location -> location.getX() == x && location.getY() == y).findAny();
-        return stream.isPresent() ? worldInfo.get(stream.get()) : null;
+        return stream.isPresent() ? WORLD_TILES.get(stream.get()) : null;
     }
 
     /**
@@ -332,7 +343,6 @@ public abstract class World extends WorldRenderer {
      * Gets executed when the world ticks
      */
     public void onTick() {
-        removeQueuedEntities();
-        addQueuedEntities();
+        finishQueueActions();
     }
 }

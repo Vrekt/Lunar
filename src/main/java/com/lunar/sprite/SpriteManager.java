@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SpriteManager {
 
-    private List<SpriteSheet> spriteSheets = new ArrayList<>();
+    private final List<SpriteSheet> spriteSheets = new ArrayList<>();
     private BufferedImage spriteSheet;
 
     /**
