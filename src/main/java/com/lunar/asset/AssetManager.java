@@ -34,7 +34,7 @@ public class AssetManager {
 	/**
 	 * @return list of all TILES.
 	 */
-	public List<Tile> getTILES() {
-		return TILES;
+    public List<Tile> getTiles() {
+        return TILES;
 	}
 }

@@ -18,9 +18,7 @@ public abstract class GameState {
     public abstract void onTick();
 
     /**
-     * Get the priority.
-     *
-     * @return priority.
+     * @return the priority.
      */
     public int getPriority() {
         return priority;

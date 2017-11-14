@@ -4,19 +4,13 @@ import com.lunar.entity.Entity;
 import com.lunar.location.Location;
 import com.lunar.raycast.RayCast;
 import com.lunar.tile.Tile;
-import com.lunar.world.dir.Direction;
 import com.lunar.world.entity.MutableEntity;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
-public abstract class World extends WorldRenderer {
-    protected final Map<Location, Tile> WORLD_TILES = new HashMap<>();
-
+public abstract class World extends MapRenderer {
     protected final List<MutableEntity> ENTITY_ACTION_LIST = new ArrayList<>();
     protected final List<Entity> WORLD_ENTITIES = new ArrayList<>();
 
@@ -109,76 +103,11 @@ public abstract class World extends WorldRenderer {
     }
 
     /**
-     * Add a tile.
-     *
-     * @param x    the x
-     * @param y    the y
-     * @param tile the tile.
-     */
-    public final void addTile(int x, int y, Tile tile) {
-        WORLD_TILES.put(new Location(x, y), tile);
-    }
-
-    /**
-     * Add a tile.
-     *
-     * @param tile the tile.
-     */
-    public final void addTile(Tile tile) {
-        WORLD_TILES.put(new Location(tile.getX(), tile.getY()), tile);
-    }
-
-    /**
-     * Add multiple tiles in one direction, easier for making worlds/maps.
-     * TODO: Threaded method.
-     *
-     * @param x          coordinate of the tile
-     * @param y          coordinate of the tile
-     * @param direction  the direction to draw the tiles to
-     * @param tileAmount indicates how many tiles to draw in the direction.
-     */
-    public final void addBatchTiles(Tile tile, int x, int y, Direction direction, int tileAmount) {
-        int width = tile.getWidth();
-        int height = tile.getHeight();
-
-        while (tileAmount > 0) {
-            tileAmount--;
-
-            WORLD_TILES.put(new Location(x, y), tile);
-            x = direction == Direction.RIGHT ? x + width : direction == Direction.LEFT ? x - width : x;
-            y = direction == Direction.DOWN ? y + height : direction == Direction.UP ? y - height : y;
-
-        }
-    }
-
-    /**
-     * Remove a tile at the given x and y.
-     *
-     * @param x the x
-     * @param y the y
-     */
-    public final void removeTileAt(int x, int y) {
-        Location location = new Location(x, y);
-        if (WORLD_TILES.containsKey(location)) {
-            WORLD_TILES.remove(location);
-        }
-
-    }
-
-    /**
      * @param entityID the entityID.
      * @return the entity with the given ID.
      */
     public final Entity getEntity(int entityID) {
         return WORLD_ENTITIES.stream().filter(entity -> entity.getEntityID() == entityID).findAny().orElse(null);
-    }
-
-    /**
-     * @param entity the entity
-     * @return the tile the entity is standing on.
-     */
-    public final Tile getTileEntityIsOn(Entity entity) {
-        return getTileAt(entity.getX(), entity.getY());
     }
 
     /**
@@ -204,17 +133,6 @@ public abstract class World extends WorldRenderer {
      */
     public final List<Entity> getWorldEntities() {
         return WORLD_ENTITIES;
-    }
-
-    /**
-     * @param x the x
-     * @param y the y
-     * @return the tile at the given x and y.
-     */
-    public final Tile getTileAt(int x, int y) {
-        Optional<Location> stream = WORLD_TILES.keySet().stream()
-                .filter(location -> location.getX() == x && location.getY() == y).findAny();
-        return stream.isPresent() ? WORLD_TILES.get(stream.get()) : null;
     }
 
     /**
@@ -303,7 +221,7 @@ public abstract class World extends WorldRenderer {
             return false;
         }
 
-        Tile tile = getTileAt(tileX, tileY);
+        Tile tile = get(tileX, tileY);
         if (tile == null) {
             // No tile, return true?
             return true;
