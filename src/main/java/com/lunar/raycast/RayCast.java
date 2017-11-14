@@ -40,7 +40,7 @@ public class RayCast {
          * The location of either the tile that the ray cast collided with
          * or the end of the ray.
          *
-         * @return
+         * @return the location
          */
         public Location getLocation() {
             return location;
@@ -49,7 +49,7 @@ public class RayCast {
         /**
          * The tile that was collided with. Can be null in the case of no collision
          *
-         * @return
+         * @return the collided tile.
          */
         public Tile getCollidedTile() {
             return collidedTile;

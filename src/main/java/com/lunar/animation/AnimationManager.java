@@ -5,7 +5,7 @@ import java.util.List;
 
 public class AnimationManager {
 
-    private final List<Animation> animationInfo;
+    private List<Animation> animationInfo;
 
     /**
      * Initialize the AnimationManager

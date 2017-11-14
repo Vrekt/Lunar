@@ -67,7 +67,7 @@ public abstract class World extends WorldRenderer {
      * Add an entity to the world.
      * NOTE: Do not use this method for adding entities! Queue them first.
      *
-     * @param entity
+     * @param entity the entity.
      */
     public final void addEntity(Entity entity) {
         WORLD_ENTITIES.add(entity);

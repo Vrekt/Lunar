@@ -7,20 +7,20 @@ import java.util.List;
 
 public class AssetManager {
 
-	private final List<Tile> tiles = new ArrayList<>();
+	private final List<Tile> TILES = new ArrayList<>();
 
 	/**
 	 * Add a tile.
 	 */
 	public void addTile(Tile tile) {
-		tiles.add(tile);
+		TILES.add(tile);
 	}
 
 	/**
 	 * Remove the tile.
 	 */
 	public void removeTile(Tile tile) {
-		tiles.remove(tile);
+		TILES.remove(tile);
 	}
 
 	/**
@@ -28,13 +28,13 @@ public class AssetManager {
 	 * @return the Tile with the ID.
 	 */
 	public Tile getByID(int ID) {
-		return tiles.stream().filter(tile -> tile.getID() == ID).findAny().orElse(null);
+		return TILES.stream().filter(tile -> tile.getID() == ID).findAny().orElse(null);
 	}
 
 	/**
-	 * @return list of all tiles.
+	 * @return list of all TILES.
 	 */
-	public List<Tile> getTiles() {
-		return tiles;
+	public List<Tile> getTILES() {
+		return TILES;
 	}
 }

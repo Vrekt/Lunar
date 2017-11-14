@@ -135,11 +135,7 @@ public class Sound implements LineListener {
 	 * Get if we are playing.
      */
     public boolean isPlaying() {
-        if (clip != null) {
-            return clip.isRunning();
-        } else {
-            return false;
-        }
+        return clip != null && clip.isRunning();
     }
 
     /**
@@ -148,11 +144,7 @@ public class Sound implements LineListener {
      * @return Whether or not this object has loaded its resources.
      */
     public boolean isLoaded() {
-        if (clip != null) {
-            return clip.isOpen();
-        } else {
-            return false;
-        }
+        return clip != null && clip.isOpen();
     }
 
 	@Override

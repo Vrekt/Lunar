@@ -35,14 +35,14 @@ public class SpriteManager {
      */
     public SpriteManager(SpriteSheet[] sheets) {
         List<SpriteSheet> list = Arrays.asList(sheets);
-        list.forEach(sheet -> spriteSheets.add(sheet));
+        spriteSheets.addAll(list);
     }
 
     /**
      * Initializes the spriteManager with a list of SpriteSheets.
      */
     public SpriteManager(List<SpriteSheet> sheets) {
-        sheets.forEach(sheet -> spriteSheets.add(sheet));
+        spriteSheets.addAll(sheets);
         sheets.clear();
     }
 
@@ -169,7 +169,7 @@ public class SpriteManager {
      * Each tile will follow in a sequence (1, 2, 3, 4, etc), this could cause problems with other tiles with the same ID.
      *
      * @param solidTiles indicates whether the tiles are solid or not.
-     * @return
+     * @return the tiles.
      */
     public List<Tile> getAndCreateMultipleTiles(int x, int y, int width, int height, Direction direction, int spriteCount, boolean solidTiles) {
         BufferedImage[] images = getMultipleSprites(x, y, width, height, direction, spriteCount);

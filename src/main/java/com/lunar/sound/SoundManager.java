@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SoundManager {
 
-    private final List<Sound> gameSounds = new ArrayList<>();
+    private final List<Sound> GAME_SOUNDS = new ArrayList<>();
 
     /**
      * Adds a sound.
@@ -14,7 +14,7 @@ public class SoundManager {
      * @param sound The sound Object.
      */
     public void addSound(Sound sound) {
-        gameSounds.add(sound);
+        GAME_SOUNDS.add(sound);
     }
 
     /**
@@ -24,7 +24,7 @@ public class SoundManager {
      * @param file The audio file.
      */
     public void addSound(int ID, File file) {
-        gameSounds.add(new Sound(ID, file));
+        GAME_SOUNDS.add(new Sound(ID, file));
     }
 
     /**
@@ -33,7 +33,7 @@ public class SoundManager {
      * @param ID The ID of the Sound.
      */
     public Sound getSound(int ID) {
-        return gameSounds.stream().filter(sound -> sound.getID() == ID).findAny().orElse(null);
+        return GAME_SOUNDS.stream().filter(sound -> sound.getID() == ID).findAny().orElse(null);
     }
 
     /**
@@ -52,8 +52,8 @@ public class SoundManager {
      */
     public void removeSound(int ID) {
         Sound s = getSound(ID);
-        if (gameSounds.contains(s)) {
-            gameSounds.remove(s);
+        if (GAME_SOUNDS.contains(s)) {
+            GAME_SOUNDS.remove(s);
         }
     }
 
@@ -61,8 +61,8 @@ public class SoundManager {
      * Remove the sound.
      */
     public void removeSound(Sound sound) {
-        if (gameSounds.contains(sound)) {
-            gameSounds.remove(sound);
+        if (GAME_SOUNDS.contains(sound)) {
+            GAME_SOUNDS.remove(sound);
         }
     }
 
