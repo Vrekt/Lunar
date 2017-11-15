@@ -15,3 +15,12 @@ Some things to consider before using Lunar.
 # Tutorial
 
 Looking for a simple tutorial on getting started with Lunar? Check out the [wiki](https://github.com/Vrekt/Lunar/wiki)
+
+# Community
+
+Lunar currently has an official discord you can join here: https://discord.gg/UTStd6
+Feel free to join and ask for help or questions about Lunar!
+
+# Contributing
+
+When contributing and submitting requests for your changes to be merged please make sure to test your code and leave a note if the wiki needs to be updated!
