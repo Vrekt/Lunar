@@ -244,7 +244,7 @@ public abstract class Entity {
             roundedX = MathHelper.roundToDimensions(roundedX, width);
             roundedY = MathHelper.roundToDimensions(roundedY, height);
 
-            reference = world.getTileAt(roundedX, roundedY);
+            reference = world.get(roundedX, roundedY);
             if (reference == null) {
                 continue;
             }

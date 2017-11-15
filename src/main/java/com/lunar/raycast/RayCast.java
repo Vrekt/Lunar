@@ -131,7 +131,7 @@ public class RayCast {
         for (Location location : ray) {
             if (!world.isPointPassable(location.getX(), location.getY())) {
                 Location worldLoc = world.screenToWorldLocation(location.getX(), location.getY());
-                return new RayCastResult(world.getTileAt(worldLoc.getX(), worldLoc.getY()), worldLoc, true);
+                return new RayCastResult(world.get(worldLoc.getX(), worldLoc.getY()), worldLoc, true);
             }
         }
 
