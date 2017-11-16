@@ -1,20 +1,16 @@
 package com.lunar.world;
 
-import com.lunar.entity.Entity;
-import com.lunar.entity.TestEntity;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * Created by Rick on 10/21/17.
- */
+import com.lunar.entity.Entity;
+import com.lunar.entity.TestEntity;
+import com.lunar.tile.TestTile;
+import com.lunar.tile.Tile;
+import com.lunar.world.dir.Direction;
+import org.junit.jupiter.api.*;
+
 class WorldTest {
     private TestWorld world;
 
@@ -28,9 +24,7 @@ class WorldTest {
         world = null;
     }
 
-    /**
-     * World Entity Tests
-     **/
+    /** World Entity Tests **/
     @Nested
     @Tag("world_entity")
     @DisplayName("entity handling")
@@ -39,7 +33,6 @@ class WorldTest {
         @DisplayName("manipulate world entity list")
         class ManipulateWorldEntityList {
             TestEntity ent;
-
             @BeforeEach
             void addEntity() {
                 ent = new TestEntity();
@@ -122,7 +115,62 @@ class WorldTest {
         @Test
         @DisplayName("get list of world entities")
         void TestGetWorldEntities() {
-            assertEquals(world.worldEntities, world.getWorldEntities(), "Expected to get the correct list of entities");
+            assertEquals(world.WORLD_ENTITIES, world.getWorldEntities(), "Expected to get the correct list of entities");
+        }
+    }
+
+    @Nested
+    @Tag("world_tile")
+    @DisplayName("tile handling")
+    class TileHandling {
+        @Test
+        @DisplayName("add tile with coordinates")
+        void TestAddTileToCoordinates() {
+            TestTile tile = new TestTile();
+            world.set(1, 2, tile);
+            assertEquals(1, world.TILE_MAP.size(), "Expected one tile to be in the map after adding.");
+            assertEquals(0, tile.getX(), "Expected the coordinates of the tile to not change");
+            assertEquals(0, tile.getY(), "Expected the coordinates of the tile to not change");
+        }
+
+        @Test
+        @DisplayName("add tile")
+        void TestAddTile() {
+            world.set(new TestTile());
+            assertEquals(1, world.TILE_MAP.size());
+        }
+
+        @Test
+        @DisplayName("add batch tiles")
+        void TestAddBatchTiles() {
+            int numTiles = 10;
+            TestTile tile = new TestTile(10, 10);
+            world.setMultiple(tile, 0, 0, Direction.RIGHT, numTiles, false);
+            world.setMultiple(tile, 0, 10, Direction.LEFT, numTiles, false);
+            world.setMultiple(tile, 0,120, Direction.UP, numTiles, false);
+            world.setMultiple(tile, 10,20, Direction.DOWN, numTiles, false);
+            assertEquals(numTiles * 4, world.TILE_MAP.size(), "Expected there to be the correct number of tiles after adding");
+            // Test Direction.RIGHT
+            for (int i = 0; i < numTiles; i++) {
+                Tile got = world.get(i*10, 0);
+                assertNotNull(got, String.format("Expected to find tile at (%d, %d)", i*10, 0));
+            }
+            // Test Direction.LEFT
+            for (int i = 0; i < numTiles; i++) {
+                assertNotNull(world.get(-i * 10, 10), String.format("Expected to find tile at (%d, %d)", i*10, 10));
+            }
+            // Test Direction.UP
+            for (int i = 0; i < numTiles; i++) {
+                int x = 0;
+                int y = 120 - i * 10;
+                assertNotNull(world.get(x, y), String.format("Expected to find tile at (%d, %d)", x, y));
+            }
+            // Test Direction.DOWN
+            for (int i = 0; i < numTiles; i++) {
+                int x = 10;
+                int y = 20 + i*10;
+                assertNotNull(world.get(x, y), String.format("Expected to find tile at (%d, %d)", x, y));
+            }
         }
     }
 }

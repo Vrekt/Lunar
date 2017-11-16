@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public abstract class WorldMap {
 
-    private final Map<Location, Tile> TILE_MAP = new HashMap<>();
+    protected final Map<Location, Tile> TILE_MAP = new HashMap<>();
 
     /**
      * Add a tile.
@@ -70,7 +70,7 @@ public abstract class WorldMap {
         int width = tile.getWidth();
         int height = tile.getHeight();
 
-        while (iterations <= amount) {
+        while (iterations < amount) {
             iterations++;
             tile.setY(startY);
             tile.setX(startX);
