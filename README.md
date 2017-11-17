@@ -24,3 +24,11 @@ Feel free to join and ask about anything related to Lunar.
 # Contributing
 
 When contributing and submitting requests for your changes to be merged please make sure to test your code and leave a note if the wiki needs to be updated!
+
+# Testing
+
+Use the bundled gradle distro to run tests. This should only be necessary when contributing.
+
+```bash
+./gradlew test
+```

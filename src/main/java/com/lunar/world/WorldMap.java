@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public abstract class WorldMap {
 
-    private final Map<Location, Tile> TILE_MAP = new HashMap<>();
+    protected final Map<Location, Tile> TILE_MAP = new HashMap<>();
 
     /**
      * Add a tile.
@@ -65,13 +65,10 @@ public abstract class WorldMap {
      * @param amount    the amount of times to add the tile.
      */
     private void setMultiple(Tile tile, int startX, int startY, Direction direction, int amount) {
-        int iterations = 0;
-
         int width = tile.getWidth();
         int height = tile.getHeight();
 
-        while (iterations <= amount) {
-            iterations++;
+        for (int i = 0; i < amount; i++) {
             tile.setY(startY);
             tile.setX(startX);
             set(tile);
@@ -126,13 +123,10 @@ public abstract class WorldMap {
      * @param amount    the amount of times to add the tile.
      */
     private void removeMultiple(Tile tile, int startX, int startY, Direction direction, int amount) {
-        int iterations = 0;
-
         int width = tile.getWidth();
         int height = tile.getHeight();
 
-        while (iterations <= amount) {
-            iterations++;
+        for (int i = 0; i < amount; i++) {
             remove(startX, startY);
 
             startX = direction == Direction.RIGHT ? startX + width : direction == Direction.LEFT ? startX - width : startX;

@@ -98,8 +98,18 @@ public abstract class World extends MapRenderer {
     }
 
     public final void finishQueueActions() {
-        ENTITY_ACTION_LIST.forEach(entity -> removeEntity(entity.getThisEntity()));
-        ENTITY_ACTION_LIST.forEach(entity -> addEntity(entity.getThisEntity()));
+        // This logic could be moved to implementations of MutableEntity and use a
+        // factory to create them.
+        for (MutableEntity mut : ENTITY_ACTION_LIST) {
+            switch (mut.getAction()) {
+                case REMOVE:
+                    WORLD_ENTITIES.remove(mut.getThisEntity());
+                    break;
+                case ADD:
+                    WORLD_ENTITIES.add(mut.getThisEntity());
+                    break;
+            }
+        }
     }
 
     /**
