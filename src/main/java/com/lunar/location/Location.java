@@ -241,4 +241,49 @@ public class Location {
     public static Location lerp(Location from, Location to, double t) {
         return MathHelper.lerp(from, to, t);
     }
+
+    /**
+     * Two Locations are considered equal if their x's and y's are the same.
+     *
+     * The world instance is not checked as Locations are often instantiated without
+     * a world object available in the context.
+     *
+     * @param obj the other object
+     * @return true/false whether the objects are referentially or logically equal
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof Location) {
+            Location other = (Location)obj;
+
+            return this.x == other.x && this.y == other.y;
+        }
+
+        return super.equals(obj);
+    }
+
+    /**
+     * The hash code is calculated by combining the fields checked by the equals function
+     * into an int.
+     *
+     * Implementation taken from this thread on StackOverflow:
+     *  - https://stackoverflow.com/a/113600
+     *
+     * @return the object's hash code
+     */
+    @Override
+    public int hashCode() {
+        int result = 11;
+        result = 31 * this.x + result;
+        result = 31 * this.y + result;
+        return result;
+    }
 }
