@@ -18,7 +18,7 @@ Looking for a simple tutorial on getting started with Lunar? Check out the [wiki
 
 # Community
 
-Lunar currently has an official discord you can join [here](https://discord.gg/UTStd6).
+Lunar currently has an official discord you can join [here](https://discord.gg/S3rRn3P).
 Feel free to join and ask about anything related to Lunar.
 
 # Contributing
