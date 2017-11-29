@@ -101,7 +101,7 @@ public abstract class Entity {
     }
 
     /**
-     * Draw the entity's visual representation herea
+     * Draw the entity's visual representation here.
      *
      * @param graphics A Graphics object for this method to draw to. It
      *                 is the responsibility of the caller to make sure the Graphics object

@@ -11,6 +11,7 @@ public class Tile {
 
     private boolean isVisible = true;
     private boolean isSolid = false;
+    private boolean isPassable = true;
     private int ID;
 
     private int x, y;
@@ -191,5 +192,50 @@ public class Tile {
         return new BoundingBox(x, y, width, height);
     }
 
+    public class TileProperties {
+        /**
+         * The tile properties
+         * TODO: Add more
+         **/
+        private boolean isVisible, isSolid, isPassable;
+
+        public TileProperties(boolean isVisible) {
+            this.isVisible = isVisible;
+        }
+
+        public TileProperties(boolean isVisible, boolean isSolid) {
+            this(isVisible);
+            this.isSolid = isSolid;
+        }
+
+        public TileProperties(boolean isVisible, boolean isSolid, boolean isPassable) {
+            this(isVisible, isSolid);
+            this.isPassable = isPassable;
+        }
+
+        public boolean isVisible() {
+            return isVisible;
+        }
+
+        public boolean isSolid() {
+            return isSolid;
+        }
+
+        public boolean isPassable() {
+            return isPassable;
+        }
+
+        public void setVisible(boolean visible) {
+            isVisible = visible;
+        }
+
+        public void setSolid(boolean solid) {
+            isSolid = solid;
+        }
+
+        public void setPassable(boolean passable) {
+            isPassable = passable;
+        }
+    }
 
 }

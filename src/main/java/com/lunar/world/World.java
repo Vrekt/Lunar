@@ -110,6 +110,8 @@ public abstract class World extends MapRenderer {
                     break;
             }
         }
+        // clear the list, we're done.
+        ENTITY_ACTION_LIST.clear();
     }
 
     /**

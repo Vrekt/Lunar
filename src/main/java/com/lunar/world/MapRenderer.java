@@ -8,40 +8,27 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Vrekt on 11/14/2017.
  */
 public abstract class MapRenderer extends WorldMap {
-    protected Graphics graphics;
-
-    /**
-     * Initialize the graphics object.
-     *
-     * @param graphics the graphics object.
-     */
-    public void initializeGraphicsObject(Graphics graphics) {
-        this.graphics = graphics;
-    }
 
     /**
      * Draw all the entities.
      *
      * @param worldEntities the entities in the world.
      */
-    public final void drawAllEntities(List<Entity> worldEntities) {
+    public final void drawAllEntities(List<Entity> worldEntities, Graphics graphics) {
         worldEntities.forEach(entity -> graphics.drawImage(entity.getTexture(), entity.getX(), entity.getY(), null));
     }
 
     /**
      * Draw all the tiles.
-     *
-     * @param worldInfo the information for the world.
      */
-    public final void drawAllTiles(Map<Location, Tile> worldInfo) {
-        for (Location key : worldInfo.keySet()) {
-            Tile tile = worldInfo.get(key);
+    public final void drawAllTiles(Graphics graphics) {
+        for (Location key : TILE_MAP.keySet()) {
+            Tile tile = TILE_MAP.get(key);
             graphics.drawImage(tile.getTexture(), key.getX(), key.getY(), null);
         }
     }

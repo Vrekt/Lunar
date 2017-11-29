@@ -6,6 +6,7 @@ import com.lunar.state.GameState;
 import com.lunar.window.FramePreferences;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class Game implements Runnable {
     private JFrame frame;
+    private JPanel panel;
     private int width, height, fps;
 
     private Thread thread;
@@ -137,6 +139,7 @@ public class Game implements Runnable {
     public synchronized void start() {
         frame.setVisible(true);
         frame.createBufferStrategy(3);
+        onStart();
 
         running = true;
         thread = new Thread(this);
@@ -204,6 +207,14 @@ public class Game implements Runnable {
     }
 
     /**
+     * When the game starts.
+     */
+    private void onStart() {
+        // call onStart method to each GameStack.
+        stack.forEach(GameState::onStart);
+    }
+
+    /**
      * Draw all game objects.
      */
 
@@ -218,13 +229,13 @@ public class Game implements Runnable {
         graphics = frameStrategy.getDrawGraphics();
         graphics.clearRect(0, 0, width, height);
 
-        // update stack.
-        stack.forEach(state -> state.onDraw(graphics));
-
         if (showFPS) {
             graphics.setColor(Color.GRAY);
             graphics.drawString(Integer.toString(fps) + " fps", 20, 20);
         }
+
+        // update stack.
+        stack.forEach(state -> state.onDraw(graphics));
 
         graphics.dispose();
         frameStrategy.show();
@@ -281,6 +292,13 @@ public class Game implements Runnable {
      */
     public int getFPS() {
         return fps;
+    }
+
+    /**
+     * @return the graphics object.
+     */
+    public Graphics getGraphics() {
+        return graphics;
     }
 
     /**
