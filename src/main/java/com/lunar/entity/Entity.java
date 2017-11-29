@@ -16,9 +16,9 @@ import java.util.List;
 public abstract class Entity {
 
     protected Location location;
-    protected int x, y;
-    protected int velX, velY;
-    protected int width, height;
+    protected double x, y;
+    protected double velX, velY;
+    protected double width, height;
     protected int entityID;
 
     protected BoundingBox boundingBox;
@@ -31,9 +31,9 @@ public abstract class Entity {
      * @param y        The y position of this entity.
      * @param width    The width of this entity.
      * @param height   The height of this entity.
-     * @param entityID A number uniquely identifiying this enemy.
+     * @param entityID A number uniquely identifying this enemy.
      */
-    public Entity(int x, int y, int width, int height, int entityID) {
+    public Entity(double x, double y, double width, double height, int entityID) {
         this.x = x;
         this.y = y;
 
@@ -57,7 +57,7 @@ public abstract class Entity {
      * @param entityID A number uniquely identifiying this enemy.
      * @param bb       The collision box for this entity.
      */
-    public Entity(int x, int y, int width, int height, int entityID, BoundingBox bb) {
+    public Entity(double x, double y, int width, int height, int entityID, BoundingBox bb) {
         this(x, y, width, height, entityID);
         boundingBox = bb;
 
@@ -74,7 +74,7 @@ public abstract class Entity {
      * @param height   The height of this entity.
      * @param entityID A number uniquely identifiying this enemy.
      */
-    public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID) {
+    public Entity(BufferedImage texture, double x, double y, int width, int height, int entityID) {
         this(x, y, width, height, entityID);
 
         this.texture = texture;
@@ -93,7 +93,7 @@ public abstract class Entity {
      * @param entityID A number uniquely identifiying this enemy.
      * @param bb       The collision box for this entity.
      */
-    public Entity(BufferedImage texture, int x, int y, int width, int height, int entityID, BoundingBox bb) {
+    public Entity(BufferedImage texture, double x, double y, int width, int height, int entityID, BoundingBox bb) {
         this(x, y, width, height, entityID, bb);
 
         this.texture = texture;
@@ -131,70 +131,70 @@ public abstract class Entity {
     /**
      * Get the X
      */
-    public int getX() {
+    public double getX() {
         return x;
     }
 
     /**
      * Get the Y
      */
-    public int getY() {
+    public double getY() {
         return y;
     }
 
     /**
      * Set x
      */
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
     /**
      * Set y
      */
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
     /**
      * Get the width of the entity.
      */
-    public int getWidth() {
+    public double getWidth() {
         return width;
     }
 
     /**
      * Get the height of the entity.
      */
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
     /**
      * Get the entityID
      */
-    public int getEntityID() {
+    public double getEntityID() {
         return entityID;
     }
 
     /**
      * Get the current x velocity of the entity
      */
-    public int getVelocityX() {
+    public double getVelocityX() {
         return velX;
     }
 
     /**
      * Get the current y velocity of the entity
      */
-    public int getVelocityY() {
+    public double getVelocityY() {
         return velY;
     }
 
     /**
      * Set the entity's velocity.
      */
-    public void setVelocity(int x, int y) {
+    public void setVelocity(double x, double y) {
         velX = x;
         velY = y;
     }
@@ -228,7 +228,7 @@ public abstract class Entity {
      */
     public List<Tile> getLineOfSight(World world, Direction facing, int distance) {
 
-        int roundedX = 0, roundedY = 0;
+        double roundedX = 0, roundedY = 0;
         Tile reference;
 
         List<Tile> list = new ArrayList<>();
@@ -244,7 +244,7 @@ public abstract class Entity {
             roundedX = MathHelper.roundToDimensions(roundedX, width);
             roundedY = MathHelper.roundToDimensions(roundedY, height);
 
-            reference = world.get(roundedX, roundedY);
+            reference = world.get((int) roundedX, (int) roundedY);
             if (reference == null) {
                 continue;
             }

@@ -10,7 +10,7 @@ public class MathHelper {
     /**
      * Round.
      */
-    public static int roundToDimensions(int value, int nearestValue) {
+    public static double roundToDimensions(double value, double nearestValue) {
         return Math.round(value / nearestValue) * nearestValue;
     }
 

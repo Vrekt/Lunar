@@ -7,12 +7,12 @@ import java.awt.image.BufferedImage;
 public abstract class LivingEntity extends Entity {
 
     protected float health;
-    protected double speed;
+    protected int speed;
 
     /**
      * Initialize the entity.
      */
-    public LivingEntity(int x, int y, int width, int height, int entityID, float health, double speed) {
+    public LivingEntity(double x, double y, int width, int height, int entityID, float health, int speed) {
         super(x, y, width, height, entityID);
 
         this.health = health;
@@ -22,7 +22,7 @@ public abstract class LivingEntity extends Entity {
     /**
      * Initialize the entity.
      */
-    public LivingEntity(BufferedImage sprite, int x, int y, int width, int height, int entityID, float health, double speed) {
+    public LivingEntity(BufferedImage sprite, double x, double y, int width, int height, int entityID, float health, int speed) {
         super(sprite, x, y, width, height, entityID);
 
         this.health = health;
@@ -53,7 +53,7 @@ public abstract class LivingEntity extends Entity {
     /**
      * @param speed to set
      */
-    public void setSpeed(double speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 

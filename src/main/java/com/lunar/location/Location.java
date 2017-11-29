@@ -5,7 +5,7 @@ import com.lunar.world.World;
 
 public class Location {
 
-    private int x, y;
+    private double x, y;
     private boolean onGround;
 
     private World world;
@@ -13,7 +13,7 @@ public class Location {
     /**
      * Initialize the location.
      */
-    public Location(int x, int y) {
+    public Location(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -21,7 +21,7 @@ public class Location {
     /**
      * Initialize the location.
      */
-    public Location(int x, int y, boolean onGround) {
+    public Location(double x, double y, boolean onGround) {
         this.x = x;
         this.y = y;
 
@@ -32,7 +32,7 @@ public class Location {
     /**
      * Initialize the location.
      */
-    public Location(int x, int y, World world) {
+    public Location(double x, double y, World world) {
         this.x = x;
         this.y = y;
 
@@ -42,7 +42,7 @@ public class Location {
     /**
      * Initialize the location.
      */
-    public Location(int x, int y, World world, boolean onGround) {
+    public Location(double x, double y, World world, boolean onGround) {
         this.x = x;
         this.y = y;
         this.onGround = onGround;
@@ -52,28 +52,28 @@ public class Location {
     /**
      * @return the x
      */
-    public int getX() {
+    public double getX() {
         return x;
     }
 
     /**
      * @param x the x to set
      */
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
     /**
      * @return the y
      */
-    public int getY() {
+    public double getY() {
         return y;
     }
 
     /**
      * @param y The y to set
      */
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -113,7 +113,7 @@ public class Location {
     }
 
     /**
-     * Get the distance between two points.
+     * Get the distance between two podoubles.
      */
     public double distance(Location location) {
         double dX = location.getX() - x;
@@ -122,9 +122,9 @@ public class Location {
     }
 
     /**
-     * Get the distance between two points.
+     * Get the distance between two podoubles.
      */
-    public double distance(int x, int y) {
+    public double distance(double x, double y) {
         double dX = x - this.x;
         double dY = y - this.y;
         return Math.sqrt(dX * dX + dY * dY);
@@ -161,42 +161,42 @@ public class Location {
     /**
      * Add value to x and y of this location.
      */
-    public Location scalarAdd(int value) {
+    public Location scalarAdd(double value) {
         return new Location(x + value, y + value);
     }
 
     /**
      * Subtract value from x and y of this location.
      */
-    public Location scalarSub(int value) {
+    public Location scalarSub(double value) {
         return new Location(x - value, y - value);
     }
 
     /**
      * Subtract x and y from value.
      */
-    public Location scalarPreSub(int value) {
+    public Location scalarPreSub(double value) {
         return new Location(value - x, value - y);
     }
 
     /**
      * Multiply x and y by value
      */
-    public Location scalarMultiply(int value) {
+    public Location scalarMultiply(double value) {
         return new Location(x * value, y * value);
     }
 
     /**
      * Divide x and y by value
      */
-    public Location scalarDivide(int value) {
+    public Location scalarDivide(double value) {
         return new Location(x / value, y / value);
     }
 
     /**
      * Divide value by x and y
      */
-    public Location scalarPreDivide(int value) {
+    public Location scalarPreDivide(double value) {
         return new Location(value / x, value / y);
     }
 
@@ -244,7 +244,7 @@ public class Location {
 
     /**
      * Two Locations are considered equal if their x's and y's are the same.
-     *
+     * <p>
      * The world instance is not checked as Locations are often instantiated without
      * a world object available in the context.
      *
@@ -262,28 +262,12 @@ public class Location {
         }
 
         if (obj instanceof Location) {
-            Location other = (Location)obj;
+            Location other = (Location) obj;
 
             return this.x == other.x && this.y == other.y;
         }
 
         return super.equals(obj);
     }
-
-    /**
-     * The hash code is calculated by combining the fields checked by the equals function
-     * into an int.
-     *
-     * Implementation taken from this thread on StackOverflow:
-     *  - https://stackoverflow.com/a/113600
-     *
-     * @return the object's hash code
-     */
-    @Override
-    public int hashCode() {
-        int result = 11;
-        result = 31 * this.x + result;
-        result = 31 * this.y + result;
-        return result;
-    }
+    // TODO: hashcode function
 }
