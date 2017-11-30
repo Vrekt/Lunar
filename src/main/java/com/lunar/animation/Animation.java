@@ -80,7 +80,7 @@ public class Animation {
 
             currentFrame++;
             // animation is finished.
-            if (currentFrame >= frames.length) {
+            if (currentFrame == frames.length) {
                 if (loop) {
                     startAnimation();
                     return;

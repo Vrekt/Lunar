@@ -1,7 +1,9 @@
 package com.lunar.sprite;
 
 import com.lunar.tile.Tile;
+import com.lunar.utilities.Logger;
 import com.lunar.world.dir.Direction;
+import com.sun.istack.internal.Nullable;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -13,49 +15,71 @@ import java.util.List;
 
 public class SpriteManager {
 
-    private final List<SpriteSheet> SPRITES = new ArrayList<>();
-    private BufferedImage spriteSheet;
+    private final List<SpriteSheet> SPRITE_SHEETS = new ArrayList<>();
+    private SpriteSheet current;
 
-    /**
-     * Initialize the spriteManager.
-     */
-    public SpriteManager(BufferedImage spriteSheet) {
-        this.spriteSheet = spriteSheet;
+    public SpriteManager(String path, String name) {
+        BufferedImage image = load(path);
+        if (image == null) {
+            Logger.logCritical("Attempted to load a null spritesheet.");
+            return;
+        }
+        SpriteSheet sheet = new SpriteSheet(name, image);
+        this.current = sheet;
+        SPRITE_SHEETS.add(sheet);
     }
 
-    /**
-     * Initializes the spriteManager with a SpriteSheet.
-     */
+    public SpriteManager(BufferedImage sheet, String name) {
+        SpriteSheet sh = new SpriteSheet(name, sheet);
+        this.current = sh;
+        SPRITE_SHEETS.add(sh);
+    }
+
     public SpriteManager(SpriteSheet sheet) {
-        SPRITES.add(sheet);
+        this.current = sheet;
+        SPRITE_SHEETS.add(sheet);
     }
 
-    /**
-     * Initializes the spriteManager with an array of SPRITES.
-     */
     public SpriteManager(SpriteSheet[] sheets) {
         List<SpriteSheet> list = Arrays.asList(sheets);
-        SPRITES.addAll(list);
+        SPRITE_SHEETS.addAll(list);
     }
 
-    /**
-     * Initializes the spriteManager with a list of SPRITES.
-     */
     public SpriteManager(List<SpriteSheet> sheets) {
-        SPRITES.addAll(sheets);
+        SPRITE_SHEETS.addAll(sheets);
         sheets.clear();
     }
 
     /**
-     * Return a section of the image.
+     * Set the current spritesheet to use.
+     *
+     * @param current the spritesheet.
+     */
+    public void setCurrent(SpriteSheet current) {
+        this.current = current;
+    }
+
+    /**
+     * Get a part of the image.
+     *
+     * @param image  the image
+     * @param x      the X coordinate.
+     * @param y      the Y coordinate.
+     * @param width  the width
+     * @param height the height
+     * @return the sub section of the image.
      */
     public static BufferedImage getSectionAt(BufferedImage image, int x, int y, int width, int height) {
         return image.getSubimage(x, y, width, height);
     }
 
     /**
-     * Load the spriteSheet.
+     * Load a image from the file path.
+     *
+     * @param path the path to the file.
+     * @return the image that was loaded.
      */
+    @Nullable
     public static BufferedImage load(String path) {
         try {
             return ImageIO.read(new File(path));
@@ -66,115 +90,196 @@ public class SpriteManager {
     }
 
     /**
-     * Get the sprite sheet.
+     * @param name the name of the spritesheet.
+     * @return the spritesheet with the corresponding name.
      */
-    public BufferedImage getSpriteSheet() {
-        return spriteSheet;
+    @Nullable
+    public SpriteSheet getSheet(String name) {
+        return SPRITE_SHEETS.stream().filter(sheet -> sheet.getName().equals(name)).findAny().orElse(null);
     }
 
     /**
-     * Get a spriteSheet via ID.
+     * Get a part of the image.
+     *
+     * @param x      the X coordinate.
+     * @param y      the Y coordinate.
+     * @param width  the width
+     * @param height the height
+     * @return the sub section of the image.
      */
-    public SpriteSheet getSheet(int ID) {
-        return SPRITES.stream().filter(sheet -> sheet.getID() == ID).findAny().orElse(null);
-    }
-
-    /**
-     * Return an image from the section selected.
-     */
+    @Nullable
     public BufferedImage getSectionAt(int x, int y, int width, int height) {
-        return spriteSheet.getSubimage(x, y, width, height);
+        if (current == null) {
+            Logger.logWarning("Attempted to get a section from a null sheet.");
+            return null;
+        }
+        return current.getTexture().getSubimage(x, y, width, height);
     }
 
+
     /**
-     * Return an image from one of the SPRITES in the list.
+     * Get a part of the image.
+     *
+     * @param name   the name of the spritesheet.
+     * @param x      the X coordinate.
+     * @param y      the Y coordinate.
+     * @param width  the width
+     * @param height the height
+     * @return the sub section of the image.
      */
-    public BufferedImage getSectionAt(int ID, int x, int y, int width, int height) {
-        BufferedImage i = getSheet(ID).getSheet();
+    public BufferedImage getSectionAt(String name, int x, int y, int width, int height) {
+        BufferedImage i = getSheet(name).getTexture();
         return i.getSubimage(x, y, width, height);
     }
 
     /**
-     * Returns an array of Images.
+     * Get a part of the image.
+     *
+     * @param name        the name of the spritesheet.
+     * @param x           the X coordinate.
+     * @param y           the Y coordinate.
+     * @param width       the width
+     * @param height      the height
+     * @param direction   the direction
+     * @param spriteCount the amount of sprites to get.
+     * @param xOffset     the offset to add/subtract since spacing between sprites can vary.
+     * @param yOffset     the offset to add/subtract since spacing between sprites can vary.
+     * @return an array of sprites.
      */
-    public BufferedImage[] getMultipleSprites(int ID, int x, int y, int width, int height, Direction direction,
-                                              int spriteCount) {
-        BufferedImage i = getSheet(ID).getSheet();
+    public BufferedImage[] getMultipleSprites(String name, int x, int y, int width, int height, Direction direction,
+                                              int spriteCount, int xOffset, int yOffset) {
 
+        BufferedImage image = getSheet(name).getTexture();
         BufferedImage[] frames = new BufferedImage[spriteCount];
 
+        int newWidth, newHeight;
+        newWidth = width + xOffset;
+        newHeight = height + yOffset;
+
         for (int frameCount = 0; frameCount < spriteCount; frameCount++) {
-            frames[frameCount] = getSectionAt(i, x, y, width, height);
-            x = direction == Direction.RIGHT ? x + width : direction == Direction.LEFT ? x - width : x;
-            y = direction == Direction.DOWN ? y + height : direction == Direction.UP ? y - height : y;
+            frames[frameCount] = getSectionAt(image, x, y, width, height);
+            x = direction == Direction.RIGHT ? x + newWidth : direction == Direction.LEFT ? x - newWidth : x;
+            y = direction == Direction.DOWN ? y + newHeight : direction == Direction.UP ? y - newHeight : y;
         }
 
         return frames;
     }
 
+
     /**
-     * Returns an array of Images for animations. Using this would be perfect
-     * for getting multiple sequences of images for animations.
+     * Get a part of the image.
+     *
+     * @param x           the X coordinate.
+     * @param y           the Y coordinate.
+     * @param width       the width
+     * @param height      the height
+     * @param direction   the direction
+     * @param spriteCount the amount of sprites to get.
+     * @param xOffset     the offset to add/subtract since spacing between sprites can vary.
+     * @param yOffset     the offset to add/subtract since spacing between sprites can vary.
+     * @return an array of sprites.
      */
     public BufferedImage[] getMultipleSprites(int x, int y, int width, int height, Direction direction,
-                                              int spriteCount) {
+                                              int spriteCount, int xOffset, int yOffset) {
         BufferedImage[] frames = new BufferedImage[spriteCount];
+
+        int newWidth, newHeight;
+        newWidth = width + xOffset;
+        newHeight = height + yOffset;
 
         for (int frameCount = 0; frameCount < spriteCount; frameCount++) {
             frames[frameCount] = getSectionAt(x, y, width, height);
-            x = direction == Direction.RIGHT ? x + width : direction == Direction.LEFT ? x - width : x;
-            y = direction == Direction.DOWN ? y + height : direction == Direction.UP ? y - height : y;
-            frameCount++;
-
+            x = direction == Direction.RIGHT ? x + newWidth : direction == Direction.LEFT ? x - newWidth : x;
+            y = direction == Direction.DOWN ? y + newHeight : direction == Direction.UP ? y - newHeight : y;
         }
         return frames;
     }
 
     /**
-     * Gets multiple sprites and then converts each of them to a tile and adds them to the list.
+     * Get a part of the image.
      *
-     * @param solidTiles indicates whether the tiles are solid or not.
-     * @param idsToUse   each tile will get an ID from this array.
-     * @return list of tiles.
+     * @param x             the X coordinate.
+     * @param y             the Y coordinate.
+     * @param width         the width
+     * @param height        the height
+     * @param direction     the direction
+     * @param spriteCount   the amount of sprites to get.
+     * @param areTilesSolid if the tiles are solid.
+     * @param xOffset       the offset to add/subtract since spacing between sprites can vary.
+     * @param yOffset       the offset to add/subtract since spacing between sprites can vary..
+     * @param tileIds       the array of Ids to use, this can be null.
+     * @return a list of tiles created from the textures.
      */
-    public List<Tile> getAndCreateMultipleTiles(int x, int y, int width, int height, Direction direction, int spriteCount, boolean solidTiles, int[] idsToUse) {
-        BufferedImage[] images = getMultipleSprites(x, y, width, height, direction, spriteCount);
+    public List<Tile> getTilesFromSprites(int x, int y, int width, int height, Direction direction, int spriteCount, boolean
+            areTilesSolid, int xOffset, int yOffset, int[] tileIds) {
+        // get the sprites.
+        BufferedImage[] images = getMultipleSprites(x, y, width, height, direction, spriteCount, xOffset, yOffset);
+        if (tileIds == null) {
+            tileIds = new int[images.length];
+        }
         List<Tile> tiles = new ArrayList<>();
 
         for (int i = 0; i < images.length; i++) {
-            BufferedImage image = images[i];
-            Tile tile = new Tile(image, idsToUse[i], solidTiles);
-
+            // loop through all the textures and create them.
+            BufferedImage texture = images[i];
+            Tile tile = new Tile(texture, tileIds[i], areTilesSolid);
             tiles.add(tile);
-
         }
-
         return tiles;
-
     }
 
     /**
-     * Gets multiple sprites and then converts each of them to a tile and adds them to the list.
-     * Please note if you are storing or ordering these tiles based on ID then DONT use this method.
-     * Each tile will follow in a sequence (1, 2, 3, 4, etc), this could cause problems with other tiles with the same ID.
+     * Get a part of the image.
      *
-     * @param solidTiles indicates whether the tiles are solid or not.
-     * @return the tiles.
+     * @param name          the name of the spritesheet.
+     * @param x             the X coordinate.
+     * @param y             the Y coordinate.
+     * @param width         the width
+     * @param height        the height
+     * @param direction     the direction
+     * @param spriteCount   the amount of sprites to get.
+     * @param areTilesSolid if the tiles are solid.
+     * @param xOffset       the offset to add/subtract since spacing between sprites can vary.
+     * @param yOffset       the offset to add/subtract since spacing between sprites can vary.
+     * @param tileIds       the array of Ids to use, this can be null.
+     * @return a list of tiles created from the textures.
      */
-    public List<Tile> getAndCreateMultipleTiles(int x, int y, int width, int height, Direction direction, int spriteCount, boolean solidTiles) {
-        BufferedImage[] images = getMultipleSprites(x, y, width, height, direction, spriteCount);
+    public List<Tile> getTilesFromSprites(String name, int x, int y, int width, int height, Direction direction, int spriteCount, boolean
+            areTilesSolid, int xOffset, int yOffset, int[] tileIds) {
+        // get the sprites.
+        BufferedImage[] images = getMultipleSprites(name, x, y, width, height, direction, spriteCount, xOffset, yOffset);
+        if (tileIds == null) {
+            tileIds = new int[images.length];
+        }
         List<Tile> tiles = new ArrayList<>();
 
         for (int i = 0; i < images.length; i++) {
-            BufferedImage image = images[i];
-            Tile tile = new Tile(image, i, solidTiles);
-
+            // loop through all the textures and create them.
+            BufferedImage texture = images[i];
+            Tile tile = new Tile(texture, tileIds[i], areTilesSolid);
             tiles.add(tile);
-
         }
-
         return tiles;
+    }
 
+    /**
+     * Get a part of the image.
+     *
+     * @param name          the name of the spritesheet.
+     * @param x             the X coordinate.
+     * @param y             the Y coordinate.
+     * @param width         the width
+     * @param height        the height
+     * @param direction     the direction
+     * @param spriteCount   the amount of sprites to get.
+     * @param areTilesSolid if the tiles are solid.
+     * @param xOffset       the offset to add/subtract since spacing between sprites can vary.
+     * @param yOffset       the offset to add/subtract since spacing between sprites can vary.
+     * @return a list of tiles created from the textures.
+     */
+    public List<Tile> getTilesFromSprites(String name, int x, int y, int width, int height, Direction direction, int spriteCount, boolean
+            areTilesSolid, int xOffset, int yOffset) {
+        return getTilesFromSprites(name, x, y, width, height, direction, spriteCount, areTilesSolid, xOffset, yOffset, null);
     }
 
 }

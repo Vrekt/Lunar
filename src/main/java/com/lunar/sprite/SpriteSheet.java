@@ -4,29 +4,25 @@ import java.awt.image.BufferedImage;
 
 public class SpriteSheet {
 
-	private BufferedImage sheet;
-	private int ID;
+    private String name;
+    private BufferedImage texture;
 
-	/**
-	 * Initialize the SpriteSheet
-	 */
-	public SpriteSheet(BufferedImage sheet, int ID) {
-		this.sheet = sheet;
-		this.ID = ID;
-	}
+    public SpriteSheet(String name, BufferedImage texture) {
+        this.name = name;
+        this.texture = texture;
+    }
 
-	/**
-	 * Get the sheet.
-	 */
-	public BufferedImage getSheet() {
-		return sheet;
-	}
+    /**
+     * @return the textures.
+     */
+    public BufferedImage getTexture() {
+        return texture;
+    }
 
-	/**
-	 * Get the ID.
-	 */
-	public int getID() {
-		return ID;
-	}
-
+    /**
+     * @return the name of the sheet.
+     */
+    public String getName() {
+        return name;
+    }
 }
