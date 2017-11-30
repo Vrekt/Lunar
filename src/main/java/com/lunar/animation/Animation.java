@@ -16,7 +16,11 @@ public class Animation {
     private int ID;
 
     /**
-     * Initialize the animation.
+     * Initialize the Animation.
+     *
+     * @param animations    the animation frames.
+     * @param perFrameDelay the delay per frame.
+     * @param loop          if the animation should loop or not.
      */
     public Animation(BufferedImage[] animations, int perFrameDelay, boolean loop) {
         frames = new BufferedImage[animations.length];
@@ -30,17 +34,15 @@ public class Animation {
     }
 
     /**
-     * Initializes the Animation with an ID. Only use this if you're using the AnimationManager.
+     * Initialize the Animation.
+     *
+     * @param animations    the animation frames.
+     * @param perFrameDelay the delay per frame.
+     * @param loop          if the animation should loop or not.
+     * @param ID            the animation ID.
      */
     public Animation(BufferedImage[] animations, int perFrameDelay, boolean loop, int ID) {
-        frames = new BufferedImage[animations.length];
-        System.arraycopy(animations, 0, frames, 0, frames.length);
-
-        currentFrame = 0;
-        frameCount = 0;
-
-        this.frameDelay = perFrameDelay;
-        this.loop = loop;
+        this(animations, perFrameDelay, loop);
         this.ID = ID;
     }
 
@@ -85,7 +87,6 @@ public class Animation {
                 }
                 stopAnimation();
                 currentFrame--;
-
             }
 
         }

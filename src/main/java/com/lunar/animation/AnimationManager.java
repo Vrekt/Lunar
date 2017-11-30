@@ -1,70 +1,76 @@
 package com.lunar.animation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class AnimationManager {
 
-    private List<Animation> animationInfo;
+    private List<Animation> animationFrames;
+    private Animation playingAnimation;
 
     /**
      * Initialize the AnimationManager
      */
     public AnimationManager(Animation[] animations) {
-        animationInfo = Arrays.asList(animations);
+        animationFrames = Arrays.asList(animations);
     }
 
     /**
      * Initializes the AnimationManager
      */
     public AnimationManager(List<Animation> animations) {
-        animationInfo = animations;
+        animationFrames = new ArrayList<>(animations);
     }
 
     /**
      * @return all the animations.
      */
-    public List<Animation> getAnimations() {
-        return animationInfo;
+    public List<Animation> getAnimationFrames() {
+        return animationFrames;
     }
 
     /**
      * @return the current animation frame that's playing.
      */
-    public Animation getCurrentPlayingAnimation() {
-        return animationInfo.stream().filter(Animation::isRunning).findAny().orElse(null);
+    public Animation getPlayingAnimation() {
+        return playingAnimation;
     }
 
     /**
-     * @param ID the animation ID.
+     * @param id the animation ID.
      * @return the animation with the supplied ID.
      */
-    public Animation getViaID(int ID) {
-        return animationInfo.stream().filter(anim -> anim.getID() == ID).findAny().orElse(null);
+    public Animation getAnimationByID(int id) {
+        return animationFrames.stream().filter(anim -> anim.getID() == id).findAny().orElse(null);
     }
 
     /**
-     * Start the animation, stops all other animations.
+     * Play an animation, this will also stop all other animations that are currently playing.
+     *
+     * @param id the animation ID.
      */
-    public void startAnimation(int ID) {
-        Animation anim = getViaID(ID);
-        if (anim.isRunning()) {
+    public void playAnimation(int id) {
+        Animation animation = getAnimationByID(id);
+        if (animation.isRunning()) {
             return;
         }
-        animationInfo.forEach(Animation::stopAnimation);
-        anim.startAnimation();
+        animationFrames.forEach(Animation::stopAnimation);
+        animation.startAnimation();
+        playingAnimation = animation;
     }
 
     /**
      * Start the animation, stops all other animations.
      *
-     * @param anim the animation
+     * @param animation the animation to play.
      */
-    public void startAnimation(Animation anim) {
-        if (anim.isRunning()) {
+    public void playAnimation(Animation animation) {
+        if (animation.isRunning()) {
             return;
         }
-        animationInfo.forEach(Animation::stopAnimation);
-        anim.startAnimation();
+        animationFrames.forEach(Animation::stopAnimation);
+        animation.startAnimation();
+        playingAnimation = animation;
     }
 }

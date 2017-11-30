@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SpriteManager {
 
-    private final List<SpriteSheet> spriteSheets = new ArrayList<>();
+    private final List<SpriteSheet> SPRITES = new ArrayList<>();
     private BufferedImage spriteSheet;
 
     /**
@@ -27,22 +27,22 @@ public class SpriteManager {
      * Initializes the spriteManager with a SpriteSheet.
      */
     public SpriteManager(SpriteSheet sheet) {
-        spriteSheets.add(sheet);
+        SPRITES.add(sheet);
     }
 
     /**
-     * Initializes the spriteManager with an array of SpriteSheets.
+     * Initializes the spriteManager with an array of SPRITES.
      */
     public SpriteManager(SpriteSheet[] sheets) {
         List<SpriteSheet> list = Arrays.asList(sheets);
-        spriteSheets.addAll(list);
+        SPRITES.addAll(list);
     }
 
     /**
-     * Initializes the spriteManager with a list of SpriteSheets.
+     * Initializes the spriteManager with a list of SPRITES.
      */
     public SpriteManager(List<SpriteSheet> sheets) {
-        spriteSheets.addAll(sheets);
+        SPRITES.addAll(sheets);
         sheets.clear();
     }
 
@@ -76,7 +76,7 @@ public class SpriteManager {
      * Get a spriteSheet via ID.
      */
     public SpriteSheet getSheet(int ID) {
-        return spriteSheets.stream().filter(sheet -> sheet.getID() == ID).findAny().orElse(null);
+        return SPRITES.stream().filter(sheet -> sheet.getID() == ID).findAny().orElse(null);
     }
 
     /**
@@ -87,7 +87,7 @@ public class SpriteManager {
     }
 
     /**
-     * Return an image from one of the spriteSheets in the list.
+     * Return an image from one of the SPRITES in the list.
      */
     public BufferedImage getSectionAt(int ID, int x, int y, int width, int height) {
         BufferedImage i = getSheet(ID).getSheet();
@@ -103,19 +103,13 @@ public class SpriteManager {
 
         BufferedImage[] frames = new BufferedImage[spriteCount];
 
-        int frameCount = 0;
-
-        while (frameCount < spriteCount) {
-
+        for (int frameCount = 0; frameCount < spriteCount; frameCount++) {
             frames[frameCount] = getSectionAt(i, x, y, width, height);
             x = direction == Direction.RIGHT ? x + width : direction == Direction.LEFT ? x - width : x;
             y = direction == Direction.DOWN ? y + height : direction == Direction.UP ? y - height : y;
-            frameCount++;
-
         }
 
         return frames;
-
     }
 
     /**
@@ -126,17 +120,13 @@ public class SpriteManager {
                                               int spriteCount) {
         BufferedImage[] frames = new BufferedImage[spriteCount];
 
-        int frameCount = 0;
-
-        while (frameCount < spriteCount) {
-
+        for (int frameCount = 0; frameCount < spriteCount; frameCount++) {
             frames[frameCount] = getSectionAt(x, y, width, height);
             x = direction == Direction.RIGHT ? x + width : direction == Direction.LEFT ? x - width : x;
             y = direction == Direction.DOWN ? y + height : direction == Direction.UP ? y - height : y;
             frameCount++;
 
         }
-
         return frames;
     }
 
