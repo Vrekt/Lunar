@@ -133,7 +133,7 @@ public class SpriteManager {
     }
 
     /**
-     * Get a part of the image.
+     * Get multiple images from an image.
      *
      * @param name        the name of the spritesheet.
      * @param x           the X coordinate.
@@ -167,7 +167,7 @@ public class SpriteManager {
 
 
     /**
-     * Get a part of the image.
+     * Get multiple images from an image.
      *
      * @param x           the X coordinate.
      * @param y           the Y coordinate.
@@ -196,7 +196,7 @@ public class SpriteManager {
     }
 
     /**
-     * Get a part of the image.
+     * Get multiple tiles from an image.
      *
      * @param x             the X coordinate.
      * @param y             the Y coordinate.
@@ -229,7 +229,7 @@ public class SpriteManager {
     }
 
     /**
-     * Get a part of the image.
+     * Get multiple tiles from an image.
      *
      * @param name          the name of the spritesheet.
      * @param x             the X coordinate.
@@ -263,7 +263,7 @@ public class SpriteManager {
     }
 
     /**
-     * Get a part of the image.
+     * Get multiple tiles from an image.
      *
      * @param name          the name of the spritesheet.
      * @param x             the X coordinate.

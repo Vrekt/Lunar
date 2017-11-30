@@ -14,47 +14,50 @@ import java.io.IOException;
 
 public class Sound implements LineListener {
 
-	private int ID;
-	private File audio;
+    private String name;
+    private File audio;
 
-	private Clip clip;
+    private Clip clip;
 
     /**
      * Initialize the sound.
      *
-     * @param ID        The ID.
+     * @param name      The name of the audio.
      * @param audioPath The audio file's path.
      */
-    public Sound(int ID, String audioPath) {
-        this(ID, new File(audioPath));
+    public Sound(String name, String audioPath) {
+        this(name, new File(audioPath));
     }
 
     /**
      * Initialize the sound.
      *
-     * @param ID    The ID.
+     * @param name  The name.
      * @param audio The audio file.
-	 */
-	public Sound(int ID, File audio) {
-		this.ID = ID;
-		this.audio = audio;
-	}
+     */
+    public Sound(String name, File audio) {
+        this.name = name;
+        this.audio = audio;
+    }
 
-	/**
-	 * Get the sound ID
-	 */
-	public int getID() {
-		return ID;
-	}
+    /**
+     * @return the name of the audio.
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Get the audio file.
-	 */
-	public File getAudio() {
+    /**
+     * @return the audio file.
+     */
+    public File getAudio() {
         return audio;
     }
 
-	public Clip getClip() {
+    /**
+     * @return the audio clip.
+     */
+    public Clip getClip() {
         return clip;
     }
 
@@ -91,7 +94,7 @@ public class Sound implements LineListener {
      * @return A boolean indicating whether or not the operation was successful.
      */
     public boolean unload() {
-        if (this.isPlaying()) { // Can't unload mid-playback
+        if (this.isPlaying()) { // Can't unload mname-playback
             return false;
         }
         if (clip != null) {
@@ -116,8 +119,8 @@ public class Sound implements LineListener {
         }
     }
 
-	/**
-	 * Stop playing the audio.
+    /**
+     * Stop playing the audio.
      */
     public void stop() {
         if (clip != null) {
@@ -131,8 +134,8 @@ public class Sound implements LineListener {
         }
     }
 
-	/**
-	 * Get if we are playing.
+    /**
+     * Get if we are playing.
      */
     public boolean isPlaying() {
         return clip != null && clip.isRunning();
@@ -147,12 +150,11 @@ public class Sound implements LineListener {
         return clip != null && clip.isOpen();
     }
 
-	@Override
-	public void update(LineEvent event) {
-		LineEvent.Type type = event.getType();
-
-		if (type == LineEvent.Type.STOP) {
-			clip.close();
-		}
-	}
+    @Override
+    public void update(LineEvent event) {
+        LineEvent.Type type = event.getType();
+        if (type == LineEvent.Type.STOP) {
+            clip.close();
+        }
+    }
 }

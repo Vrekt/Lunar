@@ -20,20 +20,20 @@ public class SoundManager {
     /**
      * Adds a sound.
      *
-     * @param ID   The ID
+     * @param name The name of the audio.
      * @param file The audio file.
      */
-    public void addSound(int ID, File file) {
-        GAME_SOUNDS.add(new Sound(ID, file));
+    public void addSound(String name, File file) {
+        GAME_SOUNDS.add(new Sound(name, file));
     }
 
     /**
      * Gets a sound via ID.
      *
-     * @param ID The ID of the Sound.
+     * @param name The name of the Sound.
      */
-    public Sound getSound(int ID) {
-        return GAME_SOUNDS.stream().filter(sound -> sound.getID() == ID).findAny().orElse(null);
+    public Sound getSound(String name) {
+        return GAME_SOUNDS.stream().filter(sound -> sound.getName().equals(name)).findAny().orElse(null);
     }
 
     /**
@@ -41,17 +41,17 @@ public class SoundManager {
      *
      * @return if the sound exists.
      */
-    public boolean doesSoundExist(int ID) {
-        return getSound(ID) != null;
+    public boolean doesSoundExist(String name) {
+        return getSound(name) != null;
     }
 
     /**
      * Removes a sound from the list.
      *
-     * @param ID The ID of the Sound.
+     * @param name The ID of the Sound.
      */
-    public void removeSound(int ID) {
-        Sound s = getSound(ID);
+    public void removeSound(String name) {
+        Sound s = getSound(name);
         if (GAME_SOUNDS.contains(s)) {
             GAME_SOUNDS.remove(s);
         }
@@ -78,8 +78,8 @@ public class SoundManager {
     /**
      * Plays a sound with a clip.
      */
-    public void playSound(int ID) {
-        getSound(ID).play();
+    public void playSound(String name) {
+        getSound(name).play();
     }
 
     /**
@@ -88,7 +88,7 @@ public class SoundManager {
      * @param file The audio file.
      */
     public void playSound(File file) {
-        Sound sound = new Sound(0, file);
+        Sound sound = new Sound("TEMP_" + file.getName(), file);
         sound.play();
     }
 
@@ -102,8 +102,8 @@ public class SoundManager {
     /**
      * Stop playing the sound.
      */
-    public void stopPlayingSound(int ID) {
-        getSound(ID).stop();
+    public void stopPlayingSound(String name) {
+        getSound(name).stop();
     }
 
 }
