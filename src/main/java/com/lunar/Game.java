@@ -152,7 +152,6 @@ public class Game implements Runnable {
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-
         double maxTickDelta = 1000000000 / maxTPS;
         double d = 0;
 
@@ -183,14 +182,8 @@ public class Game implements Runnable {
                 fps = frameCount;
                 frameCount = 0;
             }
-            long time = current - lastTime;
-            try {
-                Thread.sleep(time);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            lastTime = current;
 
+            lastTime = current;
         }
         stop();
     }
