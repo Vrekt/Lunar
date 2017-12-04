@@ -13,7 +13,7 @@ Some things to consider before using Lunar.
 * Development will slow overtime but will eventually pick back up.
 
 # Tutorial
-
+To use Lunar download the latest release and import it into your project.
 Looking for a simple tutorial on getting started with Lunar? Check out the [wiki](https://github.com/Vrekt/Lunar/wiki).
 
 # Community
