@@ -160,6 +160,7 @@ public class Game implements Runnable {
 
         while (running) {
             long current = System.nanoTime();
+            long timeStart = System.currentTimeMillis();
 
             // Ticking
 
@@ -183,6 +184,14 @@ public class Game implements Runnable {
                 frameCount = 0;
             }
 
+            // TODO: Fix later, currenty locks FPS to whatever the TPS is.
+            long time = ((long) maxTickDelta - (System.currentTimeMillis() - timeStart)) / (long) 1e6;
+            System.out.println("TIME: " + time);
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             lastTime = current;
         }
         stop();
