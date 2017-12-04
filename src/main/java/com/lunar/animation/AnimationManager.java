@@ -70,6 +70,13 @@ public class AnimationManager {
     }
 
     /**
+     * @return if we have an animation playing.
+     */
+    public boolean hasPlayingAnimation() {
+        return playingAnimation != null && playingAnimation.isRunning();
+    }
+
+    /**
      * @param id the animation ID.
      * @return the animation with the supplied ID.
      */

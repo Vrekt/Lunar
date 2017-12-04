@@ -141,6 +141,15 @@ public abstract class World extends MapRenderer {
     }
 
     /**
+     * @param entity the entity
+     * @return the tile the entity is on (can be null).
+     */
+    public final Tile getTileEntityIsOn(Entity entity) {
+        // TODO: Update and fix.
+        return get(entity.getX(), entity.getY());
+    }
+
+    /**
      * @return all the entities in the world.
      */
     public final List<Entity> getWorldEntities() {

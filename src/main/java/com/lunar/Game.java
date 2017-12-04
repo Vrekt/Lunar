@@ -6,7 +6,6 @@ import com.lunar.state.GameState;
 import com.lunar.window.FramePreferences;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -18,7 +17,6 @@ import java.util.List;
 
 public class Game implements Runnable {
     private JFrame frame;
-    private JPanel panel;
     private int width, height, fps;
 
     private Thread thread;
@@ -180,13 +178,17 @@ public class Game implements Runnable {
             }
 
             // Updating FPS count
-
             if (System.currentTimeMillis() - now >= 1000) {
                 now += 1000;
                 fps = frameCount;
                 frameCount = 0;
             }
-
+            long time = current - lastTime;
+            try {
+                Thread.sleep(time);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             lastTime = current;
 
         }
@@ -217,8 +219,8 @@ public class Game implements Runnable {
         graphics.clearRect(0, 0, width, height);
 
         if (showFPS) {
-            graphics.setColor(Color.GRAY);
-            graphics.drawString(Integer.toString(fps) + " fps", 20, 20);
+            graphics.setColor(Color.red);
+            graphics.drawString(Integer.toString(fps) + " fps", 50, 50);
         }
 
         // update stack.

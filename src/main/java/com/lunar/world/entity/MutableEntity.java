@@ -35,4 +35,18 @@ public class MutableEntity {
     public EntityAction getAction() {
         return action;
     }
+
+    /**
+     * @param action the action.
+     */
+    public void setAction(EntityAction action) {
+        this.action = action;
+    }
+
+    /**
+     * @param thisEntity the entity.
+     */
+    public void setThisEntity(Entity thisEntity) {
+        this.thisEntity = thisEntity;
+    }
 }

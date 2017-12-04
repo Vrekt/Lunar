@@ -1,6 +1,5 @@
 package com.lunar.world;
 
-import com.lunar.entity.Entity;
 import com.lunar.location.Location;
 import com.lunar.tile.Tile;
 import com.lunar.utilities.Logger;
@@ -15,6 +14,7 @@ import java.util.Map;
 public abstract class WorldMap {
 
     protected final Map<Location, Tile> TILE_MAP = new HashMap<>();
+    protected int tileWidth, tileHeight;
 
     /**
      * Add a tile.
@@ -24,6 +24,8 @@ public abstract class WorldMap {
      * @param tile the tile.
      */
     public final void set(int x, int y, Tile tile) {
+        tileWidth = tile.getWidth();
+        tileHeight = tile.getHeight();
         TILE_MAP.put(new Location(x, y), tile);
     }
 
@@ -33,6 +35,8 @@ public abstract class WorldMap {
      * @param tile the tile.
      */
     public final void set(Tile tile) {
+        tileWidth = tile.getWidth();
+        tileHeight = tile.getHeight();
         set(tile.getX(), tile.getY(), tile);
     }
 
@@ -145,14 +149,6 @@ public abstract class WorldMap {
     public final Tile get(int x, int y) {
         Location location = new Location(x, y);
         return TILE_MAP.getOrDefault(location, null);
-    }
-
-    /**
-     * @param entity the entity
-     * @return the tile the entity is on (can be null).
-     */
-    public final Tile getTileEntityIsOn(Entity entity) {
-        return get(entity.getX(), entity.getY());
     }
 
 }
