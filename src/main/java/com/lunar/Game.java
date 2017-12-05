@@ -151,48 +151,46 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        long lastTime = System.nanoTime();
-        double maxTickDelta = 1000000000 / maxTPS;
-        double d = 0;
+        long lastRunTime = System.nanoTime();
+        double TICK_RATE = 1000000000 / maxTPS;
+        double tickDelta = 0;
 
-        long now = System.currentTimeMillis();
-        int frameCount = 0;
+        int frames = 0;
+        long frameTime = System.currentTimeMillis();
 
         while (running) {
-            long current = System.nanoTime();
+            long now = System.nanoTime();
+            long tickTime = now - lastRunTime;
             long timeStart = System.currentTimeMillis();
 
-            // Ticking
+            lastRunTime = now;
 
-            d += (current - lastTime) / maxTickDelta;
-            while (d >= 1) {
+            tickDelta += tickTime / TICK_RATE;
+            while (tickDelta >= 1) {
                 onTick();
-                d--;
+                tickDelta--;
             }
 
-            // Drawing
-
-            if (frameCount < maxFPS || maxFPS == 0) {
+            if (frames < maxFPS || maxFPS == 0) {
                 onDraw();
-                frameCount++;
+                frames++;
             }
 
-            // Updating FPS count
-            if (System.currentTimeMillis() - now >= 1000) {
-                now += 1000;
-                fps = frameCount;
-                frameCount = 0;
+            if (System.currentTimeMillis() - frameTime >= 1000) {
+                frameTime += 1000;
+                fps = frames;
+                frames = 0;
             }
 
             // TODO: Fix later, currenty locks FPS to whatever the TPS is.
-            long time = ((long) maxTickDelta - (System.currentTimeMillis() - timeStart)) / (long) 1e6;
-            System.out.println("TIME: " + time);
+            long time = ((long) TICK_RATE - (System.currentTimeMillis() - timeStart)) / (long) 1e6;
             try {
                 Thread.sleep(time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            lastTime = current;
+
+
         }
         stop();
     }
@@ -200,6 +198,7 @@ public class Game implements Runnable {
     /**
      * When the game starts.
      */
+
     private void onStart() {
         // call onStart method to each GameStack.
         stack.forEach(GameState::onStart);
