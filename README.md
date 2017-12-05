@@ -16,11 +16,6 @@ Some things to consider before using Lunar.
 To use Lunar download the latest release and import it into your project.
 Looking for a simple tutorial on getting started with Lunar? Check out the [wiki](https://github.com/Vrekt/Lunar/wiki).
 
-# Community
-
-Lunar currently has an official discord you can join [here](https://discord.gg/S3rRn3P).
-Feel free to join and ask about anything related to Lunar.
-
 # Contributing
 
 When contributing and submitting requests for your changes to be merged please make sure to test your code and leave a note if the wiki needs to be updated!
