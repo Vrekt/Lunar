@@ -2,9 +2,6 @@ package com.lunar.world.entity;
 
 import com.lunar.entity.Entity;
 
-/**
- * Created by Vrekt on 11/13/2017.
- */
 public class MutableEntity {
     public enum EntityAction {
         ADD, REMOVE

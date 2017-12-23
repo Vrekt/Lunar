@@ -7,17 +7,17 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
     private BufferedImage texture;
-    private int width, height;
-
-    private boolean isVisible = true;
-    private boolean isSolid = false;
-    private boolean isPassable = true;
+    private int width, height, x, y;
     private int ID;
 
-    private int x, y;
+    private TileProperties properties;
+
 
     /**
-     * Initialize the tile.
+     * Initialize this tile.
+     *
+     * @param texture the texture of the tile.
+     * @param ID      the tiles unique ID.
      */
     public Tile(BufferedImage texture, int ID) {
         this.texture = texture;
@@ -27,110 +27,84 @@ public class Tile {
         this.ID = ID;
     }
 
+
     /**
-     * Initialize the tile.
+     * Initialize this tile.
+     *
+     * @param texture    the texture of this tile.
+     * @param ID         the tiles unique ID.
+     * @param properties the properties of the tile.
      */
-    public Tile(BufferedImage texture, int ID, boolean isSolid) {
+    public Tile(BufferedImage texture, int ID, TileProperties properties) {
         this.texture = texture;
 
         this.width = texture.getWidth();
         this.height = texture.getHeight();
 
-        this.isSolid = isSolid;
+        this.properties = properties;
         this.ID = ID;
     }
 
     /**
-     * Initialize the tile.
+     * Initialize this tile.
+     *
+     * @param texture    the texture of this tile.
+     * @param ID         the tiles unique ID.
+     * @param width      the width of the tile.
+     * @param height     the height of the tile.
+     * @param x          the X coordinate of the tile.
+     * @param y          the Y coordinate of the tile.
+     * @param properties the properties of the tile.
      */
-    public Tile(BufferedImage texture, int ID, boolean isSolid, boolean isVisible) {
-        this.texture = texture;
+    public Tile(BufferedImage texture, int ID, int width, int height, int x, int y, TileProperties properties) {
+        this(texture, ID, properties);
 
-        this.width = texture.getWidth();
-        this.height = texture.getHeight();
-
-        this.isVisible = isVisible;
-        this.isSolid = isSolid;
-        this.ID = ID;
-    }
-
-    /**
-     * Initialize the tile.
-     */
-    public Tile(BufferedImage texture, int ID, int width, int height, boolean isSolid, boolean isVisible) {
-        this(texture, ID, isSolid, isVisible);
+        this.x = x;
+        this.y = y;
 
         this.width = width;
         this.height = height;
-
     }
 
     /**
-     * Initialize the Tile.
+     * Initialize this tile.
+     *
+     * @param texture    the texture of this tile.
+     * @param ID         the tiles unique ID.
+     * @param x          the X coordinate of the tile.
+     * @param y          the Y coordinate of the tile.
+     * @param properties the properties of the tile.
      */
-    public Tile(BufferedImage texture, int ID, int width, int height, int x, int y, boolean isSolid, boolean isVisible) {
-        this(texture, ID, width, height, isSolid, isVisible);
+    public Tile(BufferedImage texture, int ID, int x, int y, TileProperties properties) {
+        this(texture, ID, properties);
 
         this.x = x;
         this.y = y;
-
     }
 
     /**
-     * Initialize the tile.
-     */
-    public Tile(BufferedImage texture, int x, int y, boolean isSolid, boolean isVisible, int ID) {
-        this(texture, ID, isSolid, isVisible);
-
-        this.x = x;
-        this.y = y;
-
-    }
-
-    /**
-     * Get the texture.
+     * @return the tiles texture.
      */
     public BufferedImage getTexture() {
         return texture;
     }
 
     /**
-     * Get the width
+     * @return the tiles width.
      */
     public int getWidth() {
         return width;
     }
 
     /**
-     * Get the height.
+     * @return the tiles height.
      */
     public int getHeight() {
         return height;
     }
 
     /**
-     * Get the ID.
-     */
-    public int getID() {
-        return ID;
-    }
-
-    /**
-     * Return if the tile is solid.
-     */
-    public boolean isSolid() {
-        return isSolid;
-    }
-
-    /**
-     * Set if the tile is solid or not.
-     */
-    public void setSolid(boolean isSolid) {
-        this.isSolid = isSolid;
-    }
-
-    /**
-     * Get the X.
+     * @return the tiles X coordinate.
      */
     public int getX() {
         return x;
@@ -144,7 +118,7 @@ public class Tile {
     }
 
     /**
-     * Get the Y.
+     * @return the tiles Y coordinate.
      */
     public int getY() {
         return y;
@@ -158,17 +132,60 @@ public class Tile {
     }
 
     /**
+     * @return the tiles unique ID.
+     */
+    public int getID() {
+        return ID;
+    }
+
+    /**
+     * @return if this tile is solid or not.
+     */
+    public boolean isSolid() {
+        return properties.isSolid;
+    }
+
+    /**
+     * Set if the tile is solid or not.
+     */
+    public void setSolid(boolean isSolid) {
+        properties.setSolid(isSolid);
+    }
+
+    /**
      * @return if the tile is visible or not.
      */
     public boolean isVisible() {
-        return isVisible;
+        return properties.isVisible;
     }
 
     /**
      * Set if the tile is visible or not.
      */
     public void setVisible(boolean visible) {
-        isVisible = visible;
+        properties.setVisible(visible);
+    }
+
+    /**
+     * @return if this tile is passableor not.
+     */
+    public boolean isPassable() {
+        return properties.isPassable;
+    }
+
+    /**
+     * Set if this tile is passable or not.
+     */
+    public void setPassable(boolean passable) {
+        properties.setPassable(passable);
+    }
+
+    public TileProperties getProperties() {
+        return properties;
+    }
+
+    public void setProperties(TileProperties properties) {
+        this.properties = properties;
     }
 
     /**

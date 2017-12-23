@@ -248,8 +248,8 @@ public abstract class World extends MapRenderer {
             return true;
         }
 
-        // Right now solidity is the only measure we have of "passability"
-        return !tile.isSolid();
+        // Right now solidity/passable is the only measure we have of "passability"
+        return !tile.isSolid() || tile.isPassable();
     }
 
     /**

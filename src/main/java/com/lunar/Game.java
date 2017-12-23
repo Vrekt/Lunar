@@ -182,14 +182,13 @@ public class Game implements Runnable {
                 frames = 0;
             }
 
-            // TODO: Fix later, currenty locks FPS to whatever the TPS is.
+            // TODO: Fix later(implement a new game loop), currently locks FPS to whatever the TPS is.
             long time = ((long) TICK_RATE - (System.currentTimeMillis() - timeStart)) / (long) 1e6;
             try {
                 Thread.sleep(time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
 
         }
         stop();
@@ -296,18 +295,7 @@ public class Game implements Runnable {
      */
     public void addToStack(GameState state) {
         stack.add(state);
-        stack.sort((state1, state2) -> {
-
-            if (state1.getPriority() < state2.getPriority()) {
-                return 1;
-            }
-
-            if (state1.getPriority() > state2.getPriority()) {
-                return -1;
-            }
-
-            return 0;
-        });
+        stack.sort((state1, state2) -> Integer.compare(state2.getPriority(), state1.getPriority()));
     }
 
     /**
