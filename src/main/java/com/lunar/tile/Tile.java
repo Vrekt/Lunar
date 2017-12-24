@@ -209,7 +209,7 @@ public class Tile {
         return new BoundingBox(x, y, width, height);
     }
 
-    public class TileProperties {
+    public static class TileProperties {
         /**
          * The tile properties
          * TODO: Add more

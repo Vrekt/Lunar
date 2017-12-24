@@ -222,7 +222,7 @@ public class SpriteManager {
         for (int i = 0; i < images.length; i++) {
             // loop through all the textures and create them.
             BufferedImage texture = images[i];
-            Tile tile = new Tile(texture, tileIds[i], areTilesSolid);
+            Tile tile = new Tile(texture, tileIds[i], new Tile.TileProperties(true, areTilesSolid));
             tiles.add(tile);
         }
         return tiles;
@@ -256,7 +256,7 @@ public class SpriteManager {
         for (int i = 0; i < images.length; i++) {
             // loop through all the textures and create them.
             BufferedImage texture = images[i];
-            Tile tile = new Tile(texture, tileIds[i], areTilesSolid);
+            Tile tile = new Tile(texture, tileIds[i], new Tile.TileProperties(true, areTilesSolid));
             tiles.add(tile);
         }
         return tiles;
