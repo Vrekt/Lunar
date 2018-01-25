@@ -1,11 +1,23 @@
+# TODO
+Things im going to be implementing slowly overtime.
+
+Different 'drawing methods'. Onto the frame itself and a JPanel. (difficulty 2/10)
+Slighty modified game loop to remove thread.sleep and other minor improvements (difficulty 2/10)
+Maybe delete the Lunar file and restructure the whole library. (//)
+Change all integers to use doubles. (8/10) (requires alot of redesign)
+Use graphics2D instead of graphics (2/10) (lots of redesign/changing)
+Update the whole wiki and add more documentation.
+
+
 # About Lunar
 Lunar is a 2D game engine written in java. Its made for simplicity and ease of use. 
 Some things to consider before using Lunar.
 
 * Must be using java 8.
-* This engine is not meant for:
+* This library is not meant for:
 	* 3D games, mobile, games with lots of physics.
-* This engine is meant for:
+* This library is meant for:
+	* Beginner game developers.
 	* Creating casual 2D games.
 	* Creating prototypes fast.
 	* Hobby developers.
