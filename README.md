@@ -1,12 +1,11 @@
 # TODO
-Things im going to be implementing slowly overtime.
-
-Different 'drawing methods'. Onto the frame itself and a JPanel. (difficulty 2/10)
-Slighty modified game loop to remove thread.sleep and other minor improvements (difficulty 2/10)
-Maybe delete the Lunar file and restructure the whole library. (//)
-Change all integers to use doubles. (8/10) (requires alot of redesign)
-Use graphics2D instead of graphics (2/10) (lots of redesign/changing)
-Update the whole wiki and add more documentation.
+* Things im going to be implementing slowly overtime.
+	* Different 'drawing methods'. Onto the frame itself and a JPanel. (difficulty 2/10)
+	* Slighty modified game loop to remove thread.sleep and other minor improvements (difficulty 2/10)
+	* Maybe delete the Lunar file and restructure the whole library. (//)
+	* Change all integers to use doubles. (8/10) (requires alot of redesign)
+	* Use graphics2D instead of graphics (2/10) (lots of redesign/changing)
+	* Update the whole wiki and add more documentation.
 
 
 # About Lunar
